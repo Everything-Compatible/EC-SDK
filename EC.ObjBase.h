@@ -1,28 +1,26 @@
-#pragma once
+ï»¿#pragma once
 #include <cstdint>
 #include <concepts>
 #include <YRPPCore.h>
-#include "IH.Loader.h"
-#include <memory>
+#include <vector>
+#include <string>
 #include <CRC.h>
 
 struct ECRTTIInfo;
 
 void Internal_RegisterExportRTTI(const char* ClassName, const ECRTTIInfo* pInfo);
 const ECRTTIInfo* Internal_GetRTTIInfo (const char* ClassName);
-void Internal_RegisterClassFactory(const char* ClassName, void* DefaultConstruct, void* CopyConstruct, void* Destroy);
-void Internal_GetClassFactory(const char* ClassName, LibFuncHandle& DefaultConstruct, LibFuncHandle& CopyConstruct, LibFuncHandle& Destroy);
 
 struct ECRTTIInfo {
-    // »ùÀàĞÅÏ¢½Úµã
+    // åŸºç±»ä¿¡æ¯èŠ‚ç‚¹
     struct ImplNode {
-        const ECRTTIInfo* pBaseInfo; // »ùÀàRTTIĞÅÏ¢
-        size_t Offset;            // ÔÚÅÉÉúÀàÖĞµÄÆ«ÒÆÁ¿
+        const ECRTTIInfo* pBaseInfo; // åŸºç±»RTTIä¿¡æ¯
+        size_t Offset;            // åœ¨æ´¾ç”Ÿç±»ä¸­çš„åç§»é‡
     };
 
-    size_t Count; // »ùÀàÊıÁ¿
+    size_t Count; // åŸºç±»æ•°é‡
 
-    // Í¨¹ıVLA·½Ê½·ÃÎÊ»ùÀàĞÅÏ¢
+    // é€šè¿‡VLAæ–¹å¼è®¿é—®åŸºç±»ä¿¡æ¯
     const ImplNode& GetBaseInfo(size_t Index) const;
 
 #define FindTypeOffset_Failure 0xFFFFFFFF
@@ -77,16 +75,16 @@ public:
 };
 
 
-// ================ ÀàĞÍÆ«ÒÆ¼ÆËã ================
+// ================ ç±»å‹åç§»è®¡ç®— ================
 template <typename Base, typename Derived>
 constexpr size_t GetOffset() {
-    // Í¨¹ıÖ¸ÕëÆ«ÒÆ¼ÆËã¼¼Êõ»ñÈ¡»ùÀàÎ»ÖÃ
-    // Ô­Àí£º¿ÕÖ¸ÕëÀàĞÍ×ª»»ºóµÄµØÖ·²î¼´ÎªÆ«ÒÆÁ¿
+    // é€šè¿‡æŒ‡é’ˆåç§»è®¡ç®—æŠ€æœ¯è·å–åŸºç±»ä½ç½®
+    // åŸç†ï¼šç©ºæŒ‡é’ˆç±»å‹è½¬æ¢åçš„åœ°å€å·®å³ä¸ºåç§»é‡
     return reinterpret_cast<size_t>(
         static_cast<Base*>(
-            reinterpret_cast<Derived*>(0x1000) // ÈÎÒâ·ÇÁãµØÖ·±ÜÃâ¿ÕÖ¸ÕëÎÊÌâ
+            reinterpret_cast<Derived*>(0x1000) // ä»»æ„éé›¶åœ°å€é¿å…ç©ºæŒ‡é’ˆé—®é¢˜
             )
-        ) - 0x1000; // ¼õÈ¥»ù×¼µØÖ·µÃµ½´¿Æ«ÒÆ
+        ) - 0x1000; // å‡å»åŸºå‡†åœ°å€å¾—åˆ°çº¯åç§»
 }
 
 template <typename... Args>
@@ -98,29 +96,29 @@ template <CanUseECRTTI Base, CanUseECRTTI Derived>
 struct DeriveClassData {
     ECRTTIInfo::ImplNode Node;
 
-    // ¹¹Ôìº¯Êı£º°ó¶¨RTTIĞÅÏ¢ºÍÆ«ÒÆÁ¿
+    // æ„é€ å‡½æ•°ï¼šç»‘å®šRTTIä¿¡æ¯å’Œåç§»é‡
     DeriveClassData()
-        : Node{ Base::StaticGetRTTIInfo(), GetOffset<Base, Derived>() } // ¼ÙÉèDerivedÊµÏÖGetRTTIInfoImpl
+        : Node{ Base::StaticGetRTTIInfo(), GetOffset<Base, Derived>() } // å‡è®¾Derivedå®ç°GetRTTIInfoImpl
     {}
 
-    // ÀàĞÍÌØÕ÷ÓÃÓÚconcept¼ì²é
+    // ç±»å‹ç‰¹å¾ç”¨äºconceptæ£€æŸ¥
     using BaseType = Base;
     using DerivedType = Derived;
 };
 
 template <typename T>
 concept CountHelperType = requires {
-    // ¼ì²éÊÇ·ñÎªDeriveClassDataÌØ»¯ÀàĞÍ
+    // æ£€æŸ¥æ˜¯å¦ä¸ºDeriveClassDataç‰¹åŒ–ç±»å‹
         requires std::is_same_v<T, DeriveClassData<typename T::BaseType, typename T::DerivedType>>;
 };
 
-template <CountHelperType... Args> // Ö»½ÓÊÜºÏ·¨ÅÉÉúÀàÊı¾İ
+template <CountHelperType... Args> // åªæ¥å—åˆæ³•æ´¾ç”Ÿç±»æ•°æ®
 struct ECRTTIInfoDef {
-    // »ùÀàÊıÁ¿£¨±àÒëÆÚ¼ÆËã£©
+    // åŸºç±»æ•°é‡ï¼ˆç¼–è¯‘æœŸè®¡ç®—ï¼‰
     size_t Count{ CountHelper<Args...>::Value };
     const static constexpr size_t Static_Count{ CountHelper<Args...>::Value };
 
-    // ´æ´¢ËùÓĞ»ùÀàÊı¾İ½Úµã
+    // å­˜å‚¨æ‰€æœ‰åŸºç±»æ•°æ®èŠ‚ç‚¹
     std::tuple<Args...> BaseClasses;
 
     const ECRTTIInfo* GetImpl() const {
@@ -141,87 +139,10 @@ struct ECRTTIExportHelper
             auto pNewInfo = new ECRTTIInfoType<Args...>{};
             Internal_RegisterExportRTTI(ClassName, pNewInfo->GetImpl());
         }
-        else MessageBoxA(NULL, (std::string("´íÎó£ºÖØÃûµÄRTTIÀà£º") + ClassName).c_str(), "EC SDK", MB_OK);
+        else MessageBoxA(NULL, (std::string("é”™è¯¯ï¼šé‡åçš„RTTIç±»ï¼š") + ClassName).c_str(), "EC SDK", MB_OK);
     }
 };
 
-
-template<typename T>
-class ECObjectDeleter ;
-template<typename T>
-using ECObjPtr = std::unique_ptr<T, ECObjectDeleter<T> >;
-
-template<typename T, typename = void>
-struct ECExportFactoryHelper
-{
-    using CopyConstructible = std::false_type;
-
-    static T* CALLBACK Construct() { return GameCreate<T>(); }
-    static void CALLBACK Destroy(const T* pObj) { GameDelete(pObj); }
-    ECExportFactoryHelper(const char* ClassName) noexcept
-    {
-        Internal_RegisterClassFactory(ClassName, Construct, nullptr, Destroy);
-    }
-};
-
-template <typename T>
-struct ECExportFactoryHelper<T,std::enable_if_t<std::is_copy_constructible_v<T>>>
-{
-    using CopyConstructible = std::true_type;
-
-    static T* CALLBACK Construct() { return GameCreate<T>(); }
-    static T* CALLBACK CopyConstruct(const T& Obj) { return GameCreate<T>(Obj); }
-    static void CALLBACK Destroy(const T* pObj) { GameDelete(pObj); }
-    ECExportFactoryHelper(const char* ClassName) noexcept
-    {
-        Internal_RegisterClassFactory(ClassName, Construct, CopyConstruct, Destroy);
-    }
-};
-
-void ECImportFactoryHelper_Error_Construct(const char* Name);
-void ECImportFactoryHelper_Error_CopyConstruct(const char* Name);
-void ECImportFactoryHelper_Error_Destroy(const char* Name);
-
-template <typename T>
-struct ECImportFactoryHelper
-{
-    LibFuncHandle DefCon, CopyCon, Dest;
-    const char* _ClassName;
-    T* CALLBACK Construct() 
-    { if (!DefCon)ECImportFactoryHelper_Error_Construct(_ClassName); return AsType<T* CALLBACK()>(DefCon)(); }
-    T* CALLBACK CopyConstruct(const T& Obj) 
-    { if (!CopyCon)ECImportFactoryHelper_Error_CopyConstruct(_ClassName); return AsType<T* CALLBACK(const T&)>(CopyCon)(Obj); }
-    void CALLBACK Destroy(const T* pObj) 
-    { if (!Dest)ECImportFactoryHelper_Error_Destroy(_ClassName); return AsType<void CALLBACK(const T*)>(Dest)(pObj); }
-    ECImportFactoryHelper(const char* ClassName) noexcept : _ClassName(ClassName)
-    {
-        Internal_GetClassFactory(ClassName, DefCon, CopyCon, Dest);
-    }
-};
-
-template<typename T, typename Helper, typename = void>
-struct ECClassFactoryImpl
-{
-    static ECObjPtr<T> Create() { return ECObjPtr<T>(Helper::Construct()); }
-    static ECObjPtr<T> Create(const T& Obj) { return ECObjPtr<T>(Helper::Construct(Obj)); }
-};
-
-template<typename T, typename Helper>
-struct ECClassFactoryImpl<T, Helper, std::enable_if_t<std::is_copy_constructible_v<T>>>
-{
-    static ECObjPtr<T> Create() { return ECObjPtr<T>(Helper::Construct()); }
-};
-
-
-
-template<typename T>
-struct ECClassFactory_Impl2
-{
-    using Type = void;
-};
-
-template<typename T>
-using ECClassFactory = typename ECClassFactory_Impl2<T>::Type;
 
 class ECUniqueID
 {
@@ -238,10 +159,9 @@ class ECStreamWriter;
 class AbstractClass;
 class ECGameClass;
 class SIBuffClass;
-class CCINIClass;
 
-
-struct ECLoadSaveable
+//è‡ªåŠ¨è°ƒç”¨
+class ECLoadSaveable
 {
     virtual void LoadGame(ECStreamReader& Stream) = 0;
     virtual void SaveGame(ECStreamWriter& Stream) = 0;
@@ -249,36 +169,20 @@ struct ECLoadSaveable
     virtual void FinalSwizzle() = 0;
     virtual void PointerGotInvalid(AbstractClass* const pObject, bool bRemoved) = 0;
     virtual void PointerGotInvalid(ECGameClass* const pObject, bool bRemoved) = 0;
+    virtual void PointerGotInvalid(SIBuffClass* const pObject, bool bRemoved) = 0;
 };
 
-
-struct ECINILoadable
+//è‡ªåŠ¨è°ƒç”¨
+class ECSync
 {
-    //ÏÈÓÚWWÔØÈë
-    virtual void InitFromINI(CCINIClass* INI) = 0;
-    //ºóÓÚWWÔØÈë
-    virtual void LoadFromINI(CCINIClass* INI) = 0;
+    virtual void ComputeCRC(CRCEngine& crc) = 0;
 };
-
-
-struct ECStaticInit
-{
-    virtual void InitOnExeRun() = 0;
-    virtual void InitAfterECInitialize() = 0;
-    virtual void InitOnLoadScenario() = 0;
-
-    ECStaticInit();
-    ~ECStaticInit();
-};
-
-
 
 
 
 #define ECObjType class
 
-#define EC_USERTTI_VirtualInherit virtual public ECRTTI
-#define EC_USERTTI public ECRTTI
+#define EC_USERTTI virtual public ECRTTI
 #define ECRTTI_DefineRTTIFunction(Class) \
 private:\
 mutable const ECRTTIInfo* MyType{ nullptr };\
@@ -291,43 +195,17 @@ template<typename T>\
 const T* DynamicCast()const{return DynamicCast_Impl<T, Class>(this); }\
 template<CanUseECRTTI T>\
 bool HasSameActualType(const T* p) { return this->WhatAmI() == p->WhatAmI(); }
-//×¢Òâ£¡£¡Ö»ÓĞ´´½¨Õâ¸öÀàµÄDLLµ±ÖĞ²ÅĞèÒª¼ÓÉÏÕâ¸ö£¡ÔÚÆäËû¿âµ÷ÓÃµÄÊ±ºò²»Òª¼ÓÕâ¸ö£¡£¡
+//æ³¨æ„ï¼ï¼åªæœ‰åˆ›å»ºè¿™ä¸ªç±»çš„DLLå½“ä¸­æ‰éœ€è¦åŠ ä¸Šè¿™ä¸ªï¼åœ¨å…¶ä»–åº“è°ƒç”¨çš„æ—¶å€™ä¸è¦åŠ è¿™ä¸ªï¼ï¼
 #define ECRTTI_ExportRTTI(Derived, ...) \
 class Derived;\
 namespace ECRTTIHelperNamespace{ ::ECRTTIExportHelper<Derived, ##__VA_ARGS__> Derived ## ExportHelperObject{ #Derived }; }
 
-#define EC_USEUNIQUEID_VirtualInherit virtual public ECUniqueID
-#define EC_USEUNIQUEID public ECUniqueID
+#define EC_USEUNIQUEID virtual public ECUniqueID
 
-//×Ô¶¯µ÷ÓÃÔØÈëINIµÄº¯Êı
-#define EC_LOADFROMRULES public ECINILoadable
+#define EC_SYNC public ECSync
 
-//×Ô¶¯µ÷ÓÃ´æ¶ÁµµµÈº¯Êı
 #define EC_USELOADSAVE public ECLoadSaveable
-
-//×Ô¶¯µ÷ÓÃ³õÊ¼»¯º¯Êı
-#define EC_STATICINIT public ECStaticInit
-
-//Ç°Ìá£ºÒÑ¾­ÊµÏÖÁËSerializeº¯Êı
-#define ECObj_DefineLoadSaveFunction \
+//å‰æï¼šå·²ç»å®ç°äº†Serializeå‡½æ•°
+#define ECRTTI_DefineLoadSaveFunction \
 virtual void LoadGame(ECStreamReader& Stream){ this->Serialize(Stream);}\
 virtual void SaveGame(ECStreamWriter& Stream){ this->Serialize(Stream);}
-
-#define ECObj_ExportFactory(Class) \
-namespace ECObjHelperNamespace{ inline ECExportFactoryHelper<Class> Class ## ExportFactory( #Class );}\
-template<> struct ECObjectDeleter<Class> \
-{ void operator()(Class* ptr){ ECExportFactoryHelper<Class>::Destroy(ptr); } };\
-template<>\
-struct ECClassFactory_Impl2<Class>{using Type = ECClassFactoryImpl<Class, ECExportFactoryHelper<Class>>; };
-
-#define ECObj_ImportFactory(Class)\
-namespace ECObjHelperNamespace{ inline ECImportFactoryHelper<Class> Class ## ImportFactory( #Class );}\
-template<> struct ECObjectDeleter<Class> \
-{ void operator()(Class* ptr){ ECObjHelperNamespace::Class ## ImportFactory.Destroy(ptr); } };\
-namespace ECObjHelperNamespace{ struct Class ## ClassFactoryHelper {\
-static ECObjPtr<Class> Create() { return ECObjPtr<Class>(ECObjHelperNamespace::Class ## ImportFactory.Construct()); }\
-static ECObjPtr<Class> Create(const Class& Obj) { return ECObjPtr<Class>(ECObjHelperNamespace::Class ## ImportFactory.CopyConstruct(Obj)); }\
-};}\
-template<>\
-struct ECClassFactory_Impl2<Class>{ using Type = ECObjHelperNamespace::Class ## ClassFactoryHelper; };
-    

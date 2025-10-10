@@ -31,6 +31,7 @@
 #include <limits.h>
 #include <ctype.h>
 #include "cJSON.h"
+#include <Windows.h>
 
 static const char *ep;
 
@@ -39,11 +40,11 @@ const char *cJSON_GetErrorPtr(void) {return ep;}
 //ADDED IHS 24/07/05
 void* cJSON_Allocate(size_t sz)
 {
-	return malloc(sz);
+	return HeapAlloc(GetProcessHeap(), HEAP_GENERATE_EXCEPTIONS | HEAP_ZERO_MEMORY, sz);
 }
 void cJSON_Free(void* ptr)
 {
-	free(ptr);
+	HeapFree(GetProcessHeap(), 0, ptr);
 }
 
 static int cJSON_strcasecmp(const char *s1,const char *s2)
@@ -319,6 +320,12 @@ static char *print_string_ptr(const char *str,printbuffer *p)
 	*ptr2++='\"';*ptr2++=0;
 	return out;
 }
+
+char* print_string_raw(const char* str)
+{
+	return print_string_ptr(str, NULL);
+}
+
 /* Invote print_string_ptr (which is useful) on an item. */
 static char *print_string(cJSON *item,printbuffer *p)	{return print_string_ptr(item->valuestring,p);}
 

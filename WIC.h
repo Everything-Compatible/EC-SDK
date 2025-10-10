@@ -1,20 +1,20 @@
-/*
+ï»¿/*
 
 SIWinterIsComing V0.1.0 SDK
-ÒýÇæ×÷Õß£ºSidoupiar QQ£º827632323    º½Î¶Âé½´ QQ£º1460015544
-SDK×÷Õß£º¸ÖÌúÖ®´¸  QQ£º2482911962
-½»Á÷QQÈº£º486835964
+å¼•æ“Žä½œè€…ï¼šSidoupiar QQï¼š827632323    èˆªå‘³éº»é…± QQï¼š1460015544
+SDKä½œè€…ï¼šé’¢é“ä¹‹é”¤  QQï¼š2482911962
+äº¤æµQQç¾¤ï¼š486835964
 
-SIWinterIsComing£¨¼ò³ÆWIC£©ÊÇSidoupiar¡¢º½Î¶Âé½´¿ª·¢µÄYRÒýÇæÀ©Õ¹¡£
-ÕâÊÇWICÒýÇæµÄÅäÌ×SDK£¬Ìá¹©ÁËµ÷ÓÃWICÄÚ²¿¹¦ÄÜµÄ½Ó¿Ú¡£
-Èç¹ûÄúÏëÒªµ÷ÓÃWICµÄ½Ó¿Ú£¬ÇëÔÚÏîÄ¿µ±ÖÐ°üº¬´ËSDK¡£
-ÔÚ°ÑIH×é¼þ£¨IHCore.dll IHLibList.dllµÈ£©ºÍSIWinterIsComing.dll·ÅÖÃÓÚÓÎÏ·Ä¿Â¼£¬
-²¢È·±£SyringeÊ¶±ðÁËËüÃÇºó£¬ÇÒÕýÈ·µØ½«ÄúµÄDLLÍ¨¹ýIHLoader×¢²áµ½IH×é¼þºó£¬
-´ËSDKµ±ÖÐµÄ½Ó¿Ú¼´Îª¿ÉÓÃµÄ¡£
-ÏêÏ¸µÄ½Ó¿ÚËµÃ÷Çë²éÔÄWIC.Interface.h¡¢WIC.Buff.hµÈÍ·ÎÄ¼þÄÚ½Ó¿Ú´¦µÄ×¢ÊÍ¡£
-ÈçÓÐÎÊÌâ»ò·´À¡ÇëÁªÏµ×÷Õß¡£
+SIWinterIsComingï¼ˆç®€ç§°WICï¼‰æ˜¯Sidoupiarã€èˆªå‘³éº»é…±å¼€å‘çš„YRå¼•æ“Žæ‰©å±•ã€‚
+è¿™æ˜¯WICå¼•æ“Žçš„é…å¥—SDKï¼Œæä¾›äº†è°ƒç”¨WICå†…éƒ¨åŠŸèƒ½çš„æŽ¥å£ã€‚
+å¦‚æžœæ‚¨æƒ³è¦è°ƒç”¨WICçš„æŽ¥å£ï¼Œè¯·åœ¨é¡¹ç›®å½“ä¸­åŒ…å«æ­¤SDKã€‚
+åœ¨æŠŠIHç»„ä»¶ï¼ˆIHCore.dll IHLibList.dllç­‰ï¼‰å’ŒSIWinterIsComing.dllæ”¾ç½®äºŽæ¸¸æˆç›®å½•ï¼Œ
+å¹¶ç¡®ä¿Syringeè¯†åˆ«äº†å®ƒä»¬åŽï¼Œä¸”æ­£ç¡®åœ°å°†æ‚¨çš„DLLé€šè¿‡IHLoaderæ³¨å†Œåˆ°IHç»„ä»¶åŽï¼Œ
+æ­¤SDKå½“ä¸­çš„æŽ¥å£å³ä¸ºå¯ç”¨çš„ã€‚
+è¯¦ç»†çš„æŽ¥å£è¯´æ˜Žè¯·æŸ¥é˜…WIC.Interface.hã€WIC.Buff.hç­‰å¤´æ–‡ä»¶å†…æŽ¥å£å¤„çš„æ³¨é‡Šã€‚
+å¦‚æœ‰é—®é¢˜æˆ–åé¦ˆè¯·è”ç³»ä½œè€…ã€‚
 
-2024Äê12ÔÂ
+2024å¹´12æœˆ
 
 */
 #pragma once
@@ -26,4 +26,4 @@ SIWinterIsComing£¨¼ò³ÆWIC£©ÊÇSidoupiar¡¢º½Î¶Âé½´¿ª·¢µÄYRÒýÇæÀ©Õ¹¡£
 #include  "WIC.ExampleBuff.h"
 
 #include  "WIC.Template.h"
-//×¢Òâ£º½Ó¿ÚÔÚWICÎÞÐ§Ê±µ÷ÓÃ»ò½Ó¿ÚÕÒ²»µ½Ê±»áÅ×Òì³£(SIException)µÄ
+//æ³¨æ„ï¼šæŽ¥å£åœ¨WICæ— æ•ˆæ—¶è°ƒç”¨æˆ–æŽ¥å£æ‰¾ä¸åˆ°æ—¶ä¼šæŠ›å¼‚å¸¸(SIException)çš„

@@ -1,11 +1,11 @@
-#include "EC.ObjBase.h"
+ï»¿#include "EC.ObjBase.h"
 
 
 const char* Internal_GetRTTIClassName(const ECRTTIInfo* pInfo);
 
 const ECRTTIInfo::ImplNode& ECRTTIInfo::GetBaseInfo(size_t Index) const 
 {
-    // ¼ÆËãÄÚ´æÆ«ÒÆ£ºÌø¹ıCount£¬°´½Úµã´óĞ¡Ë÷Òı
+    // è®¡ç®—å†…å­˜åç§»ï¼šè·³è¿‡Countï¼ŒæŒ‰èŠ‚ç‚¹å¤§å°ç´¢å¼•
     return *reinterpret_cast<const ImplNode*>(
         reinterpret_cast<const char*>(this) +
         sizeof(Count) +
@@ -60,30 +60,3 @@ int Internal_GenerateID();
 ECUniqueID::ECUniqueID() noexcept :UniqueID(Internal_GenerateID()) {};
 ECUniqueID::ECUniqueID(const ECUniqueID&)  noexcept :UniqueID(Internal_GenerateID()) {};
 ECUniqueID::ECUniqueID(ECUniqueID&&) noexcept :UniqueID(Internal_GenerateID()) {};
-
-
-
-void ECImportFactoryHelper_Error_Construct(const char* Name)
-{
-    MessageBoxA(NULL, (std::string(Name) + " ²»´æÔÚ»ò²»¿ÉÄ¬ÈÏ¹¹Ôì£¡").c_str(), "EC SDK", MB_OK);
-}
-void ECImportFactoryHelper_Error_CopyConstruct(const char* Name)
-{
-    MessageBoxA(NULL, (std::string(Name) + " ²»´æÔÚ»ò²»¿É¸´ÖÆ¹¹Ôì£¡").c_str(), "EC SDK", MB_OK);
-}
-void ECImportFactoryHelper_Error_Destroy(const char* Name)
-{
-    MessageBoxA(NULL, (std::string(Name) + " ²»´æÔÚÎö¹¹½Ó¿Ú£¡").c_str(), "EC SDK", MB_OK);
-}
-
-void RegisterECStaticInit(ECStaticInit* ptr);
-void UnregisterECStaticInit(ECStaticInit* ptr);
-
-ECStaticInit::ECStaticInit()
-{
-    RegisterECStaticInit(this);
-}
-ECStaticInit::~ECStaticInit()
-{
-    UnregisterECStaticInit(this);
-}

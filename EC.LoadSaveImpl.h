@@ -1,6 +1,6 @@
-#pragma once
+ï»¿#pragma once
 /*
-	¸¨ÖúÍ·ÎÄ¼ş£¬²»±» EC.h °üº¬
+	è¾…åŠ©å¤´æ–‡ä»¶ï¼Œä¸è¢« EC.h åŒ…å«
 */
 #include <YRPP.h>
 #include "EC.Stream.h"

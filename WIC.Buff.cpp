@@ -1,17 +1,17 @@
-#include "WIC.Buff.h"
+ï»¿#include "WIC.Buff.h"
 
 // ====================================================================================================
-// ==== BuffClass ½Ó¿Ú - Á÷³Ìº¯Êı =====================================================================
+// ==== BuffClass æ¥å£ - æµç¨‹å‡½æ•° =====================================================================
 // ====================================================================================================
 
-void SIBuffClass::TryRemark( SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü)
+void SIBuffClass::TryRemark( SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…)
 {
-	SIBuff::TryRemark(this, Buff²ÎÊıÉèÖÃ°ü);
+	SIBuff::TryRemark(this, Buffå‚æ•°è®¾ç½®åŒ…);
 }
 
-void SIBuffClass::TryActive( SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü)
+void SIBuffClass::TryActive( SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…)
 {
-	SIBuff::TryActive(this, Buff²ÎÊıÉèÖÃ°ü);
+	SIBuff::TryActive(this, Buffå‚æ•°è®¾ç½®åŒ…);
 }
 
 void SIBuffClass::TryAfter()
@@ -19,23 +19,23 @@ void SIBuffClass::TryAfter()
 	SIBuff::TryAfter(this);
 }
 
-void SIBuffClass::TryDamage( double ×¼±¸Ôì³ÉµÄÉËº¦)
+void SIBuffClass::TryDamage( double å‡†å¤‡é€ æˆçš„ä¼¤å®³)
 {
-	SIBuff::TryDamage(this, ×¼±¸Ôì³ÉµÄÉËº¦);
+	SIBuff::TryDamage(this, å‡†å¤‡é€ æˆçš„ä¼¤å®³);
 }
 
 // ====================================================================================================
-// ==== BuffClass ½Ó¿Ú - ÊôĞÔº¯Êı =====================================================================
+// ==== BuffClass æ¥å£ - å±æ€§å‡½æ•° =====================================================================
 // ====================================================================================================
 
-void SIBuffClass::EnterState( SIBuffClass_State ×´Ì¬)
+void SIBuffClass::EnterState( SIBuffClass_State çŠ¶æ€)
 {
-	SIBuff::EnterState(this, ×´Ì¬);
+	SIBuff::EnterState(this, çŠ¶æ€);
 }
 
-void SIBuffClass::MergeSetting( SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü)
+void SIBuffClass::MergeSetting( SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…)
 {
-	SIBuff::MergeSetting(this, Buff²ÎÊıÉèÖÃ°ü);
+	SIBuff::MergeSetting(this, Buffå‚æ•°è®¾ç½®åŒ…);
 }
 
 CoordStruct SIBuffClass::GetCenterCoords()
@@ -43,25 +43,25 @@ CoordStruct SIBuffClass::GetCenterCoords()
 	return SIBuff::GetCenterCoords(this);
 }
 
-// ·µ»ØÖµ¿ÉÄÜÎª¿Õ
+// è¿”å›å€¼å¯èƒ½ä¸ºç©º
 TechnoClass* SIBuffClass::GetOwnerTechno()
 {
 	return SIBuff::GetOwnerTechno(this);
 }
 
-// ·µ»ØÖµ¿ÉÄÜÎª¿Õ
+// è¿”å›å€¼å¯èƒ½ä¸ºç©º
 TechnoClass* SIBuffClass::GetSourceTechno()
 {
 	return SIBuff::GetSourceTechno(this);
 }
 
-// ·µ»ØÖµ¿ÉÄÜÎª¿Õ
+// è¿”å›å€¼å¯èƒ½ä¸ºç©º
 TechnoTypeClass* SIBuffClass::GetOwnerTechnoType()
 {
 	return SIBuff::GetOwnerTechnoType(this);
 }
 
-// ·µ»ØÖµ¿ÉÄÜÎª¿Õ
+// è¿”å›å€¼å¯èƒ½ä¸ºç©º
 TechnoTypeClass* SIBuffClass::GetSourceTechnoType()
 {
 	return SIBuff::GetSourceTechnoType(this);
@@ -78,47 +78,47 @@ HouseClass* SIBuffClass::GetActiveSourceHouse()
 }
 
 // ====================================================================================================
-// ==== BuffClass ½Ó¿Ú - ¹¤¾ßº¯Êı =====================================================================
+// ==== BuffClass æ¥å£ - å·¥å…·å‡½æ•° =====================================================================
 // ====================================================================================================
 
-int SIBuffClass::GetEffectMode( int ²ÎÊıÏîË÷Òı, int ×î´óÖµ)
+int SIBuffClass::GetEffectMode( int å‚æ•°é¡¹ç´¢å¼•, int æœ€å¤§å€¼)
 {
-	return SIBuff::GetEffectMode_A(this, ²ÎÊıÏîË÷Òı, ×î´óÖµ);
+	return SIBuff::GetEffectMode_A(this, å‚æ•°é¡¹ç´¢å¼•, æœ€å¤§å€¼);
 }
 
-int SIBuffClass::GetEffectMode( int ²ÎÊıÏîË÷Òı, int ×î´óÖµ, int ×îĞ¡Öµ)
+int SIBuffClass::GetEffectMode( int å‚æ•°é¡¹ç´¢å¼•, int æœ€å¤§å€¼, int æœ€å°å€¼)
 {
-	return SIBuff::GetEffectMode_B(this, ²ÎÊıÏîË÷Òı, ×î´óÖµ, ×îĞ¡Öµ);
+	return SIBuff::GetEffectMode_B(this, å‚æ•°é¡¹ç´¢å¼•, æœ€å¤§å€¼, æœ€å°å€¼);
 }
 
-double SIBuffClass::GetEffectPower( int ²ÎÊıÏîË÷Òı)
+double SIBuffClass::GetEffectPower( int å‚æ•°é¡¹ç´¢å¼•)
 {
-	return SIBuff::GetEffectPower_A(this, ²ÎÊıÏîË÷Òı);
+	return SIBuff::GetEffectPower_A(this, å‚æ•°é¡¹ç´¢å¼•);
 }
 
-double SIBuffClass::GetEffectPower( int ²ÎÊıÏîË÷Òı, double ×îĞ¡Öµ)
+double SIBuffClass::GetEffectPower( int å‚æ•°é¡¹ç´¢å¼•, double æœ€å°å€¼)
 {
-	return SIBuff::GetEffectPower_B(this, ²ÎÊıÏîË÷Òı, ×îĞ¡Öµ);
+	return SIBuff::GetEffectPower_B(this, å‚æ•°é¡¹ç´¢å¼•, æœ€å°å€¼);
 }
 
-double SIBuffClass::GetEffectTotal( int ²ÎÊıÏîË÷Òı, double ºÏ²¢ºóµÄÊµ¼ÊĞ§¹ûÇ¿¶È)
+double SIBuffClass::GetEffectTotal( int å‚æ•°é¡¹ç´¢å¼•, double åˆå¹¶åçš„å®é™…æ•ˆæœå¼ºåº¦)
 {
-	return SIBuff::GetEffectTotal_A(this, ²ÎÊıÏîË÷Òı, ºÏ²¢ºóµÄÊµ¼ÊĞ§¹ûÇ¿¶È);
+	return SIBuff::GetEffectTotal_A(this, å‚æ•°é¡¹ç´¢å¼•, åˆå¹¶åçš„å®é™…æ•ˆæœå¼ºåº¦);
 }
 
-double SIBuffClass::GetEffectTotal( int ²ÎÊıÏîË÷Òı, double ºÏ²¢ºóµÄÊµ¼ÊĞ§¹ûÇ¿¶È, double ×îĞ¡Öµ)
+double SIBuffClass::GetEffectTotal( int å‚æ•°é¡¹ç´¢å¼•, double åˆå¹¶åçš„å®é™…æ•ˆæœå¼ºåº¦, double æœ€å°å€¼)
 {
-	return SIBuff::GetEffectTotal_B(this, ²ÎÊıÏîË÷Òı, ºÏ²¢ºóµÄÊµ¼ÊĞ§¹ûÇ¿¶È, ×îĞ¡Öµ);
+	return SIBuff::GetEffectTotal_B(this, å‚æ•°é¡¹ç´¢å¼•, åˆå¹¶åçš„å®é™…æ•ˆæœå¼ºåº¦, æœ€å°å€¼);
 }
 
-double SIBuffClass::GetEffectTotalMax( int ²ÎÊıÏîË÷Òı)
+double SIBuffClass::GetEffectTotalMax( int å‚æ•°é¡¹ç´¢å¼•)
 {
-	return SIBuff::GetEffectTotalMax(this, ²ÎÊıÏîË÷Òı);
+	return SIBuff::GetEffectTotalMax(this, å‚æ•°é¡¹ç´¢å¼•);
 }
 
-double SIBuffClass::GetEffectTotalMin( int ²ÎÊıÏîË÷Òı)
+double SIBuffClass::GetEffectTotalMin( int å‚æ•°é¡¹ç´¢å¼•)
 {
-	return SIBuff::GetEffectTotalMin(this, ²ÎÊıÏîË÷Òı);
+	return SIBuff::GetEffectTotalMin(this, å‚æ•°é¡¹ç´¢å¼•);
 }
 
 bool SIBuffClass::Effect_NotPassCommonCheck()
@@ -126,24 +126,24 @@ bool SIBuffClass::Effect_NotPassCommonCheck()
 	return SIBuff::Effect_NotPassCommonCheck_A(this);
 }
 
-bool SIBuffClass::Effect_NotPassCommonCheck(SIBuffClass_EffectData* ÉúĞ§Êı¾İ)
+bool SIBuffClass::Effect_NotPassCommonCheck(SIBuffClass_EffectData* ç”Ÿæ•ˆæ•°æ®)
 {
-	return SIBuff::Effect_NotPassCommonCheck_B(this, ÉúĞ§Êı¾İ);
+	return SIBuff::Effect_NotPassCommonCheck_B(this, ç”Ÿæ•ˆæ•°æ®);
 }
 
-bool SIBuffClass::Effect_NotPassCommonCheck( args_ReceiveDamage* ÉËº¦²ÎÊı)
+bool SIBuffClass::Effect_NotPassCommonCheck( args_ReceiveDamage* ä¼¤å®³å‚æ•°)
 {
-	return SIBuff::Effect_NotPassCommonCheck_C(this, ÉËº¦²ÎÊı);
+	return SIBuff::Effect_NotPassCommonCheck_C(this, ä¼¤å®³å‚æ•°);
 }
 
-bool SIBuffClass::Effect_NotPassCommonCheck( args_ReceiveDamage* ÉËº¦²ÎÊı, double µ±Ç°ÉËº¦)
+bool SIBuffClass::Effect_NotPassCommonCheck( args_ReceiveDamage* ä¼¤å®³å‚æ•°, double å½“å‰ä¼¤å®³)
 {
-	return SIBuff::Effect_NotPassCommonCheck_D(this, ÉËº¦²ÎÊı, µ±Ç°ÉËº¦);
+	return SIBuff::Effect_NotPassCommonCheck_D(this, ä¼¤å®³å‚æ•°, å½“å‰ä¼¤å®³);
 }
 
-bool SIBuffClass::Effect_NotPassCommonCheck( double µ±Ç°ÉËº¦)
+bool SIBuffClass::Effect_NotPassCommonCheck( double å½“å‰ä¼¤å®³)
 {
-	return SIBuff::Effect_NotPassCommonCheck_E(this, µ±Ç°ÉËº¦);
+	return SIBuff::Effect_NotPassCommonCheck_E(this, å½“å‰ä¼¤å®³);
 }
 
 bool SIBuffClass::Effect_NotPassCommonCheck_NoIronCurtain()
@@ -151,63 +151,63 @@ bool SIBuffClass::Effect_NotPassCommonCheck_NoIronCurtain()
 	return SIBuff::Effect_NotPassCommonCheck_NoIronCurtain(this);
 }
 
-bool SIBuffClass::Effect_PassCheck_TechnoTypeList( TechnoTypeClass* Ä¿±êµ¥Î»ÀàĞÍ)
+bool SIBuffClass::Effect_PassCheck_TechnoTypeList( TechnoTypeClass* ç›®æ ‡å•ä½ç±»å‹)
 {
-	return SIBuff::Effect_PassCheck_TechnoTypeList(this, Ä¿±êµ¥Î»ÀàĞÍ);
+	return SIBuff::Effect_PassCheck_TechnoTypeList(this, ç›®æ ‡å•ä½ç±»å‹);
 }
 
-bool SIBuffClass::Effect_NotPassCheck_TechnoTypeList( TechnoTypeClass* Ä¿±êµ¥Î»ÀàĞÍ)
+bool SIBuffClass::Effect_NotPassCheck_TechnoTypeList( TechnoTypeClass* ç›®æ ‡å•ä½ç±»å‹)
 {
-	return SIBuff::Effect_NotPassCheck_TechnoTypeList(this, Ä¿±êµ¥Î»ÀàĞÍ);
+	return SIBuff::Effect_NotPassCheck_TechnoTypeList(this, ç›®æ ‡å•ä½ç±»å‹);
 }
 
-bool SIBuffClass::Effect_Match_TechnoTypeList( TechnoTypeClass* Ä¿±êµ¥Î»ÀàĞÍ)
+bool SIBuffClass::Effect_Match_TechnoTypeList( TechnoTypeClass* ç›®æ ‡å•ä½ç±»å‹)
 {
-	return SIBuff::Effect_Match_TechnoTypeList(this, Ä¿±êµ¥Î»ÀàĞÍ);
+	return SIBuff::Effect_Match_TechnoTypeList(this, ç›®æ ‡å•ä½ç±»å‹);
 }
 
-bool SIBuffClass::Effect_NotMatch_TechnoTypeList( TechnoTypeClass* Ä¿±êµ¥Î»ÀàĞÍ)
+bool SIBuffClass::Effect_NotMatch_TechnoTypeList( TechnoTypeClass* ç›®æ ‡å•ä½ç±»å‹)
 {
-	return SIBuff::Effect_NotMatch_TechnoTypeList(this, Ä¿±êµ¥Î»ÀàĞÍ);
+	return SIBuff::Effect_NotMatch_TechnoTypeList(this, ç›®æ ‡å•ä½ç±»å‹);
 }
 
-// »áÉèÖÃ SIDamageLeft ÊôĞÔ
-void SIBuffClass::ReceiveWarheadDamage( TechnoClass* Ä¿±êµ¥Î», TechnoClass* ¹¥»÷µ¥Î», double ÉËº¦, WarheadTypeClass* ÉËº¦µ¯Í·ÀàĞÍ)
+// ä¼šè®¾ç½® SIDamageLeft å±æ€§
+void SIBuffClass::ReceiveWarheadDamage( TechnoClass* ç›®æ ‡å•ä½, TechnoClass* æ”»å‡»å•ä½, double ä¼¤å®³, WarheadTypeClass* ä¼¤å®³å¼¹å¤´ç±»å‹)
 {
-	SIBuff::ReceiveWarheadDamage_A(this, Ä¿±êµ¥Î», ¹¥»÷µ¥Î», ÉËº¦, ÉËº¦µ¯Í·ÀàĞÍ);
+	SIBuff::ReceiveWarheadDamage_A(this, ç›®æ ‡å•ä½, æ”»å‡»å•ä½, ä¼¤å®³, ä¼¤å®³å¼¹å¤´ç±»å‹);
 }
 
-// »áÉèÖÃ SIDamageLeft ÊôĞÔ
-void SIBuffClass::ReceiveWarheadDamage( TechnoClass* Ä¿±êµ¥Î», TechnoClass* ¹¥»÷µ¥Î», double ÉËº¦, WarheadTypeClass* ÉËº¦µ¯Í·ÀàĞÍ, HouseClass* ¹¥»÷µ¥Î»ËùÊô×÷Õ½·½)
+// ä¼šè®¾ç½® SIDamageLeft å±æ€§
+void SIBuffClass::ReceiveWarheadDamage( TechnoClass* ç›®æ ‡å•ä½, TechnoClass* æ”»å‡»å•ä½, double ä¼¤å®³, WarheadTypeClass* ä¼¤å®³å¼¹å¤´ç±»å‹, HouseClass* æ”»å‡»å•ä½æ‰€å±ä½œæˆ˜æ–¹)
 {
-	SIBuff::ReceiveWarheadDamage_B(this, Ä¿±êµ¥Î», ¹¥»÷µ¥Î», ÉËº¦, ÉËº¦µ¯Í·ÀàĞÍ, ¹¥»÷µ¥Î»ËùÊô×÷Õ½·½);
+	SIBuff::ReceiveWarheadDamage_B(this, ç›®æ ‡å•ä½, æ”»å‡»å•ä½, ä¼¤å®³, ä¼¤å®³å¼¹å¤´ç±»å‹, æ”»å‡»å•ä½æ‰€å±ä½œæˆ˜æ–¹);
 }
 
-// »áÉèÖÃ SIDamageLeft ÊôĞÔ
-void SIBuffClass::ReceiveHealthDamage( TechnoClass* Ä¿±êµ¥Î», double ÉúÃüÖµËğºÄ, WarheadTypeClass* ½áËã»¤¼×µ¯Í·ÀàĞÍ, WarheadTypeClass* ËÀÍöÉËº¦µ¯Í·ÀàĞÍ, bool Ö´ĞĞ×ÔÉí´¦Àí¹ı³Ì)
+// ä¼šè®¾ç½® SIDamageLeft å±æ€§
+void SIBuffClass::ReceiveHealthDamage( TechnoClass* ç›®æ ‡å•ä½, double ç”Ÿå‘½å€¼æŸè€—, WarheadTypeClass* ç»“ç®—æŠ¤ç”²å¼¹å¤´ç±»å‹, WarheadTypeClass* æ­»äº¡ä¼¤å®³å¼¹å¤´ç±»å‹, bool æ‰§è¡Œè‡ªèº«å¤„ç†è¿‡ç¨‹)
 {
-	SIBuff::ReceiveHealthDamage_A(this, Ä¿±êµ¥Î», ÉúÃüÖµËğºÄ, ½áËã»¤¼×µ¯Í·ÀàĞÍ, ËÀÍöÉËº¦µ¯Í·ÀàĞÍ, Ö´ĞĞ×ÔÉí´¦Àí¹ı³Ì);
+	SIBuff::ReceiveHealthDamage_A(this, ç›®æ ‡å•ä½, ç”Ÿå‘½å€¼æŸè€—, ç»“ç®—æŠ¤ç”²å¼¹å¤´ç±»å‹, æ­»äº¡ä¼¤å®³å¼¹å¤´ç±»å‹, æ‰§è¡Œè‡ªèº«å¤„ç†è¿‡ç¨‹);
 }
 
-// »áÉèÖÃ SIDamageLeft ÊôĞÔ
-void SIBuffClass::ReceiveHealthDamage( TechnoClass* Ä¿±êµ¥Î», double ÉúÃüÖµËğºÄ, double ÉúÃüÖµËğºÄÉÏÏŞ, double ÉúÃüÖµËğºÄÏÂÏŞ, WarheadTypeClass* ½áËã»¤¼×µ¯Í·ÀàĞÍ, WarheadTypeClass* ËÀÍöÉËº¦µ¯Í·ÀàĞÍ, bool Ö´ĞĞ×ÔÉí´¦Àí¹ı³Ì)
+// ä¼šè®¾ç½® SIDamageLeft å±æ€§
+void SIBuffClass::ReceiveHealthDamage( TechnoClass* ç›®æ ‡å•ä½, double ç”Ÿå‘½å€¼æŸè€—, double ç”Ÿå‘½å€¼æŸè€—ä¸Šé™, double ç”Ÿå‘½å€¼æŸè€—ä¸‹é™, WarheadTypeClass* ç»“ç®—æŠ¤ç”²å¼¹å¤´ç±»å‹, WarheadTypeClass* æ­»äº¡ä¼¤å®³å¼¹å¤´ç±»å‹, bool æ‰§è¡Œè‡ªèº«å¤„ç†è¿‡ç¨‹)
 {
-	SIBuff::ReceiveHealthDamage_B(this, Ä¿±êµ¥Î», ÉúÃüÖµËğºÄ, ÉúÃüÖµËğºÄÉÏÏŞ, ÉúÃüÖµËğºÄÏÂÏŞ, ½áËã»¤¼×µ¯Í·ÀàĞÍ, ËÀÍöÉËº¦µ¯Í·ÀàĞÍ, Ö´ĞĞ×ÔÉí´¦Àí¹ı³Ì);
+	SIBuff::ReceiveHealthDamage_B(this, ç›®æ ‡å•ä½, ç”Ÿå‘½å€¼æŸè€—, ç”Ÿå‘½å€¼æŸè€—ä¸Šé™, ç”Ÿå‘½å€¼æŸè€—ä¸‹é™, ç»“ç®—æŠ¤ç”²å¼¹å¤´ç±»å‹, æ­»äº¡ä¼¤å®³å¼¹å¤´ç±»å‹, æ‰§è¡Œè‡ªèº«å¤„ç†è¿‡ç¨‹);
 }
 
-bool SIBuffClass::FreshOrPostBroadcast( double ĞèÒª¸üĞÂµÄ¹ã²¥Ç¿¶È, AbstractClass* Ö¸ÏòÄ¿±ê)
+bool SIBuffClass::FreshOrPostBroadcast( double éœ€è¦æ›´æ–°çš„å¹¿æ’­å¼ºåº¦, AbstractClass* æŒ‡å‘ç›®æ ‡)
 {
-	return SIBuff::FreshOrPostBroadcast(this, ĞèÒª¸üĞÂµÄ¹ã²¥Ç¿¶È, Ö¸ÏòÄ¿±ê);
+	return SIBuff::FreshOrPostBroadcast(this, éœ€è¦æ›´æ–°çš„å¹¿æ’­å¼ºåº¦, æŒ‡å‘ç›®æ ‡);
 }
 
-void SIBuffClass::ResetBroadcastPower( double ĞèÒª¸üĞÂµÄ¹ã²¥Ç¿¶È)
+void SIBuffClass::ResetBroadcastPower( double éœ€è¦æ›´æ–°çš„å¹¿æ’­å¼ºåº¦)
 {
-	SIBuff::ResetBroadcastPower(this, ĞèÒª¸üĞÂµÄ¹ã²¥Ç¿¶È);
+	SIBuff::ResetBroadcastPower(this, éœ€è¦æ›´æ–°çš„å¹¿æ’­å¼ºåº¦);
 }
 
-int SIBuffClass::GetBroadcastListenerCount( bool ÎŞÊÓÏŞÖÆÌõ¼ş, AbstractClass* Ö¸ÏòÄ¿±ê)
+int SIBuffClass::GetBroadcastListenerCount( bool æ— è§†é™åˆ¶æ¡ä»¶, AbstractClass* æŒ‡å‘ç›®æ ‡)
 {
-	return SIBuff::GetBroadcastListenerCount(this, ÎŞÊÓÏŞÖÆÌõ¼ş, Ö¸ÏòÄ¿±ê);
+	return SIBuff::GetBroadcastListenerCount(this, æ— è§†é™åˆ¶æ¡ä»¶, æŒ‡å‘ç›®æ ‡);
 }
 
 bool SIBuffClass::AddAsBroadcastListener()
@@ -225,35 +225,35 @@ double SIBuffClass::GetBroadcastPower_Total()
 	return SIBuff::GetBroadcastPower_Total(this);
 }
 
-// ·µ»ØÖµ¿ÉÄÜÎª¿Õ
+// è¿”å›å€¼å¯èƒ½ä¸ºç©º
 TechnoClass* SIBuffClass::GetFireOwner()
 {
 	return SIBuff::GetFireOwner(this);
 }
 
-bool SIBuffClass::GetFireOwnerRawOffset( CoordStruct& ±¾Ìå×ø±ê)
+bool SIBuffClass::GetFireOwnerRawOffset( CoordStruct& æœ¬ä½“åæ ‡)
 {
-	return SIBuff::GetFireOwnerRawOffset(this, ±¾Ìå×ø±ê);
+	return SIBuff::GetFireOwnerRawOffset(this, æœ¬ä½“åæ ‡);
 }
 
-bool SIBuffClass::GetFireTargetRawOffset( AbstractClass* Ä¿±ê, CoordStruct& Ä¿±ê×ø±ê)
+bool SIBuffClass::GetFireTargetRawOffset( AbstractClass* ç›®æ ‡, CoordStruct& ç›®æ ‡åæ ‡)
 {
-	return SIBuff::GetFireTargetRawOffset(this, Ä¿±ê, Ä¿±ê×ø±ê);
+	return SIBuff::GetFireTargetRawOffset(this, ç›®æ ‡, ç›®æ ‡åæ ‡);
 }
 
-double SIBuffClass::GetFacingRotate( SIRotateType ¸úËæĞı×ªÀàĞÍ, CoordStruct ±¾Ìå×ø±ê, CoordStruct Ä¿±ê×ø±ê)
+double SIBuffClass::GetFacingRotate( SIRotateType è·Ÿéšæ—‹è½¬ç±»å‹, CoordStruct æœ¬ä½“åæ ‡, CoordStruct ç›®æ ‡åæ ‡)
 {
-	return SIBuff::GetFacingRotate(this, ¸úËæĞı×ªÀàĞÍ, ±¾Ìå×ø±ê, Ä¿±ê×ø±ê);
+	return SIBuff::GetFacingRotate(this, è·Ÿéšæ—‹è½¬ç±»å‹, æœ¬ä½“åæ ‡, ç›®æ ‡åæ ‡);
 }
 
-double SIBuffClass::GetFacingRotate_Same( SIRotateType ¸úËæĞı×ªÀàĞÍ, CoordStruct ±¾Ìå×ø±ê, CoordStruct Ä¿±ê×ø±ê, SIRotateType ÓÃÓÚÍ¬²½µÄ¸úËæĞı×ªÀàĞÍ, double ÓÃÓÚÍ¬²½µÄĞı×ª½Ç¶È_»¡¶È)
+double SIBuffClass::GetFacingRotate_Same( SIRotateType è·Ÿéšæ—‹è½¬ç±»å‹, CoordStruct æœ¬ä½“åæ ‡, CoordStruct ç›®æ ‡åæ ‡, SIRotateType ç”¨äºåŒæ­¥çš„è·Ÿéšæ—‹è½¬ç±»å‹, double ç”¨äºåŒæ­¥çš„æ—‹è½¬è§’åº¦_å¼§åº¦)
 {
-	return SIBuff::GetFacingRotate_Same(this, ¸úËæĞı×ªÀàĞÍ, ±¾Ìå×ø±ê, Ä¿±ê×ø±ê, ÓÃÓÚÍ¬²½µÄ¸úËæĞı×ªÀàĞÍ, ÓÃÓÚÍ¬²½µÄĞı×ª½Ç¶È_»¡¶È);
+	return SIBuff::GetFacingRotate_Same(this, è·Ÿéšæ—‹è½¬ç±»å‹, æœ¬ä½“åæ ‡, ç›®æ ‡åæ ‡, ç”¨äºåŒæ­¥çš„è·Ÿéšæ—‹è½¬ç±»å‹, ç”¨äºåŒæ­¥çš„æ—‹è½¬è§’åº¦_å¼§åº¦);
 }
 
-void SIBuffClass::FreshFacingAndAimingRadius_Common( CoordStruct ±¾Ìå×ø±ê, CoordStruct ±¾Ìå¿ª»ğ×ø±ê, CoordStruct Ä¿±ê×ø±ê, CoordStruct& ¿ª»ğ×ø±ê, CoordStruct& ÃüÖĞ×ø±ê)
+void SIBuffClass::FreshFacingAndAimingRadius_Common( CoordStruct æœ¬ä½“åæ ‡, CoordStruct æœ¬ä½“å¼€ç«åæ ‡, CoordStruct ç›®æ ‡åæ ‡, CoordStruct& å¼€ç«åæ ‡, CoordStruct& å‘½ä¸­åæ ‡)
 {
-	SIBuff::FreshFacingAndAimingRadius_Common(this, ±¾Ìå×ø±ê, ±¾Ìå¿ª»ğ×ø±ê, Ä¿±ê×ø±ê, ¿ª»ğ×ø±ê, ÃüÖĞ×ø±ê);
+	SIBuff::FreshFacingAndAimingRadius_Common(this, æœ¬ä½“åæ ‡, æœ¬ä½“å¼€ç«åæ ‡, ç›®æ ‡åæ ‡, å¼€ç«åæ ‡, å‘½ä¸­åæ ‡);
 }
 
 void SIBuffClass::OffsetMotion_Init()
@@ -266,26 +266,26 @@ void SIBuffClass::OffsetMotion_AI()
 	SIBuff::OffsetMotion_AI(this);
 }
 
-void SIBuffClass::DigitalButtonData_Init( int µ¥Î»ÊıÁ¿)
+void SIBuffClass::DigitalButtonData_Init( int å•ä½æ•°é‡)
 {
-	SIBuff::DigitalButtonData_Init(this, µ¥Î»ÊıÁ¿);
+	SIBuff::DigitalButtonData_Init(this, å•ä½æ•°é‡);
 }
 
 namespace SIBuff
 {
 
 	// ====================================================================================================
-	// ==== BuffClass ½Ó¿Ú - Á÷³Ìº¯Êı =====================================================================
+	// ==== BuffClass æ¥å£ - æµç¨‹å‡½æ•° =====================================================================
 	// ====================================================================================================
 
-	void SI_API TryRemark(SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü)
+	void SI_API TryRemark(SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…)
 	{
-		SIBuffDecl_void(TryRemark)(Buff, Buff²ÎÊıÉèÖÃ°ü);
+		SIBuffDecl_void(TryRemark)(Buff, Buffå‚æ•°è®¾ç½®åŒ…);
 	}
 
-	void SI_API TryActive(SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü)
+	void SI_API TryActive(SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…)
 	{
-		SIBuffDecl_void(TryActive)(Buff, Buff²ÎÊıÉèÖÃ°ü);
+		SIBuffDecl_void(TryActive)(Buff, Buffå‚æ•°è®¾ç½®åŒ…);
 	}
 
 	void SI_API TryAfter(SIBuffClass* Buff)
@@ -293,23 +293,23 @@ namespace SIBuff
 		SIBuffDecl_void(TryAfter)(Buff);
 	}
 
-	void SI_API TryDamage(SIBuffClass* Buff, double ×¼±¸Ôì³ÉµÄÉËº¦)
+	void SI_API TryDamage(SIBuffClass* Buff, double å‡†å¤‡é€ æˆçš„ä¼¤å®³)
 	{
-		SIBuffDecl_void(TryDamage)(Buff, ×¼±¸Ôì³ÉµÄÉËº¦);
+		SIBuffDecl_void(TryDamage)(Buff, å‡†å¤‡é€ æˆçš„ä¼¤å®³);
 	}
 
 	// ====================================================================================================
-	// ==== BuffClass ½Ó¿Ú - ÊôĞÔº¯Êı =====================================================================
+	// ==== BuffClass æ¥å£ - å±æ€§å‡½æ•° =====================================================================
 	// ====================================================================================================
 
-	void SI_API EnterState(SIBuffClass* Buff, SIBuffClass_State ×´Ì¬)
+	void SI_API EnterState(SIBuffClass* Buff, SIBuffClass_State çŠ¶æ€)
 	{
-		SIBuffDecl_void(EnterState)(Buff, ×´Ì¬);
+		SIBuffDecl_void(EnterState)(Buff, çŠ¶æ€);
 	}
 
-	void SI_API MergeSetting(SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü)
+	void SI_API MergeSetting(SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…)
 	{
-		SIBuffDecl_void(MergeSetting)(Buff, Buff²ÎÊıÉèÖÃ°ü);
+		SIBuffDecl_void(MergeSetting)(Buff, Buffå‚æ•°è®¾ç½®åŒ…);
 	}
 
 	CoordStruct SI_API GetCenterCoords(SIBuffClass* Buff)
@@ -317,25 +317,25 @@ namespace SIBuff
 		SIBuffDecl(GetCenterCoords)(Buff);
 	}
 
-	// ·µ»ØÖµ¿ÉÄÜÎª¿Õ
+	// è¿”å›å€¼å¯èƒ½ä¸ºç©º
 	TechnoClass* SI_API GetOwnerTechno(SIBuffClass* Buff)
 	{
 		SIBuffDecl(GetOwnerTechno)(Buff);
 	}
 
-	// ·µ»ØÖµ¿ÉÄÜÎª¿Õ
+	// è¿”å›å€¼å¯èƒ½ä¸ºç©º
 	TechnoClass* SI_API GetSourceTechno(SIBuffClass* Buff)
 	{
 		SIBuffDecl(GetSourceTechno)(Buff);
 	}
 
-	// ·µ»ØÖµ¿ÉÄÜÎª¿Õ
+	// è¿”å›å€¼å¯èƒ½ä¸ºç©º
 	TechnoTypeClass* SI_API GetOwnerTechnoType(SIBuffClass* Buff)
 	{
 		SIBuffDecl(GetOwnerTechnoType)(Buff);
 	}
 
-	// ·µ»ØÖµ¿ÉÄÜÎª¿Õ
+	// è¿”å›å€¼å¯èƒ½ä¸ºç©º
 	TechnoTypeClass* SI_API GetSourceTechnoType(SIBuffClass* Buff)
 	{
 		SIBuffDecl(GetSourceTechnoType)(Buff);
@@ -352,47 +352,47 @@ namespace SIBuff
 	}
 
 	// ====================================================================================================
-	// ==== BuffClass ½Ó¿Ú - ¹¤¾ßº¯Êı =====================================================================
+	// ==== BuffClass æ¥å£ - å·¥å…·å‡½æ•° =====================================================================
 	// ====================================================================================================
 
-	int SI_API GetEffectMode_A(SIBuffClass* Buff, int ²ÎÊıÏîË÷Òı, int ×î´óÖµ)
+	int SI_API GetEffectMode_A(SIBuffClass* Buff, int å‚æ•°é¡¹ç´¢å¼•, int æœ€å¤§å€¼)
 	{
-		SIBuffDecl(GetEffectMode_A)(Buff, ²ÎÊıÏîË÷Òı, ×î´óÖµ);
+		SIBuffDecl(GetEffectMode_A)(Buff, å‚æ•°é¡¹ç´¢å¼•, æœ€å¤§å€¼);
 	}
 
-	int SI_API GetEffectMode_B(SIBuffClass* Buff, int ²ÎÊıÏîË÷Òı, int ×î´óÖµ, int ×îĞ¡Öµ)
+	int SI_API GetEffectMode_B(SIBuffClass* Buff, int å‚æ•°é¡¹ç´¢å¼•, int æœ€å¤§å€¼, int æœ€å°å€¼)
 	{
-		SIBuffDecl(GetEffectMode_B)(Buff, ²ÎÊıÏîË÷Òı, ×î´óÖµ, ×îĞ¡Öµ);
+		SIBuffDecl(GetEffectMode_B)(Buff, å‚æ•°é¡¹ç´¢å¼•, æœ€å¤§å€¼, æœ€å°å€¼);
 	}
 
-	double SI_API GetEffectPower_A(SIBuffClass* Buff, int ²ÎÊıÏîË÷Òı)
+	double SI_API GetEffectPower_A(SIBuffClass* Buff, int å‚æ•°é¡¹ç´¢å¼•)
 	{
-		SIBuffDecl(GetEffectPower_A)(Buff, ²ÎÊıÏîË÷Òı);
+		SIBuffDecl(GetEffectPower_A)(Buff, å‚æ•°é¡¹ç´¢å¼•);
 	}
 
-	double SI_API GetEffectPower_B(SIBuffClass* Buff, int ²ÎÊıÏîË÷Òı, double ×îĞ¡Öµ)
+	double SI_API GetEffectPower_B(SIBuffClass* Buff, int å‚æ•°é¡¹ç´¢å¼•, double æœ€å°å€¼)
 	{
-		SIBuffDecl(GetEffectPower_B)(Buff, ²ÎÊıÏîË÷Òı, ×îĞ¡Öµ);
+		SIBuffDecl(GetEffectPower_B)(Buff, å‚æ•°é¡¹ç´¢å¼•, æœ€å°å€¼);
 	}
 
-	double SI_API GetEffectTotal_A(SIBuffClass* Buff, int ²ÎÊıÏîË÷Òı, double ºÏ²¢ºóµÄÊµ¼ÊĞ§¹ûÇ¿¶È)
+	double SI_API GetEffectTotal_A(SIBuffClass* Buff, int å‚æ•°é¡¹ç´¢å¼•, double åˆå¹¶åçš„å®é™…æ•ˆæœå¼ºåº¦)
 	{
-		SIBuffDecl(GetEffectTotal_A)(Buff, ²ÎÊıÏîË÷Òı, ºÏ²¢ºóµÄÊµ¼ÊĞ§¹ûÇ¿¶È);
+		SIBuffDecl(GetEffectTotal_A)(Buff, å‚æ•°é¡¹ç´¢å¼•, åˆå¹¶åçš„å®é™…æ•ˆæœå¼ºåº¦);
 	}
 
-	double SI_API GetEffectTotal_B(SIBuffClass* Buff, int ²ÎÊıÏîË÷Òı, double ºÏ²¢ºóµÄÊµ¼ÊĞ§¹ûÇ¿¶È, double ×îĞ¡Öµ)
+	double SI_API GetEffectTotal_B(SIBuffClass* Buff, int å‚æ•°é¡¹ç´¢å¼•, double åˆå¹¶åçš„å®é™…æ•ˆæœå¼ºåº¦, double æœ€å°å€¼)
 	{
-		SIBuffDecl(GetEffectTotal_B)(Buff, ²ÎÊıÏîË÷Òı, ºÏ²¢ºóµÄÊµ¼ÊĞ§¹ûÇ¿¶È, ×îĞ¡Öµ);
+		SIBuffDecl(GetEffectTotal_B)(Buff, å‚æ•°é¡¹ç´¢å¼•, åˆå¹¶åçš„å®é™…æ•ˆæœå¼ºåº¦, æœ€å°å€¼);
 	}
 
-	double SI_API GetEffectTotalMax(SIBuffClass* Buff, int ²ÎÊıÏîË÷Òı)
+	double SI_API GetEffectTotalMax(SIBuffClass* Buff, int å‚æ•°é¡¹ç´¢å¼•)
 	{
-		SIBuffDecl(GetEffectTotalMax)(Buff, ²ÎÊıÏîË÷Òı);
+		SIBuffDecl(GetEffectTotalMax)(Buff, å‚æ•°é¡¹ç´¢å¼•);
 	}
 
-	double SI_API GetEffectTotalMin(SIBuffClass* Buff, int ²ÎÊıÏîË÷Òı)
+	double SI_API GetEffectTotalMin(SIBuffClass* Buff, int å‚æ•°é¡¹ç´¢å¼•)
 	{
-		SIBuffDecl(GetEffectTotalMin)(Buff, ²ÎÊıÏîË÷Òı);
+		SIBuffDecl(GetEffectTotalMin)(Buff, å‚æ•°é¡¹ç´¢å¼•);
 	}
 
 	bool SI_API Effect_NotPassCommonCheck_A(SIBuffClass* Buff)
@@ -400,24 +400,24 @@ namespace SIBuff
 		SIBuffDecl(Effect_NotPassCommonCheck_A)(Buff);
 	}
 
-	bool SI_API Effect_NotPassCommonCheck_B(SIBuffClass* Buff, SIBuffClass_EffectData* ÉúĞ§Êı¾İ)
+	bool SI_API Effect_NotPassCommonCheck_B(SIBuffClass* Buff, SIBuffClass_EffectData* ç”Ÿæ•ˆæ•°æ®)
 	{
-		SIBuffDecl(Effect_NotPassCommonCheck_B)(Buff, ÉúĞ§Êı¾İ);
+		SIBuffDecl(Effect_NotPassCommonCheck_B)(Buff, ç”Ÿæ•ˆæ•°æ®);
 	}
 
-	bool SI_API Effect_NotPassCommonCheck_C(SIBuffClass* Buff, args_ReceiveDamage* ÉËº¦²ÎÊı)
+	bool SI_API Effect_NotPassCommonCheck_C(SIBuffClass* Buff, args_ReceiveDamage* ä¼¤å®³å‚æ•°)
 	{
-		SIBuffDecl(Effect_NotPassCommonCheck_C)(Buff, ÉËº¦²ÎÊı);
+		SIBuffDecl(Effect_NotPassCommonCheck_C)(Buff, ä¼¤å®³å‚æ•°);
 	}
 
-	bool SI_API Effect_NotPassCommonCheck_D(SIBuffClass* Buff, args_ReceiveDamage* ÉËº¦²ÎÊı, double µ±Ç°ÉËº¦)
+	bool SI_API Effect_NotPassCommonCheck_D(SIBuffClass* Buff, args_ReceiveDamage* ä¼¤å®³å‚æ•°, double å½“å‰ä¼¤å®³)
 	{
-		SIBuffDecl(Effect_NotPassCommonCheck_D)(Buff, ÉËº¦²ÎÊı, µ±Ç°ÉËº¦);
+		SIBuffDecl(Effect_NotPassCommonCheck_D)(Buff, ä¼¤å®³å‚æ•°, å½“å‰ä¼¤å®³);
 	}
 
-	bool SI_API Effect_NotPassCommonCheck_E(SIBuffClass* Buff, double µ±Ç°ÉËº¦)
+	bool SI_API Effect_NotPassCommonCheck_E(SIBuffClass* Buff, double å½“å‰ä¼¤å®³)
 	{
-		SIBuffDecl(Effect_NotPassCommonCheck_E)(Buff, µ±Ç°ÉËº¦);
+		SIBuffDecl(Effect_NotPassCommonCheck_E)(Buff, å½“å‰ä¼¤å®³);
 	}
 
 	bool SI_API Effect_NotPassCommonCheck_NoIronCurtain(SIBuffClass* Buff)
@@ -425,63 +425,63 @@ namespace SIBuff
 		SIBuffDecl(Effect_NotPassCommonCheck_NoIronCurtain)(Buff);
 	}
 
-	bool SI_API Effect_PassCheck_TechnoTypeList(SIBuffClass* Buff, TechnoTypeClass* Ä¿±êµ¥Î»ÀàĞÍ)
+	bool SI_API Effect_PassCheck_TechnoTypeList(SIBuffClass* Buff, TechnoTypeClass* ç›®æ ‡å•ä½ç±»å‹)
 	{
-		SIBuffDecl(Effect_PassCheck_TechnoTypeList)(Buff, Ä¿±êµ¥Î»ÀàĞÍ);
+		SIBuffDecl(Effect_PassCheck_TechnoTypeList)(Buff, ç›®æ ‡å•ä½ç±»å‹);
 	}
 
-	bool SI_API Effect_NotPassCheck_TechnoTypeList(SIBuffClass* Buff, TechnoTypeClass* Ä¿±êµ¥Î»ÀàĞÍ)
+	bool SI_API Effect_NotPassCheck_TechnoTypeList(SIBuffClass* Buff, TechnoTypeClass* ç›®æ ‡å•ä½ç±»å‹)
 	{
-		SIBuffDecl(Effect_NotPassCheck_TechnoTypeList)(Buff, Ä¿±êµ¥Î»ÀàĞÍ);
+		SIBuffDecl(Effect_NotPassCheck_TechnoTypeList)(Buff, ç›®æ ‡å•ä½ç±»å‹);
 	}
 
-	bool SI_API Effect_Match_TechnoTypeList(SIBuffClass* Buff, TechnoTypeClass* Ä¿±êµ¥Î»ÀàĞÍ)
+	bool SI_API Effect_Match_TechnoTypeList(SIBuffClass* Buff, TechnoTypeClass* ç›®æ ‡å•ä½ç±»å‹)
 	{
-		SIBuffDecl(Effect_Match_TechnoTypeList)(Buff, Ä¿±êµ¥Î»ÀàĞÍ);
+		SIBuffDecl(Effect_Match_TechnoTypeList)(Buff, ç›®æ ‡å•ä½ç±»å‹);
 	}
 
-	bool SI_API Effect_NotMatch_TechnoTypeList(SIBuffClass* Buff, TechnoTypeClass* Ä¿±êµ¥Î»ÀàĞÍ)
+	bool SI_API Effect_NotMatch_TechnoTypeList(SIBuffClass* Buff, TechnoTypeClass* ç›®æ ‡å•ä½ç±»å‹)
 	{
-		SIBuffDecl(Effect_NotMatch_TechnoTypeList)(Buff, Ä¿±êµ¥Î»ÀàĞÍ);
+		SIBuffDecl(Effect_NotMatch_TechnoTypeList)(Buff, ç›®æ ‡å•ä½ç±»å‹);
 	}
 
-	// »áÉèÖÃ SIDamageLeft ÊôĞÔ
-	void SI_API ReceiveWarheadDamage_A(SIBuffClass* Buff, TechnoClass* Ä¿±êµ¥Î», TechnoClass* ¹¥»÷µ¥Î», double ÉËº¦, WarheadTypeClass* ÉËº¦µ¯Í·ÀàĞÍ)
+	// ä¼šè®¾ç½® SIDamageLeft å±æ€§
+	void SI_API ReceiveWarheadDamage_A(SIBuffClass* Buff, TechnoClass* ç›®æ ‡å•ä½, TechnoClass* æ”»å‡»å•ä½, double ä¼¤å®³, WarheadTypeClass* ä¼¤å®³å¼¹å¤´ç±»å‹)
 	{
-		SIBuffDecl_void(ReceiveWarheadDamage_A)(Buff, Ä¿±êµ¥Î», ¹¥»÷µ¥Î», ÉËº¦, ÉËº¦µ¯Í·ÀàĞÍ);
+		SIBuffDecl_void(ReceiveWarheadDamage_A)(Buff, ç›®æ ‡å•ä½, æ”»å‡»å•ä½, ä¼¤å®³, ä¼¤å®³å¼¹å¤´ç±»å‹);
 	}
 
-	// »áÉèÖÃ SIDamageLeft ÊôĞÔ
-	void SI_API ReceiveWarheadDamage_B(SIBuffClass* Buff, TechnoClass* Ä¿±êµ¥Î», TechnoClass* ¹¥»÷µ¥Î», double ÉËº¦, WarheadTypeClass* ÉËº¦µ¯Í·ÀàĞÍ, HouseClass* ¹¥»÷µ¥Î»ËùÊô×÷Õ½·½)
+	// ä¼šè®¾ç½® SIDamageLeft å±æ€§
+	void SI_API ReceiveWarheadDamage_B(SIBuffClass* Buff, TechnoClass* ç›®æ ‡å•ä½, TechnoClass* æ”»å‡»å•ä½, double ä¼¤å®³, WarheadTypeClass* ä¼¤å®³å¼¹å¤´ç±»å‹, HouseClass* æ”»å‡»å•ä½æ‰€å±ä½œæˆ˜æ–¹)
 	{
-		SIBuffDecl_void(ReceiveWarheadDamage_B)(Buff, Ä¿±êµ¥Î», ¹¥»÷µ¥Î», ÉËº¦, ÉËº¦µ¯Í·ÀàĞÍ, ¹¥»÷µ¥Î»ËùÊô×÷Õ½·½);
+		SIBuffDecl_void(ReceiveWarheadDamage_B)(Buff, ç›®æ ‡å•ä½, æ”»å‡»å•ä½, ä¼¤å®³, ä¼¤å®³å¼¹å¤´ç±»å‹, æ”»å‡»å•ä½æ‰€å±ä½œæˆ˜æ–¹);
 	}
 
-	// »áÉèÖÃ SIDamageLeft ÊôĞÔ
-	void SI_API ReceiveHealthDamage_A(SIBuffClass* Buff, TechnoClass* Ä¿±êµ¥Î», double ÉúÃüÖµËğºÄ, WarheadTypeClass* ½áËã»¤¼×µ¯Í·ÀàĞÍ, WarheadTypeClass* ËÀÍöÉËº¦µ¯Í·ÀàĞÍ, bool Ö´ĞĞ×ÔÉí´¦Àí¹ı³Ì)
+	// ä¼šè®¾ç½® SIDamageLeft å±æ€§
+	void SI_API ReceiveHealthDamage_A(SIBuffClass* Buff, TechnoClass* ç›®æ ‡å•ä½, double ç”Ÿå‘½å€¼æŸè€—, WarheadTypeClass* ç»“ç®—æŠ¤ç”²å¼¹å¤´ç±»å‹, WarheadTypeClass* æ­»äº¡ä¼¤å®³å¼¹å¤´ç±»å‹, bool æ‰§è¡Œè‡ªèº«å¤„ç†è¿‡ç¨‹)
 	{
-		SIBuffDecl_void(ReceiveHealthDamage_A)(Buff, Ä¿±êµ¥Î», ÉúÃüÖµËğºÄ, ½áËã»¤¼×µ¯Í·ÀàĞÍ, ËÀÍöÉËº¦µ¯Í·ÀàĞÍ, Ö´ĞĞ×ÔÉí´¦Àí¹ı³Ì);
+		SIBuffDecl_void(ReceiveHealthDamage_A)(Buff, ç›®æ ‡å•ä½, ç”Ÿå‘½å€¼æŸè€—, ç»“ç®—æŠ¤ç”²å¼¹å¤´ç±»å‹, æ­»äº¡ä¼¤å®³å¼¹å¤´ç±»å‹, æ‰§è¡Œè‡ªèº«å¤„ç†è¿‡ç¨‹);
 	}
 
-	// »áÉèÖÃ SIDamageLeft ÊôĞÔ
-	void SI_API ReceiveHealthDamage_B(SIBuffClass* Buff, TechnoClass* Ä¿±êµ¥Î», double ÉúÃüÖµËğºÄ, double ÉúÃüÖµËğºÄÉÏÏŞ, double ÉúÃüÖµËğºÄÏÂÏŞ, WarheadTypeClass* ½áËã»¤¼×µ¯Í·ÀàĞÍ, WarheadTypeClass* ËÀÍöÉËº¦µ¯Í·ÀàĞÍ, bool Ö´ĞĞ×ÔÉí´¦Àí¹ı³Ì)
+	// ä¼šè®¾ç½® SIDamageLeft å±æ€§
+	void SI_API ReceiveHealthDamage_B(SIBuffClass* Buff, TechnoClass* ç›®æ ‡å•ä½, double ç”Ÿå‘½å€¼æŸè€—, double ç”Ÿå‘½å€¼æŸè€—ä¸Šé™, double ç”Ÿå‘½å€¼æŸè€—ä¸‹é™, WarheadTypeClass* ç»“ç®—æŠ¤ç”²å¼¹å¤´ç±»å‹, WarheadTypeClass* æ­»äº¡ä¼¤å®³å¼¹å¤´ç±»å‹, bool æ‰§è¡Œè‡ªèº«å¤„ç†è¿‡ç¨‹)
 	{
-		SIBuffDecl_void(ReceiveHealthDamage_B)(Buff, Ä¿±êµ¥Î», ÉúÃüÖµËğºÄ, ÉúÃüÖµËğºÄÉÏÏŞ, ÉúÃüÖµËğºÄÏÂÏŞ, ½áËã»¤¼×µ¯Í·ÀàĞÍ, ËÀÍöÉËº¦µ¯Í·ÀàĞÍ, Ö´ĞĞ×ÔÉí´¦Àí¹ı³Ì);
+		SIBuffDecl_void(ReceiveHealthDamage_B)(Buff, ç›®æ ‡å•ä½, ç”Ÿå‘½å€¼æŸè€—, ç”Ÿå‘½å€¼æŸè€—ä¸Šé™, ç”Ÿå‘½å€¼æŸè€—ä¸‹é™, ç»“ç®—æŠ¤ç”²å¼¹å¤´ç±»å‹, æ­»äº¡ä¼¤å®³å¼¹å¤´ç±»å‹, æ‰§è¡Œè‡ªèº«å¤„ç†è¿‡ç¨‹);
 	}
 
-	bool SI_API FreshOrPostBroadcast(SIBuffClass* Buff, double ĞèÒª¸üĞÂµÄ¹ã²¥Ç¿¶È, AbstractClass* Ö¸ÏòÄ¿±ê)
+	bool SI_API FreshOrPostBroadcast(SIBuffClass* Buff, double éœ€è¦æ›´æ–°çš„å¹¿æ’­å¼ºåº¦, AbstractClass* æŒ‡å‘ç›®æ ‡)
 	{
-		SIBuffDecl(FreshOrPostBroadcast)(Buff, ĞèÒª¸üĞÂµÄ¹ã²¥Ç¿¶È, Ö¸ÏòÄ¿±ê);
+		SIBuffDecl(FreshOrPostBroadcast)(Buff, éœ€è¦æ›´æ–°çš„å¹¿æ’­å¼ºåº¦, æŒ‡å‘ç›®æ ‡);
 	}
 
-	void SI_API ResetBroadcastPower(SIBuffClass* Buff, double ĞèÒª¸üĞÂµÄ¹ã²¥Ç¿¶È)
+	void SI_API ResetBroadcastPower(SIBuffClass* Buff, double éœ€è¦æ›´æ–°çš„å¹¿æ’­å¼ºåº¦)
 	{
-		SIBuffDecl_void(ResetBroadcastPower)(Buff, ĞèÒª¸üĞÂµÄ¹ã²¥Ç¿¶È);
+		SIBuffDecl_void(ResetBroadcastPower)(Buff, éœ€è¦æ›´æ–°çš„å¹¿æ’­å¼ºåº¦);
 	}
 
-	int SI_API GetBroadcastListenerCount(SIBuffClass* Buff, bool ÎŞÊÓÏŞÖÆÌõ¼ş, AbstractClass* Ö¸ÏòÄ¿±ê)
+	int SI_API GetBroadcastListenerCount(SIBuffClass* Buff, bool æ— è§†é™åˆ¶æ¡ä»¶, AbstractClass* æŒ‡å‘ç›®æ ‡)
 	{
-		SIBuffDecl(GetBroadcastListenerCount)(Buff, ÎŞÊÓÏŞÖÆÌõ¼ş, Ö¸ÏòÄ¿±ê);
+		SIBuffDecl(GetBroadcastListenerCount)(Buff, æ— è§†é™åˆ¶æ¡ä»¶, æŒ‡å‘ç›®æ ‡);
 	}
 
 	bool SI_API AddAsBroadcastListener(SIBuffClass* Buff)
@@ -499,35 +499,35 @@ namespace SIBuff
 		SIBuffDecl(GetBroadcastPower_Total)(Buff);
 	}
 
-	// ·µ»ØÖµ¿ÉÄÜÎª¿Õ
+	// è¿”å›å€¼å¯èƒ½ä¸ºç©º
 	TechnoClass* SI_API GetFireOwner(SIBuffClass* Buff)
 	{
 		SIBuffDecl(GetFireOwner)(Buff);
 	}
 
-	bool SI_API GetFireOwnerRawOffset(SIBuffClass* Buff, CoordStruct& ±¾Ìå×ø±ê)
+	bool SI_API GetFireOwnerRawOffset(SIBuffClass* Buff, CoordStruct& æœ¬ä½“åæ ‡)
 	{
-		SIBuffDecl(GetFireOwnerRawOffset)(Buff, ±¾Ìå×ø±ê);
+		SIBuffDecl(GetFireOwnerRawOffset)(Buff, æœ¬ä½“åæ ‡);
 	}
 
-	bool SI_API GetFireTargetRawOffset(SIBuffClass* Buff, AbstractClass* Ä¿±ê, CoordStruct& Ä¿±ê×ø±ê)
+	bool SI_API GetFireTargetRawOffset(SIBuffClass* Buff, AbstractClass* ç›®æ ‡, CoordStruct& ç›®æ ‡åæ ‡)
 	{
-		SIBuffDecl(GetFireTargetRawOffset)(Buff, Ä¿±ê, Ä¿±ê×ø±ê);
+		SIBuffDecl(GetFireTargetRawOffset)(Buff, ç›®æ ‡, ç›®æ ‡åæ ‡);
 	}
 
-	double SI_API GetFacingRotate(SIBuffClass* Buff, SIRotateType ¸úËæĞı×ªÀàĞÍ, CoordStruct ±¾Ìå×ø±ê, CoordStruct Ä¿±ê×ø±ê)
+	double SI_API GetFacingRotate(SIBuffClass* Buff, SIRotateType è·Ÿéšæ—‹è½¬ç±»å‹, CoordStruct æœ¬ä½“åæ ‡, CoordStruct ç›®æ ‡åæ ‡)
 	{
-		SIBuffDecl(GetFacingRotate)(Buff, ¸úËæĞı×ªÀàĞÍ, ±¾Ìå×ø±ê, Ä¿±ê×ø±ê);
+		SIBuffDecl(GetFacingRotate)(Buff, è·Ÿéšæ—‹è½¬ç±»å‹, æœ¬ä½“åæ ‡, ç›®æ ‡åæ ‡);
 	}
 
-	double SI_API GetFacingRotate_Same(SIBuffClass* Buff, SIRotateType ¸úËæĞı×ªÀàĞÍ, CoordStruct ±¾Ìå×ø±ê, CoordStruct Ä¿±ê×ø±ê, SIRotateType ÓÃÓÚÍ¬²½µÄ¸úËæĞı×ªÀàĞÍ, double ÓÃÓÚÍ¬²½µÄĞı×ª½Ç¶È_»¡¶È)
+	double SI_API GetFacingRotate_Same(SIBuffClass* Buff, SIRotateType è·Ÿéšæ—‹è½¬ç±»å‹, CoordStruct æœ¬ä½“åæ ‡, CoordStruct ç›®æ ‡åæ ‡, SIRotateType ç”¨äºåŒæ­¥çš„è·Ÿéšæ—‹è½¬ç±»å‹, double ç”¨äºåŒæ­¥çš„æ—‹è½¬è§’åº¦_å¼§åº¦)
 	{
-		SIBuffDecl(GetFacingRotate_Same)(Buff, ¸úËæĞı×ªÀàĞÍ, ±¾Ìå×ø±ê, Ä¿±ê×ø±ê, ÓÃÓÚÍ¬²½µÄ¸úËæĞı×ªÀàĞÍ, ÓÃÓÚÍ¬²½µÄĞı×ª½Ç¶È_»¡¶È);
+		SIBuffDecl(GetFacingRotate_Same)(Buff, è·Ÿéšæ—‹è½¬ç±»å‹, æœ¬ä½“åæ ‡, ç›®æ ‡åæ ‡, ç”¨äºåŒæ­¥çš„è·Ÿéšæ—‹è½¬ç±»å‹, ç”¨äºåŒæ­¥çš„æ—‹è½¬è§’åº¦_å¼§åº¦);
 	}
 
-	void SI_API FreshFacingAndAimingRadius_Common(SIBuffClass* Buff, CoordStruct ±¾Ìå×ø±ê, CoordStruct ±¾Ìå¿ª»ğ×ø±ê, CoordStruct Ä¿±ê×ø±ê, CoordStruct& ¿ª»ğ×ø±ê, CoordStruct& ÃüÖĞ×ø±ê)
+	void SI_API FreshFacingAndAimingRadius_Common(SIBuffClass* Buff, CoordStruct æœ¬ä½“åæ ‡, CoordStruct æœ¬ä½“å¼€ç«åæ ‡, CoordStruct ç›®æ ‡åæ ‡, CoordStruct& å¼€ç«åæ ‡, CoordStruct& å‘½ä¸­åæ ‡)
 	{
-		SIBuffDecl_void(FreshFacingAndAimingRadius_Common)(Buff, ±¾Ìå×ø±ê, ±¾Ìå¿ª»ğ×ø±ê, Ä¿±ê×ø±ê, ¿ª»ğ×ø±ê, ÃüÖĞ×ø±ê);
+		SIBuffDecl_void(FreshFacingAndAimingRadius_Common)(Buff, æœ¬ä½“åæ ‡, æœ¬ä½“å¼€ç«åæ ‡, ç›®æ ‡åæ ‡, å¼€ç«åæ ‡, å‘½ä¸­åæ ‡);
 	}
 
 	void SI_API OffsetMotion_Init(SIBuffClass* Buff)
@@ -540,28 +540,28 @@ namespace SIBuff
 		SIBuffDecl_void(OffsetMotion_AI)(Buff);
 	}
 
-	void SI_API DigitalButtonData_Init(SIBuffClass* Buff, int µ¥Î»ÊıÁ¿)
+	void SI_API DigitalButtonData_Init(SIBuffClass* Buff, int å•ä½æ•°é‡)
 	{
-		SIBuffDecl_void(DigitalButtonData_Init)(Buff, µ¥Î»ÊıÁ¿);
+		SIBuffDecl_void(DigitalButtonData_Init)(Buff, å•ä½æ•°é‡);
 	}
 }
 
 
-// ¹¦ÄÜº¯Êı
-SIPack_BuffSetting_FromStatic SIPackTypeClass_BuffSetting::MakePack(HouseClass* µ±Ç°×÷Õ½·½)
+// åŠŸèƒ½å‡½æ•°
+SIPack_BuffSetting_FromStatic SIPackTypeClass_BuffSetting::MakePack(HouseClass* å½“å‰ä½œæˆ˜æ–¹)
 {
-	return SIClassManager::MakePack(this, µ±Ç°×÷Õ½·½);
+	return SIClassManager::MakePack(this, å½“å‰ä½œæˆ˜æ–¹);
 }
-// ¹¹½¨º¯Êı
+// æ„å»ºå‡½æ•°
 SIPack_BuffSetting_FromStatic SIPackTypeClass_BuffSetting::MakePack_Empty()
 {
 	return SIClassManager::MakePack_Empty();
 }
-SIPack_BuffSetting_FromStatic SIPackTypeClass_BuffSetting::MakePack_DurationOnly(int ³ÖĞøÊ±¼ä, bool ¸²¸Ç³ÖĞøÊ±¼ä, bool ³ĞÊÜ³ÖĞøÊ±¼ä¿¹ĞÔ)
+SIPack_BuffSetting_FromStatic SIPackTypeClass_BuffSetting::MakePack_DurationOnly(int æŒç»­æ—¶é—´, bool è¦†ç›–æŒç»­æ—¶é—´, bool æ‰¿å—æŒç»­æ—¶é—´æŠ—æ€§)
 {
-	return SIClassManager::MakePack_DurationOnly(³ÖĞøÊ±¼ä, ¸²¸Ç³ÖĞøÊ±¼ä, ³ĞÊÜ³ÖĞøÊ±¼ä¿¹ĞÔ);
+	return SIClassManager::MakePack_DurationOnly(æŒç»­æ—¶é—´, è¦†ç›–æŒç»­æ—¶é—´, æ‰¿å—æŒç»­æ—¶é—´æŠ—æ€§);
 }
-SIPack_BuffSetting_FromStatic SIPackTypeClass_BuffSetting::MakePack_PowerOnly(double Ç¿¶ÈÖµ, bool ¸²¸ÇÇ¿¶ÈÖµ, bool ³ĞÊÜÇ¿¶ÈÖµ¿¹ĞÔ)
+SIPack_BuffSetting_FromStatic SIPackTypeClass_BuffSetting::MakePack_PowerOnly(double å¼ºåº¦å€¼, bool è¦†ç›–å¼ºåº¦å€¼, bool æ‰¿å—å¼ºåº¦å€¼æŠ—æ€§)
 {
-	return SIClassManager::MakePack_PowerOnly(Ç¿¶ÈÖµ, ¸²¸ÇÇ¿¶ÈÖµ, ³ĞÊÜÇ¿¶ÈÖµ¿¹ĞÔ);
+	return SIClassManager::MakePack_PowerOnly(å¼ºåº¦å€¼, è¦†ç›–å¼ºåº¦å€¼, æ‰¿å—å¼ºåº¦å€¼æŠ—æ€§);
 }

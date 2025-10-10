@@ -1,4 +1,4 @@
-#include "EC.Misc.h"
+ï»¿#include "EC.Misc.h"
 #include "SyringeEx.h"
 #include <random>
 #include <Windows.h>
@@ -204,36 +204,36 @@ std::wstring RandWStr(int i)
 
 std::wstring GBKToUTF16(const std::string& GBK)
 {
-    int nLength = MultiByteToWideChar(CP_ACP, 0, GBK.c_str(), -1, NULL, NULL);   // »ñÈ¡»º³åÇø³¤¶È£¬ÔÙ·ÖÅäÄÚ´æ
+    int nLength = MultiByteToWideChar(CP_ACP, 0, GBK.c_str(), -1, NULL, NULL);   // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½Ù·ï¿½ï¿½ï¿½ï¿½Ú´ï¿½
     WCHAR* tch = new WCHAR[nLength + 4]();
-    nLength = MultiByteToWideChar(CP_ACP, 0, GBK.c_str(), -1, tch, nLength);     // ½«GBK×ª»»³ÉUTF16
+    nLength = MultiByteToWideChar(CP_ACP, 0, GBK.c_str(), -1, tch, nLength);     // ï¿½ï¿½GBK×ªï¿½ï¿½ï¿½ï¿½UTF16
     std::wstring ret = tch;
     delete[] tch;
     return ret;
 }
 std::wstring UTF8ToUTF16(const std::string& UTF8)
 {
-    int nLength = MultiByteToWideChar(CP_UTF8, 0, UTF8.c_str(), -1, NULL, NULL);   // »ñÈ¡»º³åÇø³¤¶È£¬ÔÙ·ÖÅäÄÚ´æ
+    int nLength = MultiByteToWideChar(CP_UTF8, 0, UTF8.c_str(), -1, NULL, NULL);   // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½Ù·ï¿½ï¿½ï¿½ï¿½Ú´ï¿½
     WCHAR* tch = new WCHAR[nLength + 4]{};
-    MultiByteToWideChar(CP_UTF8, 0, UTF8.c_str(), -1, tch, nLength);     // ½«UTF-8×ª»»³ÉUTF16
+    MultiByteToWideChar(CP_UTF8, 0, UTF8.c_str(), -1, tch, nLength);     // ï¿½ï¿½UTF-8×ªï¿½ï¿½ï¿½ï¿½UTF16
     std::wstring ret = tch;
     delete[] tch;
     return ret;
 }
 std::string UTF16ToUTF8(const std::wstring& UTF16)
 {
-    int UTF8len = WideCharToMultiByte(CP_UTF8, 0, UTF16.c_str(), -1, 0, 0, 0, 0);// »ñÈ¡UTF-8±àÂë³¤¶È
+    int UTF8len = WideCharToMultiByte(CP_UTF8, 0, UTF16.c_str(), -1, 0, 0, 0, 0);// ï¿½ï¿½È¡UTF-8ï¿½ï¿½ï¿½ë³¤ï¿½ï¿½
     char* UTF8 = new CHAR[UTF8len + 4]{};
-    WideCharToMultiByte(CP_UTF8, 0, UTF16.c_str(), -1, UTF8, UTF8len, 0, 0); //×ª»»³ÉUTF-8±àÂë
+    WideCharToMultiByte(CP_UTF8, 0, UTF16.c_str(), -1, UTF8, UTF8len, 0, 0); //×ªï¿½ï¿½ï¿½ï¿½UTF-8ï¿½ï¿½ï¿½ï¿½
     std::string ret = UTF8;
     delete[] UTF8;
     return ret;
 }
 std::string UTF16ToGBK(const std::wstring& UTF16)
 {
-    int GBKlen = WideCharToMultiByte(CP_ACP, 0, UTF16.c_str(), -1, 0, 0, 0, 0);// »ñÈ¡UTF-8±àÂë³¤¶È
+    int GBKlen = WideCharToMultiByte(CP_ACP, 0, UTF16.c_str(), -1, 0, 0, 0, 0);// ï¿½ï¿½È¡UTF-8ï¿½ï¿½ï¿½ë³¤ï¿½ï¿½
     char* GBK = new CHAR[GBKlen + 4]{};
-    WideCharToMultiByte(CP_ACP, 0, UTF16.c_str(), -1, GBK, GBKlen, 0, 0); //×ª»»³ÉUTF-8±àÂë
+    WideCharToMultiByte(CP_ACP, 0, UTF16.c_str(), -1, GBK, GBKlen, 0, 0); //×ªï¿½ï¿½ï¿½ï¿½UTF-8ï¿½ï¿½ï¿½ï¿½
     std::string ret = GBK;
     delete[] GBK;
     return ret;

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <SwizzleManagerClass.h>
 #include "EC.Swizzle.h"
 #include "IH.Loader.h"
@@ -11,9 +11,9 @@ class ECStreamReader;
 namespace ECSavegameHelper
 {
 	template <typename T>
-	bool ReadStream(ECStreamReader& Á÷, T& Öµ, bool ×¢²á±ä»¯);
+	bool ReadStream(ECStreamReader& æµ, T& å€¼, bool æ³¨å†Œå˜åŒ–);
 	template <typename T>
-	bool WriteStream(ECStreamWriter& Á÷, const T& Öµ);
+	bool WriteStream(ECStreamWriter& æµ, const T& å€¼);
 };
 
 class ECStreamByte
@@ -266,15 +266,15 @@ namespace ECSavegameHelper
 		struct Selector
 		{
 			template <typename T>
-			static bool ReadFromStream(ECStreamReader& Á÷, T& Öµ, bool ×¢²á±ä»¯)
+			static bool ReadFromStream(ECStreamReader& æµ, T& å€¼, bool æ³¨å†Œå˜åŒ–)
 			{
-				return read_from_stream(Á÷, Öµ, ×¢²á±ä»¯, 0, 0);
+				return read_from_stream(æµ, å€¼, æ³¨å†Œå˜åŒ–, 0, 0);
 			}
 
 			template <typename T>
-			static bool WriteToStream(ECStreamWriter& Á÷, const T& Öµ)
+			static bool WriteToStream(ECStreamWriter& æµ, const T& å€¼)
 			{
-				return write_to_stream(Á÷, Öµ, 0, 0);
+				return write_to_stream(æµ, å€¼, 0, 0);
 			}
 
 		private:
@@ -287,41 +287,41 @@ namespace ECSavegameHelper
 			};
 
 			template <typename T>
-			static auto read_from_stream(ECStreamReader& Á÷, T& Öµ, bool ×¢²á±ä»¯, int, int) -> decltype(Öµ.Load(Á÷, ×¢²á±ä»¯))
+			static auto read_from_stream(ECStreamReader& æµ, T& å€¼, bool æ³¨å†Œå˜åŒ–, int, int) -> decltype(å€¼.Load(æµ, æ³¨å†Œå˜åŒ–))
 			{
-				return Öµ.Load(Á÷, ×¢²á±ä»¯);
+				return å€¼.Load(æµ, æ³¨å†Œå˜åŒ–);
 			}
 
 			template <typename T>
-			static auto read_from_stream(ECStreamReader& Á÷, T& Öµ, bool ×¢²á±ä»¯, Dummy, int) -> decltype(Öµ.load(Á÷, ×¢²á±ä»¯))
+			static auto read_from_stream(ECStreamReader& æµ, T& å€¼, bool æ³¨å†Œå˜åŒ–, Dummy, int) -> decltype(å€¼.load(æµ, æ³¨å†Œå˜åŒ–))
 			{
-				return Öµ.load(Á÷, ×¢²á±ä»¯);
+				return å€¼.load(æµ, æ³¨å†Œå˜åŒ–);
 			}
 
 			template <typename T>
-			static bool read_from_stream(ECStreamReader& Á÷, T& Öµ, bool ×¢²á±ä»¯, Dummy, Dummy)
+			static bool read_from_stream(ECStreamReader& æµ, T& å€¼, bool æ³¨å†Œå˜åŒ–, Dummy, Dummy)
 			{
 				StreamObject<T> item;
-				return item.ReadFromStream(Á÷, Öµ, ×¢²á±ä»¯);
+				return item.ReadFromStream(æµ, å€¼, æ³¨å†Œå˜åŒ–);
 			}
 
 			template <typename T>
-			static auto write_to_stream(ECStreamWriter& Á÷, const T& Öµ, int, int) -> decltype(Öµ.Save(Á÷))
+			static auto write_to_stream(ECStreamWriter& æµ, const T& å€¼, int, int) -> decltype(å€¼.Save(æµ))
 			{
-				return Öµ.Save(Á÷);
+				return å€¼.Save(æµ);
 			}
 
 			template <typename T>
-			static auto write_to_stream(ECStreamWriter& Á÷, const T& Öµ, Dummy, int) -> decltype(Öµ.save(Á÷))
+			static auto write_to_stream(ECStreamWriter& æµ, const T& å€¼, Dummy, int) -> decltype(å€¼.save(æµ))
 			{
-				return Öµ.save(Á÷);
+				return å€¼.save(æµ);
 			}
 
 			template <typename T>
-			static bool write_to_stream(ECStreamWriter& Á÷, const T& Öµ, Dummy, Dummy)
+			static bool write_to_stream(ECStreamWriter& æµ, const T& å€¼, Dummy, Dummy)
 			{
 				StreamObject<T> item;
-				return item.WriteToStream(Á÷, Öµ);
+				return item.WriteToStream(æµ, å€¼);
 			}
 		};
 	}
@@ -334,18 +334,18 @@ namespace ECSavegameHelper
 	template <typename T>
 	struct LoadFactory
 	{
-		std::unique_ptr<T> operator() (ECStreamReader& Á÷, bool ×¢²á±ä»¯) const
+		std::unique_ptr<T> operator() (ECStreamReader& æµ, bool æ³¨å†Œå˜åŒ–) const
 		{
-			return load(Á÷, ×¢²á±ä»¯, 0);
+			return load(æµ, æ³¨å†Œå˜åŒ–, 0);
 		}
 
 	private:
-		static auto load(ECStreamReader& Á÷, bool ×¢²á±ä»¯, int) -> decltype(T::LoadOne(Á÷, ×¢²á±ä»¯))
+		static auto load(ECStreamReader& æµ, bool æ³¨å†Œå˜åŒ–, int) -> decltype(T::LoadOne(æµ, æ³¨å†Œå˜åŒ–))
 		{
-			return T::LoadOne(Á÷, ×¢²á±ä»¯);
+			return T::LoadOne(æµ, æ³¨å†Œå˜åŒ–);
 		}
 
-		static auto load(ECStreamReader& Á÷, bool ×¢²á±ä»¯, ECHelper_SGDummy)
+		static auto load(ECStreamReader& æµ, bool æ³¨å†Œå˜åŒ–, ECHelper_SGDummy)
 		{
 			return std::make_unique<T>();
 		}
@@ -354,65 +354,65 @@ namespace ECSavegameHelper
 	template <typename T>
 	struct SaveFactory
 	{
-		bool operator() (ECStreamWriter& Á÷, const T* Öµ)
+		bool operator() (ECStreamWriter& æµ, const T* å€¼)
 		{
-			return save(Á÷, Öµ, 0);
+			return save(æµ, å€¼, 0);
 		}
 
 	private:
-		static auto save(ECStreamWriter& Á÷, const T* Öµ, int) -> decltype(T::SaveOne(Á÷, Öµ))
+		static auto save(ECStreamWriter& æµ, const T* å€¼, int) -> decltype(T::SaveOne(æµ, å€¼))
 		{
-			return T::SaveOne(Á÷, Öµ);
+			return T::SaveOne(æµ, å€¼);
 		}
 
-		static auto save(ECStreamWriter& Á÷, const T* Öµ, ECHelper_SGDummy)
+		static auto save(ECStreamWriter& æµ, const T* å€¼, ECHelper_SGDummy)
 		{
 			return true;
 		}
 	};
 
 	template <typename T>
-	bool ReadStream(ECStreamReader& Á÷, T& Öµ, bool ×¢²á±ä»¯ = true)
+	bool ReadStream(ECStreamReader& æµ, T& å€¼, bool æ³¨å†Œå˜åŒ– = true)
 	{
-		return detail::Selector::ReadFromStream(Á÷, Öµ, ×¢²á±ä»¯);
+		return detail::Selector::ReadFromStream(æµ, å€¼, æ³¨å†Œå˜åŒ–);
 	}
 
 	template <typename T>
-	bool WriteStream(ECStreamWriter& Á÷, const T& Öµ)
+	bool WriteStream(ECStreamWriter& æµ, const T& å€¼)
 	{
-		return detail::Selector::WriteToStream(Á÷, Öµ);
+		return detail::Selector::WriteToStream(æµ, å€¼);
 	}
 
 	template <typename T>
-	T* RestoreObject(ECStreamReader& Á÷, bool ×¢²á±ä»¯ = true)
+	T* RestoreObject(ECStreamReader& æµ, bool æ³¨å†Œå˜åŒ– = true)
 	{
-		T* ¾ÉÖ¸Õë = nullptr;
-		if (!Á÷.Load(¾ÉÖ¸Õë))
+		T* æ—§æŒ‡é’ˆ = nullptr;
+		if (!æµ.Load(æ—§æŒ‡é’ˆ))
 		{
 			return nullptr;
 		}
-		if (¾ÉÖ¸Õë)
+		if (æ—§æŒ‡é’ˆ)
 		{
-			std::unique_ptr<T> ĞÂÖ¸Õë = LoadFactory<T>()(Á÷, ×¢²á±ä»¯);
-			if (ECSavegameHelper::ReadStream(Á÷, *ĞÂÖ¸Õë, ×¢²á±ä»¯))
+			std::unique_ptr<T> æ–°æŒ‡é’ˆ = LoadFactory<T>()(æµ, æ³¨å†Œå˜åŒ–);
+			if (ECSavegameHelper::ReadStream(æµ, *æ–°æŒ‡é’ˆ, æ³¨å†Œå˜åŒ–))
 			{
-				BaseSwizzle::Instance.RegisterChange(¾ÉÖ¸Õë, ĞÂÖ¸Õë.get());
-				return ĞÂÖ¸Õë.release();
+				BaseSwizzle::Instance.RegisterChange(æ—§æŒ‡é’ˆ, æ–°æŒ‡é’ˆ.get());
+				return æ–°æŒ‡é’ˆ.release();
 			}
 		}
 		return nullptr;
 	}
 
 	template <typename T>
-	bool PersistObject(ECStreamWriter& Á÷, const T* Öµ)
+	bool PersistObject(ECStreamWriter& æµ, const T* å€¼)
 	{
-		if (!ECSavegameHelper::WriteStream(Á÷, Öµ))
+		if (!ECSavegameHelper::WriteStream(æµ, å€¼))
 		{
 			return false;
 		}
-		if (Öµ)
+		if (å€¼)
 		{
-			return SaveFactory<T>()(Á÷, Öµ) && ECSavegameHelper::WriteStream(Á÷, *Öµ);
+			return SaveFactory<T>()(æµ, å€¼) && ECSavegameHelper::WriteStream(æµ, *å€¼);
 		}
 		return true;
 	}
@@ -421,19 +421,19 @@ namespace ECSavegameHelper
 	template <typename T>
 	struct StreamObject
 	{
-		bool ReadFromStream(ECStreamReader& Á÷, T& Öµ, bool ×¢²á±ä»¯) const
+		bool ReadFromStream(ECStreamReader& æµ, T& å€¼, bool æ³¨å†Œå˜åŒ–) const
 		{
-			bool ÔØÈë½á¹û = Á÷.Load(Öµ);
-			if (×¢²á±ä»¯)
+			bool è½½å…¥ç»“æœ = æµ.Load(å€¼);
+			if (æ³¨å†Œå˜åŒ–)
 			{
-				ECSwizzleHelper swizzle(Öµ);
+				ECSwizzleHelper swizzle(å€¼);
 			}
-			return ÔØÈë½á¹û;
+			return è½½å…¥ç»“æœ;
 		}
 
-		bool WriteToStream(ECStreamWriter& Á÷, const T& Öµ) const
+		bool WriteToStream(ECStreamWriter& æµ, const T& å€¼) const
 		{
-			Á÷.Save(Öµ);
+			æµ.Save(å€¼);
 			return true;
 		}
 	};
@@ -443,18 +443,18 @@ namespace ECSavegameHelper
 template <typename T>
 struct ECSavegameHelper::StreamObject<VectorClass<T>>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, VectorClass<T>& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, VectorClass<T>& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
-		Öµ.Clear();
+		å€¼.Clear();
 		int Capacity = 0;
-		if (!Á÷.Load(Capacity))
+		if (!æµ.Load(Capacity))
 		{
 			return false;
 		}
-		Öµ.Reserve(Capacity);
+		å€¼.Reserve(Capacity);
 		for (auto ix = 0; ix < Capacity; ++ix)
 		{
-			if (!ECSavegameHelper::ReadStream(Á÷, Öµ.Items[ix], ×¢²á±ä»¯))
+			if (!ECSavegameHelper::ReadStream(æµ, å€¼.Items[ix], æ³¨å†Œå˜åŒ–))
 			{
 				return false;
 			}
@@ -462,12 +462,12 @@ struct ECSavegameHelper::StreamObject<VectorClass<T>>
 		return true;
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const VectorClass<T>& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const VectorClass<T>& å€¼) const
 	{
-		Á÷.Save(Öµ.Capacity);
-		for (auto ix = 0; ix < Öµ.Capacity; ++ix)
+		æµ.Save(å€¼.Capacity);
+		for (auto ix = 0; ix < å€¼.Capacity; ++ix)
 		{
-			if (!ECSavegameHelper::WriteStream(Á÷, Öµ.Items[ix]))
+			if (!ECSavegameHelper::WriteStream(æµ, å€¼.Items[ix]))
 			{
 				return false;
 			}
@@ -479,22 +479,22 @@ struct ECSavegameHelper::StreamObject<VectorClass<T>>
 template <typename T>
 struct ECSavegameHelper::StreamObject<DynamicVectorClass<T>>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, DynamicVectorClass<T>& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, DynamicVectorClass<T>& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
-		Öµ.Clear();
+		å€¼.Clear();
 		int Capacity = 0;
-		if (!Á÷.Load(Capacity))
+		if (!æµ.Load(Capacity))
 		{
 			return false;
 		}
-		Öµ.Reserve(Capacity);
-		if (!Á÷.Load(Öµ.Count) || !Á÷.Load(Öµ.CapacityIncrement))
+		å€¼.Reserve(Capacity);
+		if (!æµ.Load(å€¼.Count) || !æµ.Load(å€¼.CapacityIncrement))
 		{
 			return false;
 		}
-		for (auto ix = 0; ix < Öµ.Count; ++ix)
+		for (auto ix = 0; ix < å€¼.Count; ++ix)
 		{
-			if (!ECSavegameHelper::ReadStream(Á÷, Öµ.Items[ix], ×¢²á±ä»¯))
+			if (!ECSavegameHelper::ReadStream(æµ, å€¼.Items[ix], æ³¨å†Œå˜åŒ–))
 			{
 				return false;
 			}
@@ -502,14 +502,14 @@ struct ECSavegameHelper::StreamObject<DynamicVectorClass<T>>
 		return true;
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const DynamicVectorClass<T>& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const DynamicVectorClass<T>& å€¼) const
 	{
-		Á÷.Save(Öµ.Capacity);
-		Á÷.Save(Öµ.Count);
-		Á÷.Save(Öµ.CapacityIncrement);
-		for (auto ix = 0; ix < Öµ.Count; ++ix)
+		æµ.Save(å€¼.Capacity);
+		æµ.Save(å€¼.Count);
+		æµ.Save(å€¼.CapacityIncrement);
+		for (auto ix = 0; ix < å€¼.Count; ++ix)
 		{
-			if (!ECSavegameHelper::WriteStream(Á÷, Öµ.Items[ix]))
+			if (!ECSavegameHelper::WriteStream(æµ, å€¼.Items[ix]))
 			{
 				return false;
 			}
@@ -521,22 +521,22 @@ struct ECSavegameHelper::StreamObject<DynamicVectorClass<T>>
 template <typename T>
 struct ECSavegameHelper::StreamObject<TypeList<T>>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, TypeList<T>& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, TypeList<T>& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
-		if (!ECSavegameHelper::ReadStream<DynamicVectorClass<T>>(Á÷, Öµ, ×¢²á±ä»¯))
+		if (!ECSavegameHelper::ReadStream<DynamicVectorClass<T>>(æµ, å€¼, æ³¨å†Œå˜åŒ–))
 		{
 			return false;
 		}
-		return Á÷.Load(Öµ.unknown_18);
+		return æµ.Load(å€¼.unknown_18);
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const TypeList<T>& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const TypeList<T>& å€¼) const
 	{
-		if (!ECSavegameHelper::WriteStream<DynamicVectorClass<T>>(Á÷, Öµ))
+		if (!ECSavegameHelper::WriteStream<DynamicVectorClass<T>>(æµ, å€¼))
 		{
 			return false;
 		}
-		Á÷.Save(Öµ.unknown_18);
+		æµ.Save(å€¼.unknown_18);
 		return true;
 	}
 };
@@ -544,18 +544,18 @@ struct ECSavegameHelper::StreamObject<TypeList<T>>
 template <typename T>
 struct ECSavegameHelper::StreamObject<Vector3D<T>>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, Vector3D<T>& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, Vector3D<T>& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
-		if (ECSavegameHelper::ReadStream<int>(Á÷, Öµ.X, ×¢²á±ä»¯) && ECSavegameHelper::ReadStream<int>(Á÷, Öµ.Y, ×¢²á±ä»¯) && ECSavegameHelper::ReadStream<int>(Á÷, Öµ.Z, ×¢²á±ä»¯))
+		if (ECSavegameHelper::ReadStream<int>(æµ, å€¼.X, æ³¨å†Œå˜åŒ–) && ECSavegameHelper::ReadStream<int>(æµ, å€¼.Y, æ³¨å†Œå˜åŒ–) && ECSavegameHelper::ReadStream<int>(æµ, å€¼.Z, æ³¨å†Œå˜åŒ–))
 		{
 			return true;
 		}
 		return false;
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const Vector3D<T>& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const Vector3D<T>& å€¼) const
 	{
-		if (ECSavegameHelper::WriteStream(Á÷, Öµ.X) && ECSavegameHelper::WriteStream(Á÷, Öµ.Y) && ECSavegameHelper::WriteStream(Á÷, Öµ.Z))
+		if (ECSavegameHelper::WriteStream(æµ, å€¼.X) && ECSavegameHelper::WriteStream(æµ, å€¼.Y) && ECSavegameHelper::WriteStream(æµ, å€¼.Z))
 		{
 			return true;
 		}
@@ -566,18 +566,18 @@ struct ECSavegameHelper::StreamObject<Vector3D<T>>
 template <>
 struct ECSavegameHelper::StreamObject<TintStruct>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, TintStruct& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, TintStruct& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
-		if (ECSavegameHelper::ReadStream<int>(Á÷, Öµ.Red, ×¢²á±ä»¯) && ECSavegameHelper::ReadStream<int>(Á÷, Öµ.Green, ×¢²á±ä»¯) && ECSavegameHelper::ReadStream<int>(Á÷, Öµ.Blue, ×¢²á±ä»¯))
+		if (ECSavegameHelper::ReadStream<int>(æµ, å€¼.Red, æ³¨å†Œå˜åŒ–) && ECSavegameHelper::ReadStream<int>(æµ, å€¼.Green, æ³¨å†Œå˜åŒ–) && ECSavegameHelper::ReadStream<int>(æµ, å€¼.Blue, æ³¨å†Œå˜åŒ–))
 		{
 			return true;
 		}
 		return false;
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const TintStruct& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const TintStruct& å€¼) const
 	{
-		if (ECSavegameHelper::WriteStream(Á÷, Öµ.Red) && ECSavegameHelper::WriteStream(Á÷, Öµ.Green) && ECSavegameHelper::WriteStream(Á÷, Öµ.Blue))
+		if (ECSavegameHelper::WriteStream(æµ, å€¼.Red) && ECSavegameHelper::WriteStream(æµ, å€¼.Green) && ECSavegameHelper::WriteStream(æµ, å€¼.Blue))
 		{
 			return true;
 		}
@@ -588,22 +588,22 @@ struct ECSavegameHelper::StreamObject<TintStruct>
 template <>
 struct ECSavegameHelper::StreamObject<CounterClass>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, CounterClass& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, CounterClass& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
-		if (!ECSavegameHelper::ReadStream<VectorClass<int>>(Á÷, Öµ, ×¢²á±ä»¯))
+		if (!ECSavegameHelper::ReadStream<VectorClass<int>>(æµ, å€¼, æ³¨å†Œå˜åŒ–))
 		{
 			return false;
 		}
-		return Á÷.Load(Öµ.Total);
+		return æµ.Load(å€¼.Total);
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const CounterClass& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const CounterClass& å€¼) const
 	{
-		if (!ECSavegameHelper::WriteStream<VectorClass<int>>(Á÷, Öµ))
+		if (!ECSavegameHelper::WriteStream<VectorClass<int>>(æµ, å€¼))
 		{
 			return false;
 		}
-		Á÷.Save(Öµ.Total);
+		æµ.Save(å€¼.Total);
 		return true;
 	}
 };
@@ -611,34 +611,34 @@ struct ECSavegameHelper::StreamObject<CounterClass>
 template <size_t Size>
 struct ECSavegameHelper::StreamObject<std::bitset<Size>>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, std::bitset<Size>& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, std::bitset<Size>& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
 		unsigned char value = 0;
 		for (auto i = 0u; i < Size; ++i)
 		{
 			auto pos = i % 8;
-			if (pos == 0 && !Á÷.Load(value))
+			if (pos == 0 && !æµ.Load(value))
 			{
 				return false;
 			}
-			Öµ.set(i, ((value >> pos) & 1) != 0);
+			å€¼.set(i, ((value >> pos) & 1) != 0);
 		}
 		return true;
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const std::bitset<Size>& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const std::bitset<Size>& å€¼) const
 	{
 		unsigned char value = 0;
 		for (auto i = 0u; i < Size; ++i)
 		{
 			auto pos = i % 8;
-			if (Öµ[i])
+			if (å€¼[i])
 			{
 				value |= 1 << pos;
 			}
 			if (pos == 7 || i == Size - 1)
 			{
-				Á÷.Save(value);
+				æµ.Save(value);
 				value = 0;
 			}
 		}
@@ -649,25 +649,25 @@ struct ECSavegameHelper::StreamObject<std::bitset<Size>>
 template <>
 struct ECSavegameHelper::StreamObject<std::string>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, std::string& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, std::string& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
 		size_t size = 0;
-		if (Á÷.Load(size))
+		if (æµ.Load(size))
 		{
 			std::vector<char> buffer(size);
-			if (!size || Á÷.Read(reinterpret_cast<unsigned char*>(buffer.data()), size))
+			if (!size || æµ.Read(reinterpret_cast<unsigned char*>(buffer.data()), size))
 			{
-				Öµ.assign(buffer.begin(), buffer.end());
+				å€¼.assign(buffer.begin(), buffer.end());
 				return true;
 			}
 		}
 		return false;
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const std::string& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const std::string& å€¼) const
 	{
-		Á÷.Save(Öµ.size());
-		Á÷.Write(reinterpret_cast<const unsigned char*>(Öµ.c_str()), Öµ.size());
+		æµ.Save(å€¼.size());
+		æµ.Write(reinterpret_cast<const unsigned char*>(å€¼.c_str()), å€¼.size());
 		return true;
 	}
 };
@@ -675,54 +675,54 @@ struct ECSavegameHelper::StreamObject<std::string>
 template <typename T>
 struct ECSavegameHelper::StreamObject<std::unique_ptr<T>>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, std::unique_ptr<T>& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, std::unique_ptr<T>& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
-		Öµ.reset(RestoreObject<T>(Á÷, ×¢²á±ä»¯));
+		å€¼.reset(RestoreObject<T>(æµ, æ³¨å†Œå˜åŒ–));
 		return true;
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const std::unique_ptr<T>& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const std::unique_ptr<T>& å€¼) const
 	{
-		return PersistObject(Á÷, Öµ.get());
+		return PersistObject(æµ, å€¼.get());
 	}
 };
 
 template <typename T>
 struct ECSavegameHelper::StreamObject<std::shared_ptr<T>>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, std::shared_ptr<T>& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, std::shared_ptr<T>& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
-		Öµ.reset(RestoreObject<T>(Á÷, ×¢²á±ä»¯));
+		å€¼.reset(RestoreObject<T>(æµ, æ³¨å†Œå˜åŒ–));
 		return true;
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const std::shared_ptr<T>& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const std::shared_ptr<T>& å€¼) const
 	{
-		return PersistObject(Á÷, Öµ.get());
+		return PersistObject(æµ, å€¼.get());
 	}
 };
 
 template <typename T>
 struct ECSavegameHelper::StreamObject<std::vector<T>>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, std::vector<T>& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, std::vector<T>& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
-		Öµ.clear();
+		å€¼.clear();
 		size_t Capacity = 0;
-		if (!Á÷.Load(Capacity))
+		if (!æµ.Load(Capacity))
 		{
 			return false;
 		}
-		Öµ.reserve(Capacity);
+		å€¼.reserve(Capacity);
 		size_t Count = 0;
-		if (!Á÷.Load(Count))
+		if (!æµ.Load(Count))
 		{
 			return false;
 		}
-		Öµ.resize(Count);
+		å€¼.resize(Count);
 		for (auto ix = 0u; ix < Count; ++ix)
 		{
-			if (!ECSavegameHelper::ReadStream(Á÷, Öµ[ix], ×¢²á±ä»¯))
+			if (!ECSavegameHelper::ReadStream(æµ, å€¼[ix], æ³¨å†Œå˜åŒ–))
 			{
 				return false;
 			}
@@ -730,13 +730,13 @@ struct ECSavegameHelper::StreamObject<std::vector<T>>
 		return true;
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const std::vector<T>& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const std::vector<T>& å€¼) const
 	{
-		Á÷.Save(Öµ.capacity());
-		Á÷.Save(Öµ.size());
-		for (auto ix = 0u; ix < Öµ.size(); ++ix)
+		æµ.Save(å€¼.capacity());
+		æµ.Save(å€¼.size());
+		for (auto ix = 0u; ix < å€¼.size(); ++ix)
 		{
-			if (!ECSavegameHelper::WriteStream(Á÷, Öµ[ix]))
+			if (!ECSavegameHelper::WriteStream(æµ, å€¼[ix]))
 			{
 				return false;
 			}
@@ -748,18 +748,18 @@ struct ECSavegameHelper::StreamObject<std::vector<T>>
 template <typename TKey, typename TValue>
 struct ECSavegameHelper::StreamObject<std::pair<TKey, TValue>>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, std::pair<TKey, TValue>& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, std::pair<TKey, TValue>& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
-		if (!ECSavegameHelper::ReadStream(Á÷, Öµ.first, ×¢²á±ä»¯) || !ECSavegameHelper::ReadStream(Á÷, Öµ.second, ×¢²á±ä»¯))
+		if (!ECSavegameHelper::ReadStream(æµ, å€¼.first, æ³¨å†Œå˜åŒ–) || !ECSavegameHelper::ReadStream(æµ, å€¼.second, æ³¨å†Œå˜åŒ–))
 		{
 			return false;
 		}
 		return true;
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const std::pair<TKey, TValue>& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const std::pair<TKey, TValue>& å€¼) const
 	{
-		if (!ECSavegameHelper::WriteStream(Á÷, Öµ.first) || !ECSavegameHelper::WriteStream(Á÷, Öµ.second))
+		if (!ECSavegameHelper::WriteStream(æµ, å€¼.first) || !ECSavegameHelper::WriteStream(æµ, å€¼.second))
 		{
 			return false;
 		}
@@ -773,38 +773,38 @@ struct ECSavegameHelper::StreamObject<std::set<TKey, _Pr>>
 	static void is_pointer(std::true_type) = delete;
 	static void is_pointer(std::false_type) {}
 
-	bool ReadFromStream(ECStreamReader& Á÷, std::set<TKey, _Pr>& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, std::set<TKey, _Pr>& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
 		// use pointer in set is unswizzleable
 		is_pointer(typename std::is_pointer<TKey>::type());
 
-		Öµ.clear();
+		å€¼.clear();
 		size_t Size = 0;
-		if (!Á÷.Load(Size))
+		if (!æµ.Load(Size))
 		{
 			return false;
 		}
 		for (auto ix = 0u; ix < Size; ++ix)
 		{
 			TKey buffer = TKey();
-			if (!ECSavegameHelper::ReadStream(Á÷, buffer, false))
+			if (!ECSavegameHelper::ReadStream(æµ, buffer, false))
 			{
 				return false;
 			}
-			Öµ.emplace(buffer);
+			å€¼.emplace(buffer);
 		}
 		return true;
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const std::set<TKey, _Pr>& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const std::set<TKey, _Pr>& å€¼) const
 	{
 		// use pointer in set is unswizzleable
 		is_pointer(typename std::is_pointer<TKey>::type());
 
-		Á÷.Save(Öµ.size());
-		for (const auto& item : Öµ)
+		æµ.Save(å€¼.size());
+		for (const auto& item : å€¼)
 		{
-			if (!ECSavegameHelper::WriteStream(Á÷, item))
+			if (!ECSavegameHelper::WriteStream(æµ, item))
 			{
 				return false;
 			}
@@ -819,26 +819,26 @@ struct ECSavegameHelper::StreamObject<std::map<TKey, TValue>>
 	inline static void is_pointer(std::true_type) = delete;
 	inline static void is_pointer(std::false_type) {}
 
-	bool ReadFromStream(ECStreamReader& Á÷, std::map<TKey, TValue>& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, std::map<TKey, TValue>& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
 		// use pointer as key of map is unswizzleable
 		is_pointer(typename std::is_pointer<TKey>::type());
 
-		Öµ.clear();
+		å€¼.clear();
 		size_t Count = 0;
-		if (!Á÷.Load(Count))
+		if (!æµ.Load(Count))
 		{
 			return false;
 		}
 		for (auto ix = 0u; ix < Count; ++ix)
 		{
 			TKey key = TKey();
-			if (!ECSavegameHelper::ReadStream(Á÷, key, false))
+			if (!ECSavegameHelper::ReadStream(æµ, key, false))
 			{
 				return false;
 			}
-			Öµ.emplace(key, TValue());
-			if (!ECSavegameHelper::ReadStream(Á÷, Öµ[key], ×¢²á±ä»¯))
+			å€¼.emplace(key, TValue());
+			if (!ECSavegameHelper::ReadStream(æµ, å€¼[key], æ³¨å†Œå˜åŒ–))
 			{
 				return false;
 			}
@@ -846,15 +846,15 @@ struct ECSavegameHelper::StreamObject<std::map<TKey, TValue>>
 		return true;
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const std::map<TKey, TValue>& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const std::map<TKey, TValue>& å€¼) const
 	{
 		// use pointer as key of map is unswizzleable
 		is_pointer(typename std::is_pointer<TKey>::type());
 
-		Á÷.Save(Öµ.size());
-		for (const auto& item : Öµ)
+		æµ.Save(å€¼.size());
+		for (const auto& item : å€¼)
 		{
-			if (!ECSavegameHelper::WriteStream(Á÷, item.first) || !ECSavegameHelper::WriteStream(Á÷, item.second))
+			if (!ECSavegameHelper::WriteStream(æµ, item.first) || !ECSavegameHelper::WriteStream(æµ, item.second))
 			{
 				return false;
 			}
@@ -867,22 +867,22 @@ void Internal_DebugLog(const char* pFormat, ...);
 template <>
 struct ECSavegameHelper::StreamObject<SHPStruct*>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, SHPStruct*& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, SHPStruct*& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
-		if (Öµ && !Öµ->IsReference())
+		if (å€¼ && !å€¼->IsReference())
 		{
 			Internal_DebugLog("SHPStruct* to save contains SHP file data. Possible leak.\n");
 		}
-		Öµ = nullptr;
+		å€¼ = nullptr;
 		bool hasValue = true;
-		if (ECSavegameHelper::ReadStream(Á÷, hasValue) && hasValue)
+		if (ECSavegameHelper::ReadStream(æµ, hasValue) && hasValue)
 		{
 			std::string name;
-			if (ECSavegameHelper::ReadStream(Á÷, name))
+			if (ECSavegameHelper::ReadStream(æµ, name))
 			{
 				if (auto pSHP = FileSystem::LoadSHPFile(name.c_str()))
 				{
-					Öµ = pSHP;
+					å€¼ = pSHP;
 					return true;
 				}
 			}
@@ -890,12 +890,12 @@ struct ECSavegameHelper::StreamObject<SHPStruct*>
 		return !hasValue;
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, SHPStruct* const& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, SHPStruct* const& å€¼) const
 	{
 		const char* filename = nullptr;
-		if (Öµ)
+		if (å€¼)
 		{
-			if (auto pRef = Öµ->AsReference())
+			if (auto pRef = å€¼->AsReference())
 			{
 				filename = pRef->Filename;
 			}
@@ -904,12 +904,12 @@ struct ECSavegameHelper::StreamObject<SHPStruct*>
 				Internal_DebugLog("Cannot save SHPStruct, because it isn't a reference.\n");
 			}
 		}
-		if (ECSavegameHelper::WriteStream(Á÷, filename != nullptr))
+		if (ECSavegameHelper::WriteStream(æµ, filename != nullptr))
 		{
 			if (filename)
 			{
 				std::string file(filename);
-				return ECSavegameHelper::WriteStream(Á÷, file);
+				return ECSavegameHelper::WriteStream(æµ, file);
 			}
 		}
 		return filename == nullptr;
@@ -919,22 +919,22 @@ struct ECSavegameHelper::StreamObject<SHPStruct*>
 template <>
 struct ECSavegameHelper::StreamObject<RocketStruct>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, RocketStruct& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, RocketStruct& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
-		if (!Á÷.Load(Öµ))
+		if (!æµ.Load(å€¼))
 		{
 			return false;
 		}
-		if (×¢²á±ä»¯)
+		if (æ³¨å†Œå˜åŒ–)
 		{
-			ECSwizzleHelper swizzle(Öµ.Type);
+			ECSwizzleHelper swizzle(å€¼.Type);
 		}
 		return true;
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const RocketStruct& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const RocketStruct& å€¼) const
 	{
-		Á÷.Save(Öµ);
+		æµ.Save(å€¼);
 		return true;
 	}
 };
@@ -942,22 +942,22 @@ struct ECSavegameHelper::StreamObject<RocketStruct>
 template <>
 struct ECSavegameHelper::StreamObject<BuildType>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, BuildType& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, BuildType& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
-		if (!Á÷.Load(Öµ))
+		if (!æµ.Load(å€¼))
 		{
 			return false;
 		}
-		if (×¢²á±ä»¯)
+		if (æ³¨å†Œå˜åŒ–)
 		{
-			ECSwizzleHelper swizzle(Öµ.CurrentFactory);
+			ECSwizzleHelper swizzle(å€¼.CurrentFactory);
 		}
 		return true;
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const BuildType& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const BuildType& å€¼) const
 	{
-		Á÷.Save(Öµ);
+		æµ.Save(å€¼);
 		return true;
 	}
 };
@@ -965,21 +965,21 @@ struct ECSavegameHelper::StreamObject<BuildType>
 template <>
 struct ECSavegameHelper::StreamObject<WeaponStruct>
 {
-	bool ReadFromStream(ECStreamReader& Á÷, WeaponStruct& Öµ, bool ×¢²á±ä»¯) const
+	bool ReadFromStream(ECStreamReader& æµ, WeaponStruct& å€¼, bool æ³¨å†Œå˜åŒ–) const
 	{
-		return ECSavegameHelper::ReadStream(Á÷, Öµ.WeaponType, ×¢²á±ä»¯)
-			&& ECSavegameHelper::ReadStream(Á÷, Öµ.FLH, ×¢²á±ä»¯)
-			&& ECSavegameHelper::ReadStream(Á÷, Öµ.BarrelLength, ×¢²á±ä»¯)
-			&& ECSavegameHelper::ReadStream(Á÷, Öµ.BarrelThickness, ×¢²á±ä»¯)
-			&& ECSavegameHelper::ReadStream(Á÷, Öµ.TurretLocked, ×¢²á±ä»¯);
+		return ECSavegameHelper::ReadStream(æµ, å€¼.WeaponType, æ³¨å†Œå˜åŒ–)
+			&& ECSavegameHelper::ReadStream(æµ, å€¼.FLH, æ³¨å†Œå˜åŒ–)
+			&& ECSavegameHelper::ReadStream(æµ, å€¼.BarrelLength, æ³¨å†Œå˜åŒ–)
+			&& ECSavegameHelper::ReadStream(æµ, å€¼.BarrelThickness, æ³¨å†Œå˜åŒ–)
+			&& ECSavegameHelper::ReadStream(æµ, å€¼.TurretLocked, æ³¨å†Œå˜åŒ–);
 	}
 
-	bool WriteToStream(ECStreamWriter& Á÷, const WeaponStruct& Öµ) const
+	bool WriteToStream(ECStreamWriter& æµ, const WeaponStruct& å€¼) const
 	{
-		return ECSavegameHelper::WriteStream(Á÷, Öµ.WeaponType)
-			&& ECSavegameHelper::WriteStream(Á÷, Öµ.FLH)
-			&& ECSavegameHelper::WriteStream(Á÷, Öµ.BarrelLength)
-			&& ECSavegameHelper::WriteStream(Á÷, Öµ.BarrelThickness)
-			&& ECSavegameHelper::WriteStream(Á÷, Öµ.TurretLocked);
+		return ECSavegameHelper::WriteStream(æµ, å€¼.WeaponType)
+			&& ECSavegameHelper::WriteStream(æµ, å€¼.FLH)
+			&& ECSavegameHelper::WriteStream(æµ, å€¼.BarrelLength)
+			&& ECSavegameHelper::WriteStream(æµ, å€¼.BarrelThickness)
+			&& ECSavegameHelper::WriteStream(æµ, å€¼.TurretLocked);
 	}
 };

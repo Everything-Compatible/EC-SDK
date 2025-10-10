@@ -1,18 +1,18 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
 #include <cstdint>
 #include <unordered_map>
 #include <unordered_set>
-#include <Straws.h>
+#include <functional>
 
 
-//ÏÂÃæµÄRedirectÏµÁĞÊÇ¸ü¸ÄÁËÔ­ÓĞÇëÇóÎ»ÖÃµÄÇëÇóÄ¿±ê
-//Ô­Î»µÄ×Ö·û´®²¢Î´¸ü¸Ä£¬Ö±½Ó·ÃÎÊÈÔÎªÔ­Öµ
-//ÓÉÓÚÈ·ÈÏ×ÊÔ´ÍêÕûĞÔµÄÊ±ºòÇëÇóµÄ²»ÍêÈ«ÊÇÕâĞ©¶«Î÷
-//ËùÒÔËµÊÇ·ñĞèÒªÏàÓ¦ĞŞ¸ÄÀ´·ÀÖ¹ÎŞ·¨ÆğÊ¼´ıÈ·¶¨
+//ä¸‹é¢çš„Redirectç³»åˆ—æ˜¯æ›´æ”¹äº†åŸæœ‰è¯·æ±‚ä½ç½®çš„è¯·æ±‚ç›®æ ‡
+//åŸä½çš„å­—ç¬¦ä¸²å¹¶æœªæ›´æ”¹ï¼Œç›´æ¥è®¿é—®ä»ä¸ºåŸå€¼
+//ç”±äºç¡®è®¤èµ„æºå®Œæ•´æ€§çš„æ—¶å€™è¯·æ±‚çš„ä¸å®Œå…¨æ˜¯è¿™äº›ä¸œè¥¿
+//æ‰€ä»¥è¯´æ˜¯å¦éœ€è¦ç›¸åº”ä¿®æ”¹æ¥é˜²æ­¢æ— æ³•èµ·å§‹å¾…ç¡®å®š
 
-//ÒªÇó´«ÈëµÄconst char*ÊÇ·ÇÁÙÊ±Öµ£¬ÉúÃüÆÚÒ»Ö±±£³Ö
+//è¦æ±‚ä¼ å…¥çš„const char*æ˜¯éä¸´æ—¶å€¼ï¼Œç”Ÿå‘½æœŸä¸€ç›´ä¿æŒ
 
 //Original: EXPANDMD%02d.MIX at 0x82668C
 void RedirectExpandMD(const char* NewTarget);
@@ -46,8 +46,8 @@ void RedirectMapsMD();
 
 
 
-//Ò»µãËæ»úÊı£¬ËæÊ±¿ÉÒÔ·ÃÎÊ
-//¶Ô¾Öµ±ÖĞ²»ÒªÓÃ
+//ä¸€ç‚¹éšæœºæ•°ï¼Œéšæ—¶å¯ä»¥è®¿é—®
+//å¯¹å±€å½“ä¸­ä¸è¦ç”¨
 
 uint32_t Random_uint32();
 int32_t Random_int32();
@@ -68,7 +68,7 @@ double Random_double(double Min, double Max);
 std::string RandStr(int i);
 std::wstring RandWStr(int i);
 
-//Ò»µã±àÂë×ª»»º¯Êı °üÀ¨ GBK UTF8 UTF16
+//ä¸€ç‚¹ç¼–ç è½¬æ¢å‡½æ•° åŒ…æ‹¬ GBK UTF8 UTF16
 std::wstring GBKToUTF16(const std::string& GBK);
 std::wstring UTF8ToUTF16(const std::string& UTF8);
 std::string UTF16ToUTF8(const std::wstring& UTF16);
@@ -77,7 +77,7 @@ std::string GBKToUTF8(const std::string& GBK);
 std::string UTF8ToGBK(const std::string& GBK);
 
 
-//´óĞ¡Ğ´´¦Àí
+//å¤§å°å†™å¤„ç†
 struct ECUpperHash
 {
     inline size_t operator()(const std::string& s) const;
@@ -86,14 +86,14 @@ struct ECUpperEqualPred
 {
     inline bool operator ()(const std::string& s1, const std::string& s2) const;
 };
-//ºöÂÔ´óĞ¡Ğ´µÄMap
+//å¿½ç•¥å¤§å°å†™çš„Map
 template<typename T>
 using IgnoreCaseUnorderedMap = std::unordered_map<std::string, T, ECUpperHash, ECUpperEqualPred>;
-//ºöÂÔ´óĞ¡Ğ´µÄSet
+//å¿½ç•¥å¤§å°å†™çš„Set
 using IgnoreCaseUnorderedSet = std::unordered_set<std::string, ECUpperHash, ECUpperEqualPred>;
 
 
-//¸üNBµÄÇ¿×ª£¬±ÈÈçËµÓÃÀ´°Ñ³ÉÔ±º¯Êı×ª»»³ÉÒ»°ãÖ¸Õë
+//æ›´NBçš„å¼ºè½¬ï¼Œæ¯”å¦‚è¯´ç”¨æ¥æŠŠæˆå‘˜å‡½æ•°è½¬æ¢æˆä¸€èˆ¬æŒ‡é’ˆ
 template<typename dst_type, typename src_type>
 dst_type constexpr UnionCast(src_type src)
 {
@@ -108,74 +108,9 @@ dst_type constexpr UnionCast(src_type src)
 
 
 
-//ÎŞÊÓÈ¨ÏŞµÄÄÚ´æĞ´Èë£¨µÃÊÇ´æÔÚµÄÄÚ´æ£©
+//æ— è§†æƒé™çš„å†…å­˜å†™å…¥ï¼ˆå¾—æ˜¯å­˜åœ¨çš„å†…å­˜ï¼‰
 void ForcedMemcpy(void* Target, const void* Source, size_t Size);
 void ForcedMemcpy(size_t TargetAddr, size_t SourceAddr, size_t Size);
 
-//±È½Ï°²È«µÄÄÚ´æ¶ÁÈë£¨Source¿ÉÒÔÊÇÈÎÒâµØÖ·£¬Èç¹ûÊÇ²»¿É¶Á»á·µ»Øfalse£©
+//æ¯”è¾ƒå®‰å…¨çš„å†…å­˜è¯»å…¥ï¼ˆSourceå¯ä»¥æ˜¯ä»»æ„åœ°å€ï¼Œå¦‚æœæ˜¯ä¸å¯è¯»ä¼šè¿”å›falseï¼‰
 bool ReadMemory(const void* Source, void* Buffer, size_t Size);
-
-
-inline size_t __fastcall _CacheStrawGetLine(CacheStraw* pStraw, char* pBuffer, size_t size, bool* EndOfFile)
-{
-    JMP_STD(0x65D5C0);
-}
-struct ECLineReader
-{
-private:
-    FileStraw F;
-    CacheStraw C;
-    bool EndOfFile;
-    bool OwnsFile;
-public:
-    ECLineReader() = delete;
-    ECLineReader(CCFileClass* pCC)
-    {
-        VTABLE_SET(&F, 0x7E4D90);
-        VTABLE_SET(&C, 0x7EB754);
-        F.File = pCC;
-        F.b5 = false;
-        OwnsFile = false;
-        EndOfFile = false;
-        C.Get_From(F);
-        C.Buffer = MemoryBuffer(0x1000);
-    }
-    ECLineReader(const char* pFileName)
-    {
-        VTABLE_SET(&F, 0x7E4D90);
-        VTABLE_SET(&C, 0x7EB754);
-        F.File = GameCreate<CCFileClass>(pFileName);
-        F.b5 = false;
-        OwnsFile = true;
-        EndOfFile = false;
-        C.Get_From(F);
-        C.Buffer = MemoryBuffer(0x1000);
-    }
-    ~ECLineReader()
-    {
-        F.b5 = false;
-        if (OwnsFile)
-        {
-            F.File->Close();
-            GameDelete(F.File);
-            F.File = nullptr;
-        }
-    }
-    size_t GetLine(char* pBuffer, size_t size)
-    {
-        return _CacheStrawGetLine(&C, pBuffer, size, &EndOfFile);
-    }
-    template<size_t N>
-    size_t GetLine(char(&pBuffer)[N])
-    {
-        return _CacheStrawGetLine(&C, pBuffer, N, &EndOfFile);
-    }
-    bool Eof()
-    {
-        return EndOfFile;
-    }
-    bool Available()
-    {
-        return F.File != nullptr && F.File->Exists();
-    }
-};

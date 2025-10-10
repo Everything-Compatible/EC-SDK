@@ -1,4 +1,4 @@
-#include "EC.LoadSave.h"
+ï»¿#include "EC.LoadSave.h"
 #include "EC.LoadSaveImpl.h"
 #include "IH.Initial.h"
 #include "IH.InitialService.h"
@@ -201,7 +201,7 @@ bool SIFinalSwizzleImpl(void* pOld, void*& pNew)
 }
 
 
-//bRemoved : true=Õæ¼ÄÁË false=ÁÙÊ±Àë³¡
+//bRemoved : true=çœŸå¯„äº† false=ä¸´æ—¶ç¦»åœº
 void CALLBACK ISF_PointerGotInvalid(AbstractClass* const pObject, bool bRemoved)
 {
 	ECGameClass_PointerGotInvalid(pObject, bRemoved);
@@ -244,17 +244,17 @@ void CALLBACK ISF_SaveGame(IStream* pStream)
 	ULONG out = 0;
 	UINT X = 0;
 	pStream->Read(&X, sizeof(X), &out);
-	sprintf_s(bb, "¶Á³ö %d, Ó¦ %u ×Ö½Ú, Êµ %u ×Ö½Ú", X, sizeof(X), out);
-	MessageBoxA(Game::hWnd, bb, "ÍòÎï»¥Í¨", MB_OK);
+	sprintf_s(bb, "è¯»å‡º %d, åº” %u å­—èŠ‚, å®ž %u å­—èŠ‚", X, sizeof(X), out);
+	MessageBoxA(Game::hWnd, bb, "ä¸‡ç‰©äº’é€š", MB_OK);
 */
 char bb[10000];
 TechnoClass* test__;
 #include "EC.Listener.h"
 void CALLBACK AFG()
 {
-	if (test__)sprintf_s(bb, "¶Á³ö  0x%08p(%s)", test__, UTF16ToGBK(test__->GetUIName()).c_str());
+	if (test__)sprintf_s(bb, "è¯»å‡º  0x%08p(%s)", test__, UTF16ToGBK(test__->GetUIName()).c_str());
 	else sprintf_s(bb, "WTF");
-	MessageBoxA(Game::hWnd, bb, "ÍòÎï»¥Í¨", MB_OK);
+	MessageBoxA(Game::hWnd, bb, "ä¸‡ç‰©äº’é€š", MB_OK);
 }
 void CALLBACK ISF_LoadGame(IStream* pStream)
 {
@@ -270,8 +270,8 @@ void CALLBACK ISF_SaveGame(IStream* pStream)
 	ULONG out = 0;
 	test__ = TechnoClass::Array()->Items[0];
 	pStream->Write(&test__, sizeof(test__), &out);
-	sprintf_s(bb, "Ð´Èë 0x%08p(%s)", test__, UTF16ToGBK(test__->GetUIName()).c_str());
-	MessageBoxA(Game::hWnd, bb, "ÍòÎï»¥Í¨", MB_OK);
+	sprintf_s(bb, "å†™å…¥ 0x%08p(%s)", test__, UTF16ToGBK(test__->GetUIName()).c_str());
+	MessageBoxA(Game::hWnd, bb, "ä¸‡ç‰©äº’é€š", MB_OK);
 }
 
 
@@ -315,7 +315,7 @@ ECObjType TestType3 : public TestType1
 		sprintf_s(x, "ID : %d\nType : { %s : 0x%08X }\nBase { %s : 0x%08X }\nthis = %p -> TestType1: %p TestType2: %p",
 			GetUniqueID(), V->GetName(), V, V->GetFirstBaseClassName(),
 			V->GetFirstBaseClassInfo(), this, DynamicCast<TestType1>(), DynamicCast<TestType2>());
-		MessageBoxA(Game::hWnd, x, "ÍòÎï»¥Í¨", MB_OK);
+		MessageBoxA(Game::hWnd, x, "ä¸‡ç‰©äº’é€š", MB_OK);
 	}
 };
 

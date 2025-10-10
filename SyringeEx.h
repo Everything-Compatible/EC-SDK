@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <Syringe.h>
 #include <vector>
 #include <unordered_map>
@@ -64,7 +64,7 @@ struct SyrPArray
 };
 
 
-//ÔÚDllMainµ±ÖĞInit::Initialize()ºó¼´¿ÉÊ¹ÓÃ
+//åœ¨DllMainå½“ä¸­Init::Initialize()åå³å¯ä½¿ç”¨
 namespace SyringeData
 {
 	struct ExeRemoteData
@@ -130,6 +130,18 @@ namespace SyringeData
 		void* Addr;
 	};
 
+	struct DaemonData
+	{
+		BOOL EnableDaemon;
+		BOOL OpenAsDaemon;
+		DWORD ThreadID;
+		const wchar_t* lpReportString;
+		DWORD lpReportStringLen;
+		const char* lpDebugPipeName;
+		DWORD lpDebugPipeNameLen;
+		int dwReserved[9];
+	};
+
 	struct SharedMemHeader
 	{
 		int TotalSize;
@@ -172,7 +184,7 @@ namespace SyringeData
 	DWORD SyringeHashUpper(const char* str);
 	DWORD GetSyringeProcID();
 	const std::string& ExecutableDirectoryPath();
-	const std::string& UniqueIDByPath();//Ö»¿¼ÂÇµØÖ·
+	const std::string& UniqueIDByPath();//åªè€ƒè™‘åœ°å€
 	DWORD BaseAddress();
 	void InitRemoteData();
 	ExeRemoteData& GetExeData();
@@ -190,7 +202,6 @@ namespace SyringeData
 	SyrPArray<BYTE> GetOpCode(DWORD Addr);
 	int GetValidHookCount(DWORD Addr);
 	const char* GetSettingText(const LibRemoteData& Lib);
-	JsonObject GetSettingJson(const LibRemoteData& Lib);
 	void ReplaceHookFunction(DWORD Address, const std::string& Lib, const std::string& Proc, DWORD pFunc);
 	void RestoreHookFunction(DWORD Address, const std::string& Lib, const std::string& Proc);
 	void DisableOpCode(DWORD Addr);
@@ -201,26 +212,36 @@ namespace SyringeData
 	void DisableAllHooksAt(DWORD Address);
 	bool IsHookValid(DWORD Address, const std::string& Lib, const std::string& Proc);
 	HookType GetHookProc(DWORD Address, const std::string& Lib, const std::string& Proc);
+
+	bool IsDaemonSupported();
+	bool SetDaemonThread(DWORD id);
+	bool IsADaemonNow();
+	bool DaemonConnect(int WaitBusyMillis = 3000);
+	bool DaemonDisconnect();
+	bool IsDaemonConnected();
+	std::string SendRequestMessage(const std::string& Message);//é˜»å¡å¼è¯·æ±‚
+	const wchar_t* GetDaemonReport();
+	bool ShouldCloseDaemonPipe();
 }
 /*
 
-    GetOpCode»ñÈ¡/ĞŞ¸Ä±»¸²¸ÇµÄ»úÆ÷Âë
-	DisableOpCodeÈ¡ÏûÖ´ĞĞÔ­Ê¼»úÆ÷Âë
-	EnableOpCode»Ö¸´Ö´ĞĞÔ­Ê¼»úÆ÷Âë
-	GetActualOverriddenBytes»ñÈ¡Êµ¼Ê¸²¸ÇµÄ×Ö½ÚÊı
-    GetValidHookCount»ñÈ¡µØÖ·ÉÏÓĞĞ§µÄ¹³×ÓÊıÁ¿
-	EnableHookÔËĞĞÊ±ÆôÓÃÖ¸¶¨¹³×Ó
-	DisableHookÔËĞĞÊ±½ûÓÃÖ¸¶¨¹³×Ó
-	EnableAllHooksAtÆôÓÃÄ³¸öµØÖ·µÄÈ«²¿¹³×Ó
-	DisableAllHooksAt½ûÓÃÄ³¸öµØÖ·µÄÈ«²¿¹³×Ó
-	ReplaceHookFunction»»µôÄ³¸ö¹³×ÓÖ´ĞĞµÄº¯Êı
-	RestoreHookFunction»Ö¸´Ä³¸ö¹³×ÓÖ´ĞĞµÄº¯Êı
-	ReplaceFunctionBodyÌæ»»º¯ÊıÌå
-	RestoreFunctionBody»Ö¸´º¯ÊıÌå
-	GetSettingJSON»ñÈ¡ÉèÖÃ
-	GetSettingText»ñÈ¡ÉèÖÃ£¬µ«ÊÇÎÄ±¾
-	GetLoadedConfigJSON»ñÈ¡È«²¿ÉèÖÃ
-	GetLoadedConfigText»ñÈ¡È«²¿ÉèÖÃ£¬µ«ÊÇÎÄ±¾
-	HookContext:µ÷ÓÃ¹³×Ó
+    GetOpCodeè·å–/ä¿®æ”¹è¢«è¦†ç›–çš„æœºå™¨ç 
+	DisableOpCodeå–æ¶ˆæ‰§è¡ŒåŸå§‹æœºå™¨ç 
+	EnableOpCodeæ¢å¤æ‰§è¡ŒåŸå§‹æœºå™¨ç 
+	GetActualOverriddenBytesè·å–å®é™…è¦†ç›–çš„å­—èŠ‚æ•°
+    GetValidHookCountè·å–åœ°å€ä¸Šæœ‰æ•ˆçš„é’©å­æ•°é‡
+	EnableHookè¿è¡Œæ—¶å¯ç”¨æŒ‡å®šé’©å­
+	DisableHookè¿è¡Œæ—¶ç¦ç”¨æŒ‡å®šé’©å­
+	EnableAllHooksAtå¯ç”¨æŸä¸ªåœ°å€çš„å…¨éƒ¨é’©å­
+	DisableAllHooksAtç¦ç”¨æŸä¸ªåœ°å€çš„å…¨éƒ¨é’©å­
+	ReplaceHookFunctionæ¢æ‰æŸä¸ªé’©å­æ‰§è¡Œçš„å‡½æ•°
+	RestoreHookFunctionæ¢å¤æŸä¸ªé’©å­æ‰§è¡Œçš„å‡½æ•°
+	ReplaceFunctionBodyæ›¿æ¢å‡½æ•°ä½“
+	RestoreFunctionBodyæ¢å¤å‡½æ•°ä½“
+	GetSettingJSONè·å–è®¾ç½®
+	GetSettingTextè·å–è®¾ç½®ï¼Œä½†æ˜¯æ–‡æœ¬
+	GetLoadedConfigJSONè·å–å…¨éƒ¨è®¾ç½®
+	GetLoadedConfigTextè·å–å…¨éƒ¨è®¾ç½®ï¼Œä½†æ˜¯æ–‡æœ¬
+	HookContext:è°ƒç”¨é’©å­
 
 */

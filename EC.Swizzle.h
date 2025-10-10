@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <type_traits>
 #include <SwizzleManagerClass.h>
 
@@ -16,43 +16,43 @@ public:
 	~BaseSwizzle()
 	{}
 
-	// °ÑĞèÒª¸Ä±äµØÖ·µÄÖ¸Õë·ÅÔÚÕâÀï , ÔÚµ÷ÓÃº¯Êıºó *Ö¸Õë µÄÖµ»á±ä³É nullptr
-	HRESULT RegisterForChange(void** Ö¸Õë)
+	// æŠŠéœ€è¦æ”¹å˜åœ°å€çš„æŒ‡é’ˆæ”¾åœ¨è¿™é‡Œ , åœ¨è°ƒç”¨å‡½æ•°å *æŒ‡é’ˆ çš„å€¼ä¼šå˜æˆ nullptr
+	HRESULT RegisterForChange(void** æŒ‡é’ˆ)
 	{
-		return SwizzleManagerClass::Instance().Swizzle(Ö¸Õë);
+		return SwizzleManagerClass::Instance().Swizzle(æŒ‡é’ˆ);
 	}
 
-	// Ô­°æÓÎÏ·ÖĞµÄËùÓĞ¶ÔÏó¶¼»á±£´æËüµÄ this Ö¸ÕëµÄÖµµ½Êä³öÁ÷ÖĞ , È»ºóÍ¨¹ıµ÷ÓÃÕâ¸öº¯ÊıÀ´¼ÇÂ¼±£´æµÄ this Ö¸ÕëµÄÖµºÍĞÂµÄÖ¸ÕëµÄÖµ
-	HRESULT RegisterChange(void* ¾ÉµÄÖ¸Õë, void* ĞÂµÄÖ¸Õë)
+	// åŸç‰ˆæ¸¸æˆä¸­çš„æ‰€æœ‰å¯¹è±¡éƒ½ä¼šä¿å­˜å®ƒçš„ this æŒ‡é’ˆçš„å€¼åˆ°è¾“å‡ºæµä¸­ , ç„¶åé€šè¿‡è°ƒç”¨è¿™ä¸ªå‡½æ•°æ¥è®°å½•ä¿å­˜çš„ this æŒ‡é’ˆçš„å€¼å’Œæ–°çš„æŒ‡é’ˆçš„å€¼
+	HRESULT RegisterChange(void* æ—§çš„æŒ‡é’ˆ, void* æ–°çš„æŒ‡é’ˆ)
 	{
-		return SwizzleManagerClass::Instance().Here_I_Am((long)¾ÉµÄÖ¸Õë, ĞÂµÄÖ¸Õë);
+		return SwizzleManagerClass::Instance().Here_I_Am((long)æ—§çš„æŒ‡é’ˆ, æ–°çš„æŒ‡é’ˆ);
 	}
 
 	template<typename T>
-	void RegisterPointerForChange(T*& Ö¸Õë)
+	void RegisterPointerForChange(T*& æŒ‡é’ˆ)
 	{
-		auto ×ª»»ºóµÄÖ¸Õë = const_cast<std::remove_cv_t<T>**>(&Ö¸Õë);
-		this->RegisterForChange(reinterpret_cast<void**>(×ª»»ºóµÄÖ¸Õë));
+		auto è½¬æ¢åçš„æŒ‡é’ˆ = const_cast<std::remove_cv_t<T>**>(&æŒ‡é’ˆ);
+		this->RegisterForChange(reinterpret_cast<void**>(è½¬æ¢åçš„æŒ‡é’ˆ));
 	}
 };
 
 struct ECSwizzleHelper
 {
 	template <typename T>
-	ECSwizzleHelper(T& Ö¸Õë)
+	ECSwizzleHelper(T& æŒ‡é’ˆ)
 	{
-		swizzle(Ö¸Õë, typename is_swizzlable<T>::type());
+		swizzle(æŒ‡é’ˆ, typename is_swizzlable<T>::type());
 	}
 
 private:
 	template <typename TSwizzle>
-	void swizzle(TSwizzle& Ö¸Õë, std::true_type)
+	void swizzle(TSwizzle& æŒ‡é’ˆ, std::true_type)
 	{
-		BaseSwizzle::Instance.RegisterPointerForChange(Ö¸Õë);
+		BaseSwizzle::Instance.RegisterPointerForChange(æŒ‡é’ˆ);
 	}
 
 	template <typename TSwizzle>
-	void swizzle(TSwizzle& Ö¸Õë, std::false_type)
+	void swizzle(TSwizzle& æŒ‡é’ˆ, std::false_type)
 	{
 		// not swizzlable
 	}

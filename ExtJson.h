@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "cJSON.h"
 #include<string>
@@ -36,6 +36,7 @@ class JsonObject
 {
 private:
     cJSON* Object{ nullptr };
+
 public:
     JsonObject(cJSON* _F) { Object = _F; }
     JsonObject() : Object(nullptr) {}
@@ -62,7 +63,7 @@ public:
 
     inline bool HasItem(const std::string& Str) const { return GetObjectItem(Str).Available(); }
     
-    //ÇëÔÚÅĞ¶ÏHasItem == true Ö®ºóÔÙÊ¹ÓÃ£¡
+    //è¯·åœ¨åˆ¤æ–­HasItem == true ä¹‹åå†ä½¿ç”¨ï¼
     int ItemInt(const std::string& Str) const;
     double ItemDouble(const std::string& Str) const;
     std::string ItemString(const std::string& Str) const;
@@ -103,9 +104,11 @@ public:
     std::vector < std::pair<std::string, std::string>> GetPVString() const;
 
     std::string GetText() const;
+    std::string GetTextEx() const;
 
     JsonObject CreateObjectItem(const std::string& Str) const;
     void AddObjectItem(const std::string& Str, JsonObject Child, bool NeedsCopy) const;
+    void AddObjectItem(const std::string& Str, JsonFile&& File) const;
     void AddNull(const std::string& Str) const;
     void AddInt(const std::string& Str, int Val) const;
     void AddDouble(const std::string& Str, double Val) const;
@@ -113,7 +116,7 @@ public:
     void AddBool(const std::string& Str, bool Val) const;
     void AddStrBool(const std::string& Str, bool Val, StrBoolType Type) const;
      
-    //·µ»ØÔ­À´µÄObj
+    //è¿”å›åŸæ¥çš„Obj
     JsonFile SwapNull() const;
     JsonFile SwapInt(int Val) const;
     JsonFile SwapDouble(double Val) const;
@@ -124,7 +127,7 @@ public:
     JsonFile RedirectAndSwap(JsonObject Obj);
     void SwapObject(JsonObject Obj) const;
 
-    //¸ø·Ç¿ÕµÄObject
+    //ç»™éç©ºçš„Object
     void SetNull() const;
     void SetInt(int Val) const;
     void SetDouble(double Val) const;
@@ -133,8 +136,9 @@ public:
     void SetStrBool(bool Val, StrBoolType Type) const;
     void CopyObject(JsonObject Obj, bool Recurse) const;
     void RedirectObject(JsonObject Obj);
+    void SetObject();
 
-    //¸ø¿Õ½ÚµãµÄ·Çconstº¯Êı
+    //ç»™ç©ºèŠ‚ç‚¹çš„éconstå‡½æ•°
     void CreateNull();
     void CreateInt(int Val);
     void CreateDouble(double Val);
@@ -142,8 +146,9 @@ public:
     void CreateBool(bool Val);
     void CreateStrBool(bool Val, StrBoolType Type);
     void CreateCopy(JsonObject Obj, bool Recurse);
+    void CreateObject();
 
-    // ²»ÖªµÀÊÇ·ñÎª¿ÕÊ±Çëµ÷ÓÃÒÔÏÂº¯Êı 
+    // ä¸çŸ¥é“æ˜¯å¦ä¸ºç©ºæ—¶è¯·è°ƒç”¨ä»¥ä¸‹å‡½æ•° 
     void SetOrCreateNull();
     void SetOrCreateInt(int Val);
     void SetOrCreateDouble(double Val);
@@ -151,14 +156,15 @@ public:
     void SetOrCreateBool(bool Val);
     void SetOrCreateStrBool(bool Val, StrBoolType Type);
     void SetOrCreateCopy(JsonObject Obj, bool Recurse);
+    void SetOrCreateObject();
 
     JsonFile DetachObjectItem(const std::string& Str);
     JsonFile DetachArrayItem(int Index);
     void DeleteObjectItem(const std::string& Str) { cJSON_DeleteItemFromObject(Object, Str.c_str()); }
     void DeleteArrayItem(int Index) { cJSON_DeleteItemFromArray(Object, Index); }
 
-    //¸Ä±äµ±Ç°Object£¬ºÏÈëµÄJson±¾Éí²»±ä£¬Êı¾İ½ö¸´ÖÆ
-    //²»ĞèÒª¿ÉÓÃĞÔ¼ì²é
+    //æ”¹å˜å½“å‰Objectï¼Œåˆå…¥çš„Jsonæœ¬èº«ä¸å˜ï¼Œæ•°æ®ä»…å¤åˆ¶
+    //ä¸éœ€è¦å¯ç”¨æ€§æ£€æŸ¥
     void Merge(JsonObject Obj);
 };
 const JsonObject NullJsonObject{ nullptr };
@@ -168,9 +174,9 @@ class JsonFile
 private:
     cJSON* File{ nullptr };
 public:
-    JsonFile() : File(nullptr) {}
+    JsonFile() : File(cJSON_CreateObject()) {}
     JsonFile(cJSON* _F) { File = _F; }
-    JsonFile(JsonObject Obj) { File = Obj.GetRaw(); }
+	//JsonFile(JsonObject Obj) { File = Obj.GetRaw(); } //å› ä¸ºå¯èƒ½ä¼šå¯¼è‡´Fileè¢«é‡Šæ”¾
     ~JsonFile() { if (File != nullptr)cJSON_Delete(File); }
 
     operator JsonObject() const { return JsonObject(File); }
@@ -180,16 +186,16 @@ public:
     cJSON* Release() { auto _F = File; File = nullptr; return _F; }
 
     bool Available() const { return File != nullptr; }
-    JsonFile Duplicate(bool Recurse) const { return cJSON_Duplicate(File, Recurse); }//ÊÇ·ñµİ¹é
-    void DuplicateFromObject(JsonObject Obj, bool Recurse) { Clear();  File = cJSON_Duplicate(Obj.GetRaw(), Recurse); }//ÊÇ·ñµİ¹é
-    void DuplicateFromObject(JsonFile Obj, bool Recurse) { Clear(); File = cJSON_Duplicate(Obj.GetRaw(), Recurse); }//ÊÇ·ñµİ¹é
+    JsonFile Duplicate(bool Recurse) const { return cJSON_Duplicate(File, Recurse); }//æ˜¯å¦é€’å½’
+    void DuplicateFromObject(JsonObject Obj, bool Recurse) { Clear();  File = cJSON_Duplicate(Obj.GetRaw(), Recurse); }//æ˜¯å¦é€’å½’
+    void DuplicateFromObject(JsonFile Obj, bool Recurse) { Clear(); File = cJSON_Duplicate(Obj.GetRaw(), Recurse); }//æ˜¯å¦é€’å½’
     void Clear() { if (File != nullptr)cJSON_Delete(File); File = nullptr; }
 
     void Parse(std::string Str);
-    std::string ParseChecked(std::string Str, const std::string& ErrorTip, int* ErrorPosition = nullptr);//·µ»Ø´íÎóĞÅÏ¢
+    std::string ParseChecked(std::string Str, const std::string& ErrorTip, int* ErrorPosition = nullptr);//è¿”å›é”™è¯¯ä¿¡æ¯
     void ParseWithOpts(std::string Str, const char** ReturnParseEnd, int RequireNullTerminated);
     void ParseTmp(std::string&& Str);
-    std::string ParseTmpChecked(std::string&& Str, const std::string& ErrorTip, int* ErrorPosition = nullptr);//·µ»Ø´íÎóĞÅÏ¢
+    std::string ParseTmpChecked(std::string&& Str, const std::string& ErrorTip, int* ErrorPosition = nullptr);//è¿”å›é”™è¯¯ä¿¡æ¯
     void ParseTmpWithOpts(std::string&& Str, const char** ReturnParseEnd, int RequireNullTerminated);
 #ifdef IHCore
     void ParseFromFile(const char* FileName);
@@ -200,7 +206,9 @@ public:
     JsonFile(JsonFile&& _File)  noexcept : File(_File.Release()) {}
 };
 
-inline const char* Json_GetErrorPtr() { return cJSON_GetErrorPtr(); }//²»ÀíËû
+inline const char* Json_GetErrorPtr() { return cJSON_GetErrorPtr(); }//ä¸ç†ä»–
+
+std::string EscapeString(const std::string& str);
 
 
 #ifdef IHCore

@@ -1,412 +1,412 @@
-#pragma once
+ï»¿#pragma once
 #include "WIC.Define.h"
 #include <exception>
 
 namespace SITool
 {
-	//¼ì²éWIC¿âÊÇ·ñ¿ÉÓÃ¡£
+	//æ£€æŸ¥WICåº“æ˜¯å¦å¯ç”¨ã€‚
 	bool Available();
 	
-	//×Óµ¯£º¹¥»÷µÄÅ×ÉäÌå£¬ÒòÎªÍêÈ«±äĞÎ´æÔÚÌåĞÍ²î¾à£¬¿ÉÄÜµ¼ÖÂÔ­À´µÄ¹¥»÷ÎŞ·¨ÃüÖĞ£¬´«½øÀ´Ö®ºó»áĞŞ¸ÄÅ×ÉäÌåµÄµ¯µÀ£¬ÈÃËü¿ÉÒÔÃüÖĞ
-	//      AµÄ±äĞÎÎäÆ÷´òÁËB£¬B±äĞÎÁË£¬ÌîAµÄÎäÆ÷µÄÅ×ÉäÌå£»²»ÊÇµ¯Í·ÃüÖĞµ¼ÖÂ±äĞÎµÄ»°£¬Õâ¸ö²ÎÊıÌînullptr
-	//µ¥Î»²»ÍêÈ«±äĞÎ
-	TechnoClass* SI_API NormalConvert_TechnoTo(TechnoClass* À´Ô´µ¥Î», TechnoTypeClass* Ä¿±êµ¥Î»ÀàĞÍ, HouseClass* Ä¿±ê×÷Õ½·½, BulletClass* ×Óµ¯, bool ÒªÇóÔÚµØÍ¼ÉÏ½øĞĞ, bool ÔÊĞí½øĞĞÃâÒß);
-	//µ¥Î»ÍêÈ«±äĞÎ
-	TechnoClass* SI_API SuperConvert_TechnoTo(TechnoClass* À´Ô´µ¥Î», TechnoTypeClass* Ä¿±êµ¥Î»ÀàĞÍ, HouseClass* Ä¿±ê×÷Õ½·½, BulletClass* ×Óµ¯, bool ÒªÇóÔÚµØÍ¼ÉÏ½øĞĞ, bool ÔÊĞí½øĞĞÃâÒß);
+	//å­å¼¹ï¼šæ”»å‡»çš„æŠ›å°„ä½“ï¼Œå› ä¸ºå®Œå…¨å˜å½¢å­˜åœ¨ä½“å‹å·®è·ï¼Œå¯èƒ½å¯¼è‡´åŸæ¥çš„æ”»å‡»æ— æ³•å‘½ä¸­ï¼Œä¼ è¿›æ¥ä¹‹åä¼šä¿®æ”¹æŠ›å°„ä½“çš„å¼¹é“ï¼Œè®©å®ƒå¯ä»¥å‘½ä¸­
+	//      Açš„å˜å½¢æ­¦å™¨æ‰“äº†Bï¼ŒBå˜å½¢äº†ï¼Œå¡«Açš„æ­¦å™¨çš„æŠ›å°„ä½“ï¼›ä¸æ˜¯å¼¹å¤´å‘½ä¸­å¯¼è‡´å˜å½¢çš„è¯ï¼Œè¿™ä¸ªå‚æ•°å¡«nullptr
+	//å•ä½ä¸å®Œå…¨å˜å½¢
+	TechnoClass* SI_API NormalConvert_TechnoTo(TechnoClass* æ¥æºå•ä½, TechnoTypeClass* ç›®æ ‡å•ä½ç±»å‹, HouseClass* ç›®æ ‡ä½œæˆ˜æ–¹, BulletClass* å­å¼¹, bool è¦æ±‚åœ¨åœ°å›¾ä¸Šè¿›è¡Œ, bool å…è®¸è¿›è¡Œå…ç–«);
+	//å•ä½å®Œå…¨å˜å½¢
+	TechnoClass* SI_API SuperConvert_TechnoTo(TechnoClass* æ¥æºå•ä½, TechnoTypeClass* ç›®æ ‡å•ä½ç±»å‹, HouseClass* ç›®æ ‡ä½œæˆ˜æ–¹, BulletClass* å­å¼¹, bool è¦æ±‚åœ¨åœ°å›¾ä¸Šè¿›è¡Œ, bool å…è®¸è¿›è¡Œå…ç–«);
 
-	//Æ¯¸¡×Ö·û´®µÄÊÓĞ§
-	void SI_API AddFlyingString_A(const CoordStruct ×ø±ê, Point2D ÏñËØÆ«ÒÆ, int ³ÖĞøÊ±¼ä, double ¸¡¶¯ËÙ¶È, ColorStruct ÑÕÉ«, const wchar_t* ÏÔÊ¾ÄÚÈİ);
-	void SI_API AddFlyingString_B(const CoordStruct ×ø±ê, Point2D ÏñËØÆ«ÒÆ, int ³ÖĞøÊ±¼ä, double ¸¡¶¯ËÙ¶È, ConvertClass* É«ÅÌ, SHPStruct* Í¼Ïñ, const int* ×Ö·ûÊı¾İÁĞ±í, int ×Ö·ûÊı¾İ×ÜÊı);
-	void SI_API AddFlyingString_Money(CoordStruct ×ø±ê, int ½ğ¶î, HouseClass* ËùÊô×÷Õ½·½, int ×÷Õ½·½¹éÊô);
+	//æ¼‚æµ®å­—ç¬¦ä¸²çš„è§†æ•ˆ
+	void SI_API AddFlyingString_A(const CoordStruct åæ ‡, Point2D åƒç´ åç§», int æŒç»­æ—¶é—´, double æµ®åŠ¨é€Ÿåº¦, ColorStruct é¢œè‰², const wchar_t* æ˜¾ç¤ºå†…å®¹);
+	void SI_API AddFlyingString_B(const CoordStruct åæ ‡, Point2D åƒç´ åç§», int æŒç»­æ—¶é—´, double æµ®åŠ¨é€Ÿåº¦, ConvertClass* è‰²ç›˜, SHPStruct* å›¾åƒ, const int* å­—ç¬¦æ•°æ®åˆ—è¡¨, int å­—ç¬¦æ•°æ®æ€»æ•°);
+	void SI_API AddFlyingString_Money(CoordStruct åæ ‡, int é‡‘é¢, HouseClass* æ‰€å±ä½œæˆ˜æ–¹, int ä½œæˆ˜æ–¹å½’å±);
 
-	void SI_API ForEach(void* ²ÎÊı¼¯, bool (CALLBACK*´¦Àíº¯Êı)(void* ²ÎÊı¼¯, SIInterface_ExtendData* ½Ó¿Ú)); // [´¦Àíº¯Êı] ·µ»Ø true »áÁ¢¿ÌÖÕÖ¹±éÀú
-	void SI_API ForEach_Cell(void* ²ÎÊı¼¯, bool (CALLBACK*´¦Àíº¯Êı)(void* ²ÎÊı¼¯, SIInterface_ExtendData* ½Ó¿Ú)); // [´¦Àíº¯Êı] ·µ»Ø true »áÁ¢¿ÌÖÕÖ¹±éÀú
-	void SI_API ForEach_Object(void* ²ÎÊı¼¯, bool (CALLBACK*´¦Àíº¯Êı)(void* ²ÎÊı¼¯, SIInterface_ExtendData* ½Ó¿Ú)); // [´¦Àíº¯Êı] ·µ»Ø true »áÁ¢¿ÌÖÕÖ¹±éÀú
-	void SI_API ForEach_Techno(void* ²ÎÊı¼¯, bool (CALLBACK*´¦Àíº¯Êı)(void* ²ÎÊı¼¯, SIInterface_ExtendData* ½Ó¿Ú)); // [´¦Àíº¯Êı] ·µ»Ø true »áÁ¢¿ÌÖÕÖ¹±éÀú
-	void SI_API ForEach_Animation(void* ²ÎÊı¼¯, bool (CALLBACK*´¦Àíº¯Êı)(void* ²ÎÊı¼¯, SIInterface_ExtendData* ½Ó¿Ú)); // [´¦Àíº¯Êı] ·µ»Ø true »áÁ¢¿ÌÖÕÖ¹±éÀú
-	void SI_API ForEach_Bullet(void* ²ÎÊı¼¯, bool (CALLBACK*´¦Àíº¯Êı)(void* ²ÎÊı¼¯, SIInterface_ExtendData* ½Ó¿Ú)); // [´¦Àíº¯Êı] ·µ»Ø true »áÁ¢¿ÌÖÕÖ¹±éÀú
-	void SI_API ForEach_Terrain(void* ²ÎÊı¼¯, bool (CALLBACK*´¦Àíº¯Êı)(void* ²ÎÊı¼¯, SIInterface_ExtendData* ½Ó¿Ú)); // [´¦Àíº¯Êı] ·µ»Ø true »áÁ¢¿ÌÖÕÖ¹±éÀú
-	void SI_API ForEach_Overlay(void* ²ÎÊı¼¯, bool (CALLBACK*´¦Àíº¯Êı)(void* ²ÎÊı¼¯, SIInterface_ExtendData* ½Ó¿Ú)); // [´¦Àíº¯Êı] ·µ»Ø true »áÁ¢¿ÌÖÕÖ¹±éÀú
-	void SI_API ForEach_House(void* ²ÎÊı¼¯, bool (CALLBACK*´¦Àíº¯Êı)(void* ²ÎÊı¼¯, SIInterface_ExtendData* ½Ó¿Ú)); // [´¦Àíº¯Êı] ·µ»Ø true »áÁ¢¿ÌÖÕÖ¹±éÀú
+	void SI_API ForEach(void* å‚æ•°é›†, bool (CALLBACK*å¤„ç†å‡½æ•°)(void* å‚æ•°é›†, SIInterface_ExtendData* æ¥å£)); // [å¤„ç†å‡½æ•°] è¿”å› true ä¼šç«‹åˆ»ç»ˆæ­¢éå†
+	void SI_API ForEach_Cell(void* å‚æ•°é›†, bool (CALLBACK*å¤„ç†å‡½æ•°)(void* å‚æ•°é›†, SIInterface_ExtendData* æ¥å£)); // [å¤„ç†å‡½æ•°] è¿”å› true ä¼šç«‹åˆ»ç»ˆæ­¢éå†
+	void SI_API ForEach_Object(void* å‚æ•°é›†, bool (CALLBACK*å¤„ç†å‡½æ•°)(void* å‚æ•°é›†, SIInterface_ExtendData* æ¥å£)); // [å¤„ç†å‡½æ•°] è¿”å› true ä¼šç«‹åˆ»ç»ˆæ­¢éå†
+	void SI_API ForEach_Techno(void* å‚æ•°é›†, bool (CALLBACK*å¤„ç†å‡½æ•°)(void* å‚æ•°é›†, SIInterface_ExtendData* æ¥å£)); // [å¤„ç†å‡½æ•°] è¿”å› true ä¼šç«‹åˆ»ç»ˆæ­¢éå†
+	void SI_API ForEach_Animation(void* å‚æ•°é›†, bool (CALLBACK*å¤„ç†å‡½æ•°)(void* å‚æ•°é›†, SIInterface_ExtendData* æ¥å£)); // [å¤„ç†å‡½æ•°] è¿”å› true ä¼šç«‹åˆ»ç»ˆæ­¢éå†
+	void SI_API ForEach_Bullet(void* å‚æ•°é›†, bool (CALLBACK*å¤„ç†å‡½æ•°)(void* å‚æ•°é›†, SIInterface_ExtendData* æ¥å£)); // [å¤„ç†å‡½æ•°] è¿”å› true ä¼šç«‹åˆ»ç»ˆæ­¢éå†
+	void SI_API ForEach_Terrain(void* å‚æ•°é›†, bool (CALLBACK*å¤„ç†å‡½æ•°)(void* å‚æ•°é›†, SIInterface_ExtendData* æ¥å£)); // [å¤„ç†å‡½æ•°] è¿”å› true ä¼šç«‹åˆ»ç»ˆæ­¢éå†
+	void SI_API ForEach_Overlay(void* å‚æ•°é›†, bool (CALLBACK*å¤„ç†å‡½æ•°)(void* å‚æ•°é›†, SIInterface_ExtendData* æ¥å£)); // [å¤„ç†å‡½æ•°] è¿”å› true ä¼šç«‹åˆ»ç»ˆæ­¢éå†
+	void SI_API ForEach_House(void* å‚æ•°é›†, bool (CALLBACK*å¤„ç†å‡½æ•°)(void* å‚æ•°é›†, SIInterface_ExtendData* æ¥å£)); // [å¤„ç†å‡½æ•°] è¿”å› true ä¼šç«‹åˆ»ç»ˆæ­¢éå†
 
 }
 
 namespace SIClassManager
 {
-	//Í¨¹ıAbstractClass*ÕÒµ½¶ÔÓ¦µÄSIInterface_ExtendData*ÒÔ½øĞĞ¸ü¶àµÄ²Ù×÷¡£
-	//Èô¶ÔÓ¦¶ÔÏóÎŞSIInterface_ExtendDataÅäÌ×»ò¶ÔÏó²»´æÔÚ/²»ºÏ·¨£¬Ôò·µ»Ønullptr¡£
-	SIInterface_ExtendData* SI_API GetExtendData(const AbstractClass* const ÊµÌå);// ·µ»ØÖµ¿ÉÄÜÎª¿Õ
-	//Í¨¹ıHouseClass*ÕÒµ½¶ÔÓ¦µÄSIHouse_ExtendData*ÒÔ½øĞĞ¸ü¶àµÄ²Ù×÷¡£
-	//Èô¶ÔÓ¦¶ÔÏóÎŞSIHouse_ExtendDataÅäÌ×»ò¶ÔÏó²»´æÔÚ/²»ºÏ·¨£¬Ôò·µ»Ønullptr¡£
-	SIHouse_ExtendData* SI_API GetHouseExtendData(const HouseClass* const ÊµÌå);// ·µ»ØÖµ¿ÉÄÜÎª¿Õ
-	//»ñÈ¡WICÄÚ²¿¶ÔÏóµÄ½Ó¿Ú
-	//ÒÔÏÂº¯ÊıµÄ·µ»ØÖµ¶¼¿ÉÄÜÎª¿Õ£¬Çë×ÔĞĞ¼ì²é
-	//FindÎª¿ÕÊÇÎ´ÕÒµ½
-	//FindOrAllocateÎª¿ÕÊÇ³öÏÖ´íÎó£¬Èç¹ûÏ£Íû·¢Éú´íÎóÊ±±ÀÀ£ÔòÎŞĞè¼ì²éÊÇ·ñÎª¿Õ
-	SIBuffTypeClass* SI_API BuffType_Find(const char* Ãû³Æ);
-	SIBuffTypeClass* SI_API BuffType_FindOrAllocate(const char* Ãû³Æ);
-	SIPackTypeClass_BuffSetting* SI_API BuffSetting_Find(const char* Ãû³Æ);
-	SIPackTypeClass_BuffSetting* SI_API BuffSetting_FindOrAllocate(const char* Ãû³Æ);
-	SIPackTypeClass_CheckTechno* SI_API CheckTechno_Find(const char* Ãû³Æ);
-	SIPackTypeClass_CheckTechno* SI_API CheckTechno_FindOrAllocate(const char* Ãû³Æ);
-	SIElementTypeClass* SI_API ElementType_Find(const char* Ãû³Æ);
-	SIElementTypeClass* SI_API ElementType_FindOrAllocate(const char* Ãû³Æ);
-	SIElementResistanceTypeClass* SI_API ElementResistanceType_Find(const char* Ãû³Æ);
-	SIElementResistanceTypeClass* SI_API ElementResistanceType_FindOrAllocate(const char* Ãû³Æ);
+	//é€šè¿‡AbstractClass*æ‰¾åˆ°å¯¹åº”çš„SIInterface_ExtendData*ä»¥è¿›è¡Œæ›´å¤šçš„æ“ä½œã€‚
+	//è‹¥å¯¹åº”å¯¹è±¡æ— SIInterface_ExtendDataé…å¥—æˆ–å¯¹è±¡ä¸å­˜åœ¨/ä¸åˆæ³•ï¼Œåˆ™è¿”å›nullptrã€‚
+	SIInterface_ExtendData* SI_API GetExtendData(const AbstractClass* const å®ä½“);// è¿”å›å€¼å¯èƒ½ä¸ºç©º
+	//é€šè¿‡HouseClass*æ‰¾åˆ°å¯¹åº”çš„SIHouse_ExtendData*ä»¥è¿›è¡Œæ›´å¤šçš„æ“ä½œã€‚
+	//è‹¥å¯¹åº”å¯¹è±¡æ— SIHouse_ExtendDataé…å¥—æˆ–å¯¹è±¡ä¸å­˜åœ¨/ä¸åˆæ³•ï¼Œåˆ™è¿”å›nullptrã€‚
+	SIHouse_ExtendData* SI_API GetHouseExtendData(const HouseClass* const å®ä½“);// è¿”å›å€¼å¯èƒ½ä¸ºç©º
+	//è·å–WICå†…éƒ¨å¯¹è±¡çš„æ¥å£
+	//ä»¥ä¸‹å‡½æ•°çš„è¿”å›å€¼éƒ½å¯èƒ½ä¸ºç©ºï¼Œè¯·è‡ªè¡Œæ£€æŸ¥
+	//Findä¸ºç©ºæ˜¯æœªæ‰¾åˆ°
+	//FindOrAllocateä¸ºç©ºæ˜¯å‡ºç°é”™è¯¯ï¼Œå¦‚æœå¸Œæœ›å‘ç”Ÿé”™è¯¯æ—¶å´©æºƒåˆ™æ— éœ€æ£€æŸ¥æ˜¯å¦ä¸ºç©º
+	SIBuffTypeClass* SI_API BuffType_Find(const char* åç§°);
+	SIBuffTypeClass* SI_API BuffType_FindOrAllocate(const char* åç§°);
+	SIPackTypeClass_BuffSetting* SI_API BuffSetting_Find(const char* åç§°);
+	SIPackTypeClass_BuffSetting* SI_API BuffSetting_FindOrAllocate(const char* åç§°);
+	SIPackTypeClass_CheckTechno* SI_API CheckTechno_Find(const char* åç§°);
+	SIPackTypeClass_CheckTechno* SI_API CheckTechno_FindOrAllocate(const char* åç§°);
+	SIElementTypeClass* SI_API ElementType_Find(const char* åç§°);
+	SIElementTypeClass* SI_API ElementType_FindOrAllocate(const char* åç§°);
+	SIElementResistanceTypeClass* SI_API ElementResistanceType_Find(const char* åç§°);
+	SIElementResistanceTypeClass* SI_API ElementResistanceType_FindOrAllocate(const char* åç§°);
 
-	// ĞèÒªÔÚÔØÈë INI Ö®Ç°¾ÍÍê³É×¢²á , ·µ»ØÖµÎªĞ§¹ûÀàĞÍ ID , ·µ»ØÖµÎª -1 ±íÊ¾×¢²áÊ§°Ü
-	//×¢²á·½·¨£º
-	//µ÷ÓÃ·½µÄ²å¼şÓ¦ÔÚÒÀÀµÖĞ°üÀ¨WIC
-	//ÀıÈç£ºInitDependency Dependency{"SIWinterIsComing",DoNotCheckVersion,WIC_LIBRARY_VERSION,true};
-	//¼ÓÈëÒÀÀµÖ®ºó£¬ÇëÔÚOrderedInitº¯Êıµ±ÖĞÍê³É×¢²á
-	//×¢²áºóµÄÀàĞÍÌîĞ´ÔÚEffect.Type="ÄãµÄĞÂBuffÃû×Ö"
-	//[Ğ§¹ûÖÖÀàÃû³Æ] ³¤¶È²»ÄÜ³¬¹ı 64 , º¬ \0
+	// éœ€è¦åœ¨è½½å…¥ INI ä¹‹å‰å°±å®Œæˆæ³¨å†Œ , è¿”å›å€¼ä¸ºæ•ˆæœç±»å‹ ID , è¿”å›å€¼ä¸º -1 è¡¨ç¤ºæ³¨å†Œå¤±è´¥
+	//æ³¨å†Œæ–¹æ³•ï¼š
+	//è°ƒç”¨æ–¹çš„æ’ä»¶åº”åœ¨ä¾èµ–ä¸­åŒ…æ‹¬WIC
+	//ä¾‹å¦‚ï¼šInitDependency Dependency{"SIWinterIsComing",DoNotCheckVersion,WIC_LIBRARY_VERSION,true};
+	//åŠ å…¥ä¾èµ–ä¹‹åï¼Œè¯·åœ¨OrderedInitå‡½æ•°å½“ä¸­å®Œæˆæ³¨å†Œ
+	//æ³¨å†Œåçš„ç±»å‹å¡«å†™åœ¨Effect.Type="ä½ çš„æ–°Buffåå­—"
+	//[æ•ˆæœç§ç±»åç§°] é•¿åº¦ä¸èƒ½è¶…è¿‡ 64 , å« \0
 	template<typename T>
-	int RegisterBuff(const char* Ğ§¹ûÀàĞÍÃû³Æ)
+	int RegisterBuff(const char* æ•ˆæœç±»å‹åç§°)
 	{
-		static_assert(std::is_base_of<SIBuffClass, T>::value, "Ö»ÄÜ×¢²áSIBuffClassµÄÅÉÉúÀà");
+		static_assert(std::is_base_of<SIBuffClass, T>::value, "åªèƒ½æ³¨å†ŒSIBuffClassçš„æ´¾ç”Ÿç±»");
 		T Buff;
-		return RegisterEffectType(Ğ§¹ûÀàĞÍÃû³Æ, *reinterpret_cast<DWORD*>(&Buff));
+		return RegisterEffectType(æ•ˆæœç±»å‹åç§°, *reinterpret_cast<DWORD*>(&Buff));
 	}
 }
 
 class SIHouse_ExtendData
 {
 public:
-	//»ñÈ¡¶ÔÓ¦µÄHouseClassÖ¸Õë
+	//è·å–å¯¹åº”çš„HouseClassæŒ‡é’ˆ
 	HouseClass* OwnerObject();
 
-	//µ¥Î»À´Ô´¼ÆÊıÆ÷
-	void Counter_AddOriginTechnoType(TechnoTypeClass* µ¥Î»ÀàĞÍ);
-	void Counter_RemoveOriginTechnoType(TechnoTypeClass* µ¥Î»ÀàĞÍ);
+	//å•ä½æ¥æºè®¡æ•°å™¨
+	void Counter_AddOriginTechnoType(TechnoTypeClass* å•ä½ç±»å‹);
+	void Counter_RemoveOriginTechnoType(TechnoTypeClass* å•ä½ç±»å‹);
 
-	//Í¼±êÏÔÊ¾
-	bool AlwaysShowCameo(const TechnoTypeClass* const µ¥Î»ÀàĞÍ, bool °üÀ¨ÕıÔÚ½¨ÔìµÄµ¥Î») const;
+	//å›¾æ ‡æ˜¾ç¤º
+	bool AlwaysShowCameo(const TechnoTypeClass* const å•ä½ç±»å‹, bool åŒ…æ‹¬æ­£åœ¨å»ºé€ çš„å•ä½) const;
 	
-	//²úÄÜ¹¤³§µÄ¿ØÖÆ
+	//äº§èƒ½å·¥å‚çš„æ§åˆ¶
 	void Factory_CalculateProduction();
-	void Factory_MergeProduction(TechnoClass* µ¥Î»);
-	void Factory_RemoveProduction(TechnoClass* µ¥Î»);
+	void Factory_MergeProduction(TechnoClass* å•ä½);
+	void Factory_RemoveProduction(TechnoClass* å•ä½);
 
-	//×÷Õ½·½µÄ¾­Ñé×Ü¿ØÖÆ
+	//ä½œæˆ˜æ–¹çš„ç»éªŒæ€»æ§åˆ¶
 	void EXP_Init();
-	void EXP_Get(TechnoClass* µ¥Î», SIValues_HouseInitEXP* ¹ú¼Ò¾­ÑéÖµ²ÎÊı°ü);
-	bool EXP_MergeAcademy(TechnoClass* µ¥Î», TechnoTypeClass* µ¥Î»ÀàĞÍ);//¿ÉÄÜ»áÊ§°Ü£¬Ê§°Ü·µ»Øfalse
-	bool EXP_RemoveAcademy(TechnoClass* µ¥Î», TechnoTypeClass* µ¥Î»ÀàĞÍ);//¿ÉÄÜ»áÊ§°Ü£¬Ê§°Ü·µ»Øfalse
-	bool EXP_UpdateSpyEffect(BuildingClass* ½¨Öşµ¥Î», BuildingTypeClass* ½¨Öşµ¥Î»ÀàĞÍ);//¿ÉÄÜ»áÊ§°Ü£¬Ê§°Ü·µ»Øfalse
-	void EXPPool_Add(double ¶îÍâ¾­ÑéÖµ);
-	double EXPPool_Pop(double ĞèÇóµÄ¶îÍâ¾­ÑéÖµ);
+	void EXP_Get(TechnoClass* å•ä½, SIValues_HouseInitEXP* å›½å®¶ç»éªŒå€¼å‚æ•°åŒ…);
+	bool EXP_MergeAcademy(TechnoClass* å•ä½, TechnoTypeClass* å•ä½ç±»å‹);//å¯èƒ½ä¼šå¤±è´¥ï¼Œå¤±è´¥è¿”å›false
+	bool EXP_RemoveAcademy(TechnoClass* å•ä½, TechnoTypeClass* å•ä½ç±»å‹);//å¯èƒ½ä¼šå¤±è´¥ï¼Œå¤±è´¥è¿”å›false
+	bool EXP_UpdateSpyEffect(BuildingClass* å»ºç­‘å•ä½, BuildingTypeClass* å»ºç­‘å•ä½ç±»å‹);//å¯èƒ½ä¼šå¤±è´¥ï¼Œå¤±è´¥è¿”å›false
+	void EXPPool_Add(double é¢å¤–ç»éªŒå€¼);
+	double EXPPool_Pop(double éœ€æ±‚çš„é¢å¤–ç»éªŒå€¼);
 
-	//×÷Õ½·½±äÁ¿µÄ²Ù×÷
-	void SetHouseVar(int Ë÷ÒıÖµ, double ÊıÖµ);
-	double GetHouseVar(int Ë÷ÒıÖµ);
-	void DeleteHouseVar(int Ë÷ÒıÖµ);
-	void ForEach_HouseVar(void* ²ÎÊı¼¯, void (CALLBACK* ´¦Àíº¯Êı)(void* ²ÎÊı¼¯, int Ë÷Òı, double& Öµ));
+	//ä½œæˆ˜æ–¹å˜é‡çš„æ“ä½œ
+	void SetHouseVar(int ç´¢å¼•å€¼, double æ•°å€¼);
+	double GetHouseVar(int ç´¢å¼•å€¼);
+	void DeleteHouseVar(int ç´¢å¼•å€¼);
+	void ForEach_HouseVar(void* å‚æ•°é›†, void (CALLBACK* å¤„ç†å‡½æ•°)(void* å‚æ•°é›†, int ç´¢å¼•, double& å€¼));
 
-	//Ö¸¶¨ÆµµÀµÄ¹ã²¥¿ØÖÆ
-	void FreshBroadcastPower(int ÆµµÀ, double ¹ã²¥Ç¿¶È, bool ´¥·¢±»¶¯¼àÌı, CoordStruct ·¢²¼×ø±ê, TechnoClass* ·¢²¼µ¥Î», AbstractClass* Ö¸ÏòÄ¿±ê);
-	void PostBroadcast(int ÆµµÀ, bool ´¥·¢±»¶¯¼àÌı, CoordStruct ·¢²¼×ø±ê, TechnoClass* ·¢²¼µ¥Î», AbstractClass* Ö¸ÏòÄ¿±ê);
-	int GetBroadcastListenerCount(int ÆµµÀ, bool ÎŞÊÓÏŞÖÆÌõ¼ş, CoordStruct ·¢²¼×ø±ê, TechnoClass* ·¢²¼µ¥Î», AbstractClass* Ö¸ÏòÄ¿±ê);
-	double GetBroadcastPower(int ÆµµÀ);
-	void AddBroadcastListener(int ÆµµÀ, SIBuffClass* ¼àÌıBuff);
-	void RemoveBroadcastListener(int ÆµµÀ, SIBuffClass* ¼àÌıBuff);
-	void ForEach_Broadcast(void* ²ÎÊı¼¯, void (CALLBACK* ´¦Àíº¯Êı)(void* ²ÎÊı¼¯, int ÆµµÀ, SIBroadcastClass* Öµ));
-	SIBroadcastClass* Broadcast_FindOrAllocate(int ÆµµÀ);// ·µ»ØÖµ¿ÉÄÜÎª¿Õ£¬Îª¿ÕÊÇÎ´ÕÒµ½
-	SIBroadcastClass* Broadcast_Find(int ÆµµÀ);// ·µ»ØÖµ¿ÉÄÜÎª¿Õ£¬Îª¿ÕÊÇ³öÏÖ´íÎó£¬Èç¹ûÏ£Íû·¢Éú´íÎóÊ±±ÀÀ£ÔòÎŞĞè¼ì²éÊÇ·ñÎª¿Õ
+	//æŒ‡å®šé¢‘é“çš„å¹¿æ’­æ§åˆ¶
+	void FreshBroadcastPower(int é¢‘é“, double å¹¿æ’­å¼ºåº¦, bool è§¦å‘è¢«åŠ¨ç›‘å¬, CoordStruct å‘å¸ƒåæ ‡, TechnoClass* å‘å¸ƒå•ä½, AbstractClass* æŒ‡å‘ç›®æ ‡);
+	void PostBroadcast(int é¢‘é“, bool è§¦å‘è¢«åŠ¨ç›‘å¬, CoordStruct å‘å¸ƒåæ ‡, TechnoClass* å‘å¸ƒå•ä½, AbstractClass* æŒ‡å‘ç›®æ ‡);
+	int GetBroadcastListenerCount(int é¢‘é“, bool æ— è§†é™åˆ¶æ¡ä»¶, CoordStruct å‘å¸ƒåæ ‡, TechnoClass* å‘å¸ƒå•ä½, AbstractClass* æŒ‡å‘ç›®æ ‡);
+	double GetBroadcastPower(int é¢‘é“);
+	void AddBroadcastListener(int é¢‘é“, SIBuffClass* ç›‘å¬Buff);
+	void RemoveBroadcastListener(int é¢‘é“, SIBuffClass* ç›‘å¬Buff);
+	void ForEach_Broadcast(void* å‚æ•°é›†, void (CALLBACK* å¤„ç†å‡½æ•°)(void* å‚æ•°é›†, int é¢‘é“, SIBroadcastClass* å€¼));
+	SIBroadcastClass* Broadcast_FindOrAllocate(int é¢‘é“);// è¿”å›å€¼å¯èƒ½ä¸ºç©ºï¼Œä¸ºç©ºæ˜¯æœªæ‰¾åˆ°
+	SIBroadcastClass* Broadcast_Find(int é¢‘é“);// è¿”å›å€¼å¯èƒ½ä¸ºç©ºï¼Œä¸ºç©ºæ˜¯å‡ºç°é”™è¯¯ï¼Œå¦‚æœå¸Œæœ›å‘ç”Ÿé”™è¯¯æ—¶å´©æºƒåˆ™æ— éœ€æ£€æŸ¥æ˜¯å¦ä¸ºç©º
 };
 
 class SIBroadcastClass
 {
 public:
 	static const SIConstVector<SIBroadcastClass*>& GetArray();
-	// ¹¦ÄÜº¯Êı
-	void FreshBroadcastPower(double ¹ã²¥Ç¿¶È, bool ´¥·¢±»¶¯¼àÌı, CoordStruct ·¢²¼×ø±ê, TechnoClass* ·¢²¼µ¥Î», AbstractClass* Ö¸ÏòÄ¿±ê);
-	void PostBroadcast(bool ´¥·¢±»¶¯¼àÌı, CoordStruct ·¢²¼×ø±ê, TechnoClass* ·¢²¼µ¥Î», AbstractClass* Ö¸ÏòÄ¿±ê);
-	int GetBroadcastListenerCount(bool ÎŞÊÓÏŞÖÆÌõ¼ş, CoordStruct ·¢²¼×ø±ê, TechnoClass* ·¢²¼µ¥Î», AbstractClass* Ö¸ÏòÄ¿±ê);
-	void AddListener(SIBuffClass* ÒªÌí¼ÓµÄ¼àÌıBuff);
-	void RemoveListener(SIBuffClass* ÒªÒÆ³ıµÄ¼àÌıBuff);
+	// åŠŸèƒ½å‡½æ•°
+	void FreshBroadcastPower(double å¹¿æ’­å¼ºåº¦, bool è§¦å‘è¢«åŠ¨ç›‘å¬, CoordStruct å‘å¸ƒåæ ‡, TechnoClass* å‘å¸ƒå•ä½, AbstractClass* æŒ‡å‘ç›®æ ‡);
+	void PostBroadcast(bool è§¦å‘è¢«åŠ¨ç›‘å¬, CoordStruct å‘å¸ƒåæ ‡, TechnoClass* å‘å¸ƒå•ä½, AbstractClass* æŒ‡å‘ç›®æ ‡);
+	int GetBroadcastListenerCount(bool æ— è§†é™åˆ¶æ¡ä»¶, CoordStruct å‘å¸ƒåæ ‡, TechnoClass* å‘å¸ƒå•ä½, AbstractClass* æŒ‡å‘ç›®æ ‡);
+	void AddListener(SIBuffClass* è¦æ·»åŠ çš„ç›‘å¬Buff);
+	void RemoveListener(SIBuffClass* è¦ç§»é™¤çš„ç›‘å¬Buff);
 	bool IsEmpty();
 	HouseClass* OwnerObject();
 	double GetBroadcastPower();
 	const SIDataList<SIBuffClass*>& GetListenerBuffList();
 };
 
-// Óëµ¥Î»Ò»Ò»¶ÔÓ¦µÄ²Ù×÷½Ó¿Ú
+// ä¸å•ä½ä¸€ä¸€å¯¹åº”çš„æ“ä½œæ¥å£
 class SIInterface_ExtendData
 {
 public:
-	//»ñÈ¡¶ÔÓ¦µ¥Î»ÔÚINI×¢²áµÄÀàĞÍÃû¡£
-	char* GetName(); // ÀàĞÍ ID Ãû³Æ
+	//è·å–å¯¹åº”å•ä½åœ¨INIæ³¨å†Œçš„ç±»å‹åã€‚
+	char* GetName(); // ç±»å‹ ID åç§°
 
-	//Í¨¹ıSIInterface_ExtendData*ÕÒµ½¶ÔÓ¦µÄAbstractClass*¡£
-	//Èô¶ÔÏó²»´æÔÚ/²»ºÏ·¨£¬Ôò·µ»Ønullptr¡£
-	AbstractClass* OwnerEntity(); // ·µ»ØÖµ¿ÉÄÜÎª¿Õ
+	//é€šè¿‡SIInterface_ExtendData*æ‰¾åˆ°å¯¹åº”çš„AbstractClass*ã€‚
+	//è‹¥å¯¹è±¡ä¸å­˜åœ¨/ä¸åˆæ³•ï¼Œåˆ™è¿”å›nullptrã€‚
+	AbstractClass* OwnerEntity(); // è¿”å›å€¼å¯èƒ½ä¸ºç©º
 
-	//·µ»Ø¸½×ÅµÄ¶ÔÏóµÄÀà±ğ¡£
+	//è¿”å›é™„ç€çš„å¯¹è±¡çš„ç±»åˆ«ã€‚
 	AbstractType WhatAmI();
 
-	//»ñÈ¡InterfaceÔÚÊı×éÖĞµÄË÷Òı¡£
+	//è·å–Interfaceåœ¨æ•°ç»„ä¸­çš„ç´¢å¼•ã€‚
 	int  GetArrayIndex();
 
-	//¼ì²âÊÇ·ñ±»Ñ¡ÖĞ¡£
+	//æ£€æµ‹æ˜¯å¦è¢«é€‰ä¸­ã€‚
 	bool  IsSelected();
 
-	//»ñÈ¡ËùÔÚ×ø±ê¡£
-	void GetCoords(CoordStruct* ËùÔÚ×ø±ê);
+	//è·å–æ‰€åœ¨åæ ‡ã€‚
+	void GetCoords(CoordStruct* æ‰€åœ¨åæ ‡);
 	
-	//²¿·Ö¿ª»ğÏà¹Øº¯Êı
-	void SetForceFireWeapon(WeaponTypeClass* ÎäÆ÷ÀàĞÍ);
-	void SetForceDeathWeapon(WeaponTypeClass* ÎäÆ÷ÀàĞÍ);
-	CoordStruct Calculate_FireCoord(CoordStruct ÎäÆ÷×ø±ê, double Ëõ·Å±¶ÂÊ);
+	//éƒ¨åˆ†å¼€ç«ç›¸å…³å‡½æ•°
+	void SetForceFireWeapon(WeaponTypeClass* æ­¦å™¨ç±»å‹);
+	void SetForceDeathWeapon(WeaponTypeClass* æ­¦å™¨ç±»å‹);
+	CoordStruct Calculate_FireCoord(CoordStruct æ­¦å™¨åæ ‡, double ç¼©æ”¾å€ç‡);
 
-	//¾­Ñé & µÈ¼¶µÄÏà¹Øº¯Êı¡£
+	//ç»éªŒ & ç­‰çº§çš„ç›¸å…³å‡½æ•°ã€‚
 	int  GetStaticEXPLevel();
-	double  GetLevelTotalEXPCost(double ¹Ì¶¨¾­ÑéÖµ»ùÊı, bool Ê¹ÓÃĞÂ¾­ÑéÏµÍ³);
-	void EXP_Add(const double Ìá¹©µÄ¾­ÑéÖµ, SIEXPSourceType ¾­ÑéÖµÀ´Ô´, SIValues_EXPMerge* ºÏ²¢¾­ÑéÖµ²ÎÊı°ü); // ¿Û³ı¾­ÑéÊ¹ÓÃ¸ºÊı
+	double  GetLevelTotalEXPCost(double å›ºå®šç»éªŒå€¼åŸºæ•°, bool ä½¿ç”¨æ–°ç»éªŒç³»ç»Ÿ);
+	void EXP_Add(const double æä¾›çš„ç»éªŒå€¼, SIEXPSourceType ç»éªŒå€¼æ¥æº, SIValues_EXPMerge* åˆå¹¶ç»éªŒå€¼å‚æ•°åŒ…); // æ‰£é™¤ç»éªŒä½¿ç”¨è´Ÿæ•°
 
-	//×Ô¶¨ÒåµÄ½¨ÖşÈ¾É«º¯Êı¡£
-	int GetTintColor(bool ÌúÄ»È¾É«, bool ¿ÕÏ®È¾É«, bool ¿ñ±©È¾É«);
-	void Calculate_CustomTintValues(int& È¾É«ÑÕÉ«, int& È¾É«Ç¿¶È);
+	//è‡ªå®šä¹‰çš„å»ºç­‘æŸ“è‰²å‡½æ•°ã€‚
+	int GetTintColor(bool é“å¹•æŸ“è‰², bool ç©ºè¢­æŸ“è‰², bool ç‹‚æš´æŸ“è‰²);
+	void Calculate_CustomTintValues(int& æŸ“è‰²é¢œè‰², int& æŸ“è‰²å¼ºåº¦);
 	int Calculate_CustomTintValues_Color();
 	int Calculate_CustomTintValues_Intensity();
-	int Property_Register_CustomTintValues(ColorStruct È¾É«ÑÕÉ«, int È¾É«Ç¿¶È, int ×÷Õ½·½¹éÊô);
-	int Property_Register_CustomTintValues(int È¾É«ÑÕÉ«, int È¾É«Ç¿¶È, int ×÷Õ½·½¹éÊô);
-	void Property_Unregister_CustomTintValues(int ×¢²áË÷Òı);
+	int Property_Register_CustomTintValues(ColorStruct æŸ“è‰²é¢œè‰², int æŸ“è‰²å¼ºåº¦, int ä½œæˆ˜æ–¹å½’å±);
+	int Property_Register_CustomTintValues(int æŸ“è‰²é¢œè‰², int æŸ“è‰²å¼ºåº¦, int ä½œæˆ˜æ–¹å½’å±);
+	void Property_Unregister_CustomTintValues(int æ³¨å†Œç´¢å¼•);
 
 	/*
-	ÒÔÏÂÊÇ¶¯Ì¬ÊôĞÔµÄ²Ù×÷½Ó¿Ú¡£
-	Calculate¸ø³öÔ­Ê¼Öµ¼ÆËã×îÖÕÖµ¡£
-	Merge»á°Ñ¶¯Ì¬ÊôĞÔµÄÏà¹ØÖµÓÀ¾ÃºÏ²¢£¬ºÏ²¢ºó²»¿ÉÔÙĞŞ¸Ä£¬·µ»Ø¡°ĞÂµÄÊıÖµ¡±ÖĞÃ»ÓĞ³É¹¦ºÏ²¢µÄ²¿·Ö£¬ÈçÎª0µÄ³ıÊıµÈ
-	Register»á¼ÓÈëÒ»¸öĞÂµÄ¶¯Ì¬ÊôĞÔ¼Ó³É£¬·µ»ØÒ»¸ö×¢²áË÷Òı¡£
-	Unregister»á°´ÕÕ×¢²áË÷ÒıÏû³ıÏàÓ¦µÄ¶¯Ì¬ÊôĞÔ¼Ó³É¡£
+	ä»¥ä¸‹æ˜¯åŠ¨æ€å±æ€§çš„æ“ä½œæ¥å£ã€‚
+	Calculateç»™å‡ºåŸå§‹å€¼è®¡ç®—æœ€ç»ˆå€¼ã€‚
+	Mergeä¼šæŠŠåŠ¨æ€å±æ€§çš„ç›¸å…³å€¼æ°¸ä¹…åˆå¹¶ï¼Œåˆå¹¶åä¸å¯å†ä¿®æ”¹ï¼Œè¿”å›â€œæ–°çš„æ•°å€¼â€ä¸­æ²¡æœ‰æˆåŠŸåˆå¹¶çš„éƒ¨åˆ†ï¼Œå¦‚ä¸º0çš„é™¤æ•°ç­‰
+	Registerä¼šåŠ å…¥ä¸€ä¸ªæ–°çš„åŠ¨æ€å±æ€§åŠ æˆï¼Œè¿”å›ä¸€ä¸ªæ³¨å†Œç´¢å¼•ã€‚
+	Unregisterä¼šæŒ‰ç…§æ³¨å†Œç´¢å¼•æ¶ˆé™¤ç›¸åº”çš„åŠ¨æ€å±æ€§åŠ æˆã€‚
 
-	ÒÔÏÂµÄ¶¯Ì¬ÊôĞÔ°´ÕÕÈçÏÂ·½·¨¼ÆËã¡£
-	×¢£ºEXPºÍEXPCost¡¢ArmorºÍVersus·Ö±ğÊÇĞ§¹û³Ë·¨ºÍĞ§¹û³ı·¨
-	    ÈçArmor×¢²áÒ»¸ö1.25ºÍVersus×¢²áÒ»¸ö0.8¾ßÓĞÒ»ÑùµÄĞ§¹û
-	Speed¡¢Armor¡¢Versus¡¢Attack¡¢ROF¡¢
-	EXP¡¢EXPProvide¡¢EXPCost¡¢
-	RangeWeapon¡¢CellSpread
-	¼ÆËã¹«Ê½£º
-	Multiplier£º±¶ÂÊ
-	ExtraMultiplier£ºÀÛ³Ë
-	Addon£º×·¼Ó
-	FinalAddon£º×îÖÕÖµ
-	Êµ¼ÊÖµ = ( Ô­Ê¼Öµ * (1.0 + ±¶ÂÊ1 + ±¶ÂÊ2 + ¡­) + (×·¼Ó1 + ×·¼Ó2 + ¡­) ) * (1.0 * ÀÛ³Ë1 * ÀÛ³Ë2 * ¡­) + (×îÖÕÖµ1 + ×îÖÕÖµ2 + ¡­)
+	ä»¥ä¸‹çš„åŠ¨æ€å±æ€§æŒ‰ç…§å¦‚ä¸‹æ–¹æ³•è®¡ç®—ã€‚
+	æ³¨ï¼šEXPå’ŒEXPCostã€Armorå’ŒVersusåˆ†åˆ«æ˜¯æ•ˆæœä¹˜æ³•å’Œæ•ˆæœé™¤æ³•
+	    å¦‚Armoræ³¨å†Œä¸€ä¸ª1.25å’ŒVersusæ³¨å†Œä¸€ä¸ª0.8å…·æœ‰ä¸€æ ·çš„æ•ˆæœ
+	Speedã€Armorã€Versusã€Attackã€ROFã€
+	EXPã€EXPProvideã€EXPCostã€
+	RangeWeaponã€CellSpread
+	è®¡ç®—å…¬å¼ï¼š
+	Multiplierï¼šå€ç‡
+	ExtraMultiplierï¼šç´¯ä¹˜
+	Addonï¼šè¿½åŠ 
+	FinalAddonï¼šæœ€ç»ˆå€¼
+	å®é™…å€¼ = ( åŸå§‹å€¼ * (1.0 + å€ç‡1 + å€ç‡2 + â€¦) + (è¿½åŠ 1 + è¿½åŠ 2 + â€¦) ) * (1.0 * ç´¯ä¹˜1 * ç´¯ä¹˜2 * â€¦) + (æœ€ç»ˆå€¼1 + æœ€ç»ˆå€¼2 + â€¦)
 
-	Property_Merge_Ability_ImmuneXXµÄº¯Êıµ±ÖĞ£¬Ìî´óÓÚ0µÄÖµÎª¿ÉÒÔÃâÒß¡£
+	Property_Merge_Ability_ImmuneXXçš„å‡½æ•°å½“ä¸­ï¼Œå¡«å¤§äº0çš„å€¼ä¸ºå¯ä»¥å…ç–«ã€‚
 	*/
-	double Calculate_PropertyGroup_Speed(double Ô­Ê¼ÒÆ¶¯ËÙ¶È);
-	double  Calculate_PropertyGroup_Defence(double Ô­Ê¼ÉËº¦);
-	double  Calculate_PropertyGroup_Attack(double Ô­Ê¼ÉËº¦);
-	double Calculate_PropertyGroup_ROF(double Ô­Ê¼ÉäËÙ);
-	double Calculate_PropertyGroup_EXP(double Ô­Ê¼»ñµÃµÄ¾­ÑéÖµ);
-	double Calculate_PropertyGroup_EXPProvide(double Ô­Ê¼Ìá¹©µÄ¾­ÑéÖµ);
-	double Calculate_PropertyGroup_EXPCost(double µ¥Î»Éı¼¶ËùĞèµÄ¾­ÑéÖµ);
-	double Calculate_PropertyGroup_RangeWeapon(double Ô­Ê¼ÎäÆ÷Éä³Ì);
-	double Calculate_PropertyGroup_CellSpread(double Ô­Ê¼µ¯Í·½¦Éä·¶Î§);
-	double Property_Merge_Multiplier_Speed(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Multiplier_Armor(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Multiplier_Versus(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Multiplier_Attack(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Multiplier_ROF(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Multiplier_EXP(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Multiplier_EXPProvide(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Multiplier_EXPCost(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Multiplier_RangeWeapon(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Multiplier_CellSpread(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_ExtraMultiplier_Speed(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_ExtraMultiplier_Armor(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_ExtraMultiplier_Versus(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_ExtraMultiplier_Attack(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_ExtraMultiplier_ROF(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_ExtraMultiplier_EXP(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_ExtraMultiplier_EXPProvide(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_ExtraMultiplier_EXPCost(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_ExtraMultiplier_RangeWeapon(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_ExtraMultiplier_CellSpread(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Addon_Speed(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Addon_Damage(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Addon_Attack(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Addon_ROF(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Addon_EXP(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Addon_EXPProvide(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Addon_EXPCost(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_Addon_RangeWeapon(double ĞÂµÄÔö¼ÓÁ¿); // µ¥Î»ÊÇ¸ñµã
-	double Property_Merge_Addon_CellSpread(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_FinalAddon_Speed(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_FinalAddon_Damage(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_FinalAddon_Attack(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_FinalAddon_ROF(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_FinalAddon_EXP(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_FinalAddon_EXPProvide(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_FinalAddon_EXPCost(double ĞÂµÄÔö¼ÓÁ¿);
-	double Property_Merge_FinalAddon_RangeWeapon(double ĞÂµÄÔö¼ÓÁ¿); // µ¥Î»ÊÇ¸ñµã
-	double Property_Merge_FinalAddon_CellSpread(double ĞÂµÄÔö¼ÓÁ¿);
-	int Property_Register_Multiplier_Speed(double Ôö¼ÓÁ¿);
-	int Property_Register_Multiplier_Armor(double Ôö¼ÓÁ¿);
-	int Property_Register_Multiplier_Versus(double Ôö¼ÓÁ¿);
-	int Property_Register_Multiplier_Attack(double Ôö¼ÓÁ¿);
-	int Property_Register_Multiplier_ROF(double Ôö¼ÓÁ¿);
-	int Property_Register_Multiplier_EXP(double Ôö¼ÓÁ¿);
-	int Property_Register_Multiplier_EXPProvide(double Ôö¼ÓÁ¿);
-	int Property_Register_Multiplier_EXPCost(double Ôö¼ÓÁ¿);
-	int Property_Register_Multiplier_RangeWeapon(double Ôö¼ÓÁ¿);
-	int Property_Register_Multiplier_CellSpread(double Ôö¼ÓÁ¿);
-	int Property_Register_ExtraMultiplier_Speed(double Ôö¼ÓÁ¿);
-	int Property_Register_ExtraMultiplier_Armor(double Ôö¼ÓÁ¿);
-	int Property_Register_ExtraMultiplier_Versus(double Ôö¼ÓÁ¿);
-	int Property_Register_ExtraMultiplier_Attack(double Ôö¼ÓÁ¿);
-	int Property_Register_ExtraMultiplier_ROF(double Ôö¼ÓÁ¿);
-	int Property_Register_ExtraMultiplier_EXP(double Ôö¼ÓÁ¿);
-	int Property_Register_ExtraMultiplier_EXPProvide(double Ôö¼ÓÁ¿);
-	int Property_Register_ExtraMultiplier_EXPCost(double Ôö¼ÓÁ¿);
-	int Property_Register_ExtraMultiplier_RangeWeapon(double Ôö¼ÓÁ¿);
-	int Property_Register_ExtraMultiplier_CellSpread(double Ôö¼ÓÁ¿);
-	int Property_Register_Addon_Speed(double Ôö¼ÓÁ¿);
-	int Property_Register_Addon_Damage(double Ôö¼ÓÁ¿);
-	int Property_Register_Addon_Attack(double Ôö¼ÓÁ¿);
-	int Property_Register_Addon_ROF(double Ôö¼ÓÁ¿);
-	int Property_Register_Addon_EXP(double Ôö¼ÓÁ¿);
-	int Property_Register_Addon_EXPProvide(double Ôö¼ÓÁ¿);
-	int Property_Register_Addon_EXPCost(double Ôö¼ÓÁ¿);
-	int Property_Register_Addon_RangeWeapon(double Ôö¼ÓÁ¿); // µ¥Î»ÊÇ¸ñµã
-	int Property_Register_Addon_CellSpread(double Ôö¼ÓÁ¿); // µ¥Î»ÊÇ¸ñ×Ó
-	int Property_Register_FinalAddon_Speed(double Ôö¼ÓÁ¿);
-	int Property_Register_FinalAddon_Damage(double Ôö¼ÓÁ¿);
-	int Property_Register_FinalAddon_Attack(double Ôö¼ÓÁ¿);
-	int Property_Register_FinalAddon_ROF(double Ôö¼ÓÁ¿);
-	int Property_Register_FinalAddon_EXP(double Ôö¼ÓÁ¿);
-	int Property_Register_FinalAddon_EXPProvide(double Ôö¼ÓÁ¿);
-	int Property_Register_FinalAddon_EXPCost(double Ôö¼ÓÁ¿);
-	int Property_Register_FinalAddon_RangeWeapon(double Ôö¼ÓÁ¿); // µ¥Î»ÊÇ¸ñµã
-	int Property_Register_FinalAddon_CellSpread(double Ôö¼ÓÁ¿);
-	void Property_Unregister_Multiplier_Speed(int ×¢²áË÷Òı);
-	void Property_Unregister_Multiplier_Armor(int ×¢²áË÷Òı);
-	void Property_Unregister_Multiplier_Versus(int ×¢²áË÷Òı);
-	void Property_Unregister_Multiplier_Attack(int ×¢²áË÷Òı);
-	void Property_Unregister_Multiplier_ROF(int ×¢²áË÷Òı);
-	void Property_Unregister_Multiplier_EXP(int ×¢²áË÷Òı);
-	void Property_Unregister_Multiplier_EXPProvide(int ×¢²áË÷Òı);
-	void Property_Unregister_Multiplier_EXPCost(int ×¢²áË÷Òı);
-	void Property_Unregister_Multiplier_RangeWeapon(int ×¢²áË÷Òı);
-	void Property_Unregister_Multiplier_CellSpread(int ×¢²áË÷Òı);
-	void Property_Unregister_ExtraMultiplier_Speed(int ×¢²áË÷Òı);
-	void Property_Unregister_ExtraMultiplier_Armor(int ×¢²áË÷Òı);
-	void Property_Unregister_ExtraMultiplier_Versus(int ×¢²áË÷Òı);
-	void Property_Unregister_ExtraMultiplier_Attack(int ×¢²áË÷Òı);
-	void Property_Unregister_ExtraMultiplier_ROF(int ×¢²áË÷Òı);
-	void Property_Unregister_ExtraMultiplier_EXP(int ×¢²áË÷Òı);
-	void Property_Unregister_ExtraMultiplier_EXPProvide(int ×¢²áË÷Òı);
-	void Property_Unregister_ExtraMultiplier_EXPCost(int ×¢²áË÷Òı);
-	void Property_Unregister_ExtraMultiplier_RangeWeapon(int ×¢²áË÷Òı);
-	void Property_Unregister_ExtraMultiplier_CellSpread(int ×¢²áË÷Òı);
-	void Property_Unregister_Addon_Speed(int ×¢²áË÷Òı);
-	void Property_Unregister_Addon_Damage(int ×¢²áË÷Òı);
-	void Property_Unregister_Addon_Attack(int ×¢²áË÷Òı);
-	void Property_Unregister_Addon_ROF(int ×¢²áË÷Òı);
-	void Property_Unregister_Addon_EXP(int ×¢²áË÷Òı);
-	void Property_Unregister_Addon_EXPProvide(int ×¢²áË÷Òı);
-	void Property_Unregister_Addon_EXPCost(int ×¢²áË÷Òı);
-	void Property_Unregister_Addon_RangeWeapon(int ×¢²áË÷Òı);
-	void Property_Unregister_Addon_CellSpread(int ×¢²áË÷Òı);
-	void Property_Unregister_FinalAddon_Speed(int ×¢²áË÷Òı);
-	void Property_Unregister_FinalAddon_Damage(int ×¢²áË÷Òı);
-	void Property_Unregister_FinalAddon_Attack(int ×¢²áË÷Òı);
-	void Property_Unregister_FinalAddon_ROF(int ×¢²áË÷Òı);
-	void Property_Unregister_FinalAddon_EXP(int ×¢²áË÷Òı);
-	void Property_Unregister_FinalAddon_EXPProvide(int ×¢²áË÷Òı);
-	void Property_Unregister_FinalAddon_EXPCost(int ×¢²áË÷Òı);
-	void Property_Unregister_FinalAddon_RangeWeapon(int ×¢²áË÷Òı);
-	void Property_Unregister_FinalAddon_CellSpread(int ×¢²áË÷Òı);
-	void Property_Merge_Ability_ImmuneCrush(int ĞÂµÄÄÜÁ¦Ç¿¶È);
-	void Property_Merge_Ability_ImmuneCrushAdvance(int ĞÂµÄÄÜÁ¦Ç¿¶È);
-	void Property_Merge_Ability_ImmuneRadiation(int ĞÂµÄÄÜÁ¦Ç¿¶È);
-	void Property_Merge_Ability_ImmunePsionicDamage(int ĞÂµÄÄÜÁ¦Ç¿¶È);
-	void Property_Merge_Ability_ImmunePsionic(int ĞÂµÄÄÜÁ¦Ç¿¶È);
-	void Property_Merge_Ability_ImmuneBerzerk(int ĞÂµÄÄÜÁ¦Ç¿¶È);
-	void Property_Merge_Ability_ImmunePoison(int ĞÂµÄÄÜÁ¦Ç¿¶È);
-	void Property_Merge_Ability_ImmuneWarp(int ĞÂµÄÄÜÁ¦Ç¿¶È);
-	void Property_Merge_Ability_ImmuneEMP(int ĞÂµÄÄÜÁ¦Ç¿¶È);
-	void Property_Merge_Ability_SelfHealing(int ĞÂµÄÄÜÁ¦Ç¿¶È);
-	void Property_Merge_Ability_SelfHealing_Percent(double ĞÂµÄÄÜÁ¦Ç¿¶È);
-	void Property_Merge_Ability_SelfHealing_Cap(double ĞÂµÄÄÜÁ¦Ç¿¶È);
-	void Property_Merge_Ability_SelfHealing_Delay(int ĞÂµÄÄÜÁ¦Ç¿¶È);
-	void Property_Merge_Ability_SelfHealing_CombatDelay(int ĞÂµÄÄÜÁ¦Ç¿¶È);
+	double Calculate_PropertyGroup_Speed(double åŸå§‹ç§»åŠ¨é€Ÿåº¦);
+	double  Calculate_PropertyGroup_Defence(double åŸå§‹ä¼¤å®³);
+	double  Calculate_PropertyGroup_Attack(double åŸå§‹ä¼¤å®³);
+	double Calculate_PropertyGroup_ROF(double åŸå§‹å°„é€Ÿ);
+	double Calculate_PropertyGroup_EXP(double åŸå§‹è·å¾—çš„ç»éªŒå€¼);
+	double Calculate_PropertyGroup_EXPProvide(double åŸå§‹æä¾›çš„ç»éªŒå€¼);
+	double Calculate_PropertyGroup_EXPCost(double å•ä½å‡çº§æ‰€éœ€çš„ç»éªŒå€¼);
+	double Calculate_PropertyGroup_RangeWeapon(double åŸå§‹æ­¦å™¨å°„ç¨‹);
+	double Calculate_PropertyGroup_CellSpread(double åŸå§‹å¼¹å¤´æº…å°„èŒƒå›´);
+	double Property_Merge_Multiplier_Speed(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Multiplier_Armor(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Multiplier_Versus(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Multiplier_Attack(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Multiplier_ROF(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Multiplier_EXP(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Multiplier_EXPProvide(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Multiplier_EXPCost(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Multiplier_RangeWeapon(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Multiplier_CellSpread(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_ExtraMultiplier_Speed(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_ExtraMultiplier_Armor(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_ExtraMultiplier_Versus(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_ExtraMultiplier_Attack(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_ExtraMultiplier_ROF(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_ExtraMultiplier_EXP(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_ExtraMultiplier_EXPProvide(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_ExtraMultiplier_EXPCost(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_ExtraMultiplier_RangeWeapon(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_ExtraMultiplier_CellSpread(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Addon_Speed(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Addon_Damage(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Addon_Attack(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Addon_ROF(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Addon_EXP(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Addon_EXPProvide(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Addon_EXPCost(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_Addon_RangeWeapon(double æ–°çš„å¢åŠ é‡); // å•ä½æ˜¯æ ¼ç‚¹
+	double Property_Merge_Addon_CellSpread(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_FinalAddon_Speed(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_FinalAddon_Damage(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_FinalAddon_Attack(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_FinalAddon_ROF(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_FinalAddon_EXP(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_FinalAddon_EXPProvide(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_FinalAddon_EXPCost(double æ–°çš„å¢åŠ é‡);
+	double Property_Merge_FinalAddon_RangeWeapon(double æ–°çš„å¢åŠ é‡); // å•ä½æ˜¯æ ¼ç‚¹
+	double Property_Merge_FinalAddon_CellSpread(double æ–°çš„å¢åŠ é‡);
+	int Property_Register_Multiplier_Speed(double å¢åŠ é‡);
+	int Property_Register_Multiplier_Armor(double å¢åŠ é‡);
+	int Property_Register_Multiplier_Versus(double å¢åŠ é‡);
+	int Property_Register_Multiplier_Attack(double å¢åŠ é‡);
+	int Property_Register_Multiplier_ROF(double å¢åŠ é‡);
+	int Property_Register_Multiplier_EXP(double å¢åŠ é‡);
+	int Property_Register_Multiplier_EXPProvide(double å¢åŠ é‡);
+	int Property_Register_Multiplier_EXPCost(double å¢åŠ é‡);
+	int Property_Register_Multiplier_RangeWeapon(double å¢åŠ é‡);
+	int Property_Register_Multiplier_CellSpread(double å¢åŠ é‡);
+	int Property_Register_ExtraMultiplier_Speed(double å¢åŠ é‡);
+	int Property_Register_ExtraMultiplier_Armor(double å¢åŠ é‡);
+	int Property_Register_ExtraMultiplier_Versus(double å¢åŠ é‡);
+	int Property_Register_ExtraMultiplier_Attack(double å¢åŠ é‡);
+	int Property_Register_ExtraMultiplier_ROF(double å¢åŠ é‡);
+	int Property_Register_ExtraMultiplier_EXP(double å¢åŠ é‡);
+	int Property_Register_ExtraMultiplier_EXPProvide(double å¢åŠ é‡);
+	int Property_Register_ExtraMultiplier_EXPCost(double å¢åŠ é‡);
+	int Property_Register_ExtraMultiplier_RangeWeapon(double å¢åŠ é‡);
+	int Property_Register_ExtraMultiplier_CellSpread(double å¢åŠ é‡);
+	int Property_Register_Addon_Speed(double å¢åŠ é‡);
+	int Property_Register_Addon_Damage(double å¢åŠ é‡);
+	int Property_Register_Addon_Attack(double å¢åŠ é‡);
+	int Property_Register_Addon_ROF(double å¢åŠ é‡);
+	int Property_Register_Addon_EXP(double å¢åŠ é‡);
+	int Property_Register_Addon_EXPProvide(double å¢åŠ é‡);
+	int Property_Register_Addon_EXPCost(double å¢åŠ é‡);
+	int Property_Register_Addon_RangeWeapon(double å¢åŠ é‡); // å•ä½æ˜¯æ ¼ç‚¹
+	int Property_Register_Addon_CellSpread(double å¢åŠ é‡); // å•ä½æ˜¯æ ¼å­
+	int Property_Register_FinalAddon_Speed(double å¢åŠ é‡);
+	int Property_Register_FinalAddon_Damage(double å¢åŠ é‡);
+	int Property_Register_FinalAddon_Attack(double å¢åŠ é‡);
+	int Property_Register_FinalAddon_ROF(double å¢åŠ é‡);
+	int Property_Register_FinalAddon_EXP(double å¢åŠ é‡);
+	int Property_Register_FinalAddon_EXPProvide(double å¢åŠ é‡);
+	int Property_Register_FinalAddon_EXPCost(double å¢åŠ é‡);
+	int Property_Register_FinalAddon_RangeWeapon(double å¢åŠ é‡); // å•ä½æ˜¯æ ¼ç‚¹
+	int Property_Register_FinalAddon_CellSpread(double å¢åŠ é‡);
+	void Property_Unregister_Multiplier_Speed(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Multiplier_Armor(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Multiplier_Versus(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Multiplier_Attack(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Multiplier_ROF(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Multiplier_EXP(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Multiplier_EXPProvide(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Multiplier_EXPCost(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Multiplier_RangeWeapon(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Multiplier_CellSpread(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_ExtraMultiplier_Speed(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_ExtraMultiplier_Armor(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_ExtraMultiplier_Versus(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_ExtraMultiplier_Attack(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_ExtraMultiplier_ROF(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_ExtraMultiplier_EXP(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_ExtraMultiplier_EXPProvide(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_ExtraMultiplier_EXPCost(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_ExtraMultiplier_RangeWeapon(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_ExtraMultiplier_CellSpread(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Addon_Speed(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Addon_Damage(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Addon_Attack(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Addon_ROF(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Addon_EXP(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Addon_EXPProvide(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Addon_EXPCost(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Addon_RangeWeapon(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_Addon_CellSpread(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_FinalAddon_Speed(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_FinalAddon_Damage(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_FinalAddon_Attack(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_FinalAddon_ROF(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_FinalAddon_EXP(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_FinalAddon_EXPProvide(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_FinalAddon_EXPCost(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_FinalAddon_RangeWeapon(int æ³¨å†Œç´¢å¼•);
+	void Property_Unregister_FinalAddon_CellSpread(int æ³¨å†Œç´¢å¼•);
+	void Property_Merge_Ability_ImmuneCrush(int æ–°çš„èƒ½åŠ›å¼ºåº¦);
+	void Property_Merge_Ability_ImmuneCrushAdvance(int æ–°çš„èƒ½åŠ›å¼ºåº¦);
+	void Property_Merge_Ability_ImmuneRadiation(int æ–°çš„èƒ½åŠ›å¼ºåº¦);
+	void Property_Merge_Ability_ImmunePsionicDamage(int æ–°çš„èƒ½åŠ›å¼ºåº¦);
+	void Property_Merge_Ability_ImmunePsionic(int æ–°çš„èƒ½åŠ›å¼ºåº¦);
+	void Property_Merge_Ability_ImmuneBerzerk(int æ–°çš„èƒ½åŠ›å¼ºåº¦);
+	void Property_Merge_Ability_ImmunePoison(int æ–°çš„èƒ½åŠ›å¼ºåº¦);
+	void Property_Merge_Ability_ImmuneWarp(int æ–°çš„èƒ½åŠ›å¼ºåº¦);
+	void Property_Merge_Ability_ImmuneEMP(int æ–°çš„èƒ½åŠ›å¼ºåº¦);
+	void Property_Merge_Ability_SelfHealing(int æ–°çš„èƒ½åŠ›å¼ºåº¦);
+	void Property_Merge_Ability_SelfHealing_Percent(double æ–°çš„èƒ½åŠ›å¼ºåº¦);
+	void Property_Merge_Ability_SelfHealing_Cap(double æ–°çš„èƒ½åŠ›å¼ºåº¦);
+	void Property_Merge_Ability_SelfHealing_Delay(int æ–°çš„èƒ½åŠ›å¼ºåº¦);
+	void Property_Merge_Ability_SelfHealing_CombatDelay(int æ–°çš„èƒ½åŠ›å¼ºåº¦);
 
 	
 	/*
-	ÒÔÏÂÊÇBuffµÄ²Ù×÷½Ó¿Ú¡£
-	°üÀ¨»ñÈ¡£¬¼¤»î£¬¸Ä±ä£¬±éÀú£¬É¾³ıµÈº¯Êı¡£
+	ä»¥ä¸‹æ˜¯Buffçš„æ“ä½œæ¥å£ã€‚
+	åŒ…æ‹¬è·å–ï¼Œæ¿€æ´»ï¼Œæ”¹å˜ï¼Œéå†ï¼Œåˆ é™¤ç­‰å‡½æ•°ã€‚
 	*/
-	//SIPack_BuffSetting_FromStaticµÄ»ñÈ¡Ïê¼ûSIPackTypeClass_BuffSettingµÄº¯Êı
-	SIBuffClass* Buff_CreateOrMerge(SIBuffTypeClass* BuffÀàĞÍ, SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü, AbstractClass* À´Ô´, HouseClass* À´Ô´ËùÊô×÷Õ½·½);
+	//SIPack_BuffSetting_FromStaticçš„è·å–è¯¦è§SIPackTypeClass_BuffSettingçš„å‡½æ•°
+	SIBuffClass* Buff_CreateOrMerge(SIBuffTypeClass* Buffç±»å‹, SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…, AbstractClass* æ¥æº, HouseClass* æ¥æºæ‰€å±ä½œæˆ˜æ–¹);
 
 	bool Buff_IsPowerOffline();
 	bool Buff_IsNeedHide();
-	int Buff_GetEffectDuration(SIBuffTypeClass* BuffÀàĞÍ, int Ô­Ê¼µÄ¹ÒÔØ³ÖĞøÊ±¼ä);
-	double Buff_GetEffectHealth(SIBuffTypeClass* BuffÀàĞÍ, double Ô­Ê¼µÄÉúÃüÖµ);
-	double Buff_GetEffectPower(SIBuffTypeClass* BuffÀàĞÍ, double Ô­Ê¼µÄÇ¿¶ÈÖµ);
-	void Buff_TryActive(SIBuffTypeClass* BuffÀàĞÍ, SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü);
-	void Buff_TryActive(SIBuffTypeClass* BuffÀàĞÍ, SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü, SIPackTypeClass_CheckTechno* ¼ì²éµ¥Î»ÊôĞÔ²ÎÊı°ü);
-	void Buff_TryActive(void* À´Ô´, bool (*ÅĞ¶Ï´¦Àíº¯Êı)(void* À´Ô´, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü)); // [ÅĞ¶Ï´¦Àíº¯Êı] ·µ»Ø true Ôò¶Ô Buff ½øĞĞ´¦Àí
-	void Buff_TryAfter(SIBuffTypeClass* BuffÀàĞÍ);
-	void Buff_TryAfter(SIBuffTypeClass* BuffÀàĞÍ, SIPackTypeClass_CheckTechno* ¼ì²éµ¥Î»ÊôĞÔ²ÎÊı°ü);
-	void Buff_TryAfter(void* À´Ô´, bool (*ÅĞ¶Ï´¦Àíº¯Êı)(void* À´Ô´, SIBuffClass* Buff)); // [ÅĞ¶Ï´¦Àíº¯Êı] ·µ»Ø true Ôò¶Ô Buff ½øĞĞ´¦Àí
-	void Buff_TryRemove(SIBuffTypeClass* BuffÀàĞÍ);
-	void Buff_TryRemove(SIBuffTypeClass* BuffÀàĞÍ, SIPackTypeClass_CheckTechno* ¼ì²éµ¥Î»ÊôĞÔ²ÎÊı°ü);
-	void Buff_TryRemove(void* À´Ô´, bool (*ÅĞ¶Ï´¦Àíº¯Êı)(void* À´Ô´, SIBuffClass* Buff)); // [ÅĞ¶Ï´¦Àíº¯Êı] ·µ»Ø true Ôò¶Ô Buff ½øĞĞ´¦Àí
-	void Buff_TryMergeSetting(SIBuffTypeClass* BuffÀàĞÍ, SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü);
-	void Buff_TryMergeSetting(SIBuffTypeClass* BuffÀàĞÍ, SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü, SIPackTypeClass_CheckTechno* ¼ì²éµ¥Î»ÊôĞÔ²ÎÊı°ü);
-	void Buff_TryMergeSetting(void* À´Ô´, bool (*ÅĞ¶Ï´¦Àíº¯Êı)(void* À´Ô´, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü)); // [ÅĞ¶Ï´¦Àíº¯Êı] ·µ»Ø true Ôò¶Ô Buff ½øĞĞ´¦Àí
-	void Buff_TryChange(SIBuffTypeClass* ¾ÉBuffÀàĞÍ, SIBuffTypeClass* ĞÂBuffÀàĞÍ, SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü, int »ù´¡¹ÒÔØ³ÖĞøÊ±¼äÔö¼ÓÁ¿, double Ç¿¶ÈÖµÔö¼ÓÁ¿, AbstractClass* À´Ô´, HouseClass* À´Ô´ËùÊô×÷Õ½·½);
-	void Buff_TryChange(SIBuffTypeClass* ¾ÉBuffÀàĞÍ, SIBuffTypeClass* ĞÂBuffÀàĞÍ, SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü, int »ù´¡¹ÒÔØ³ÖĞøÊ±¼äÔö¼ÓÁ¿, double Ç¿¶ÈÖµÔö¼ÓÁ¿, AbstractClass* À´Ô´, HouseClass* À´Ô´ËùÊô×÷Õ½·½, SIPackTypeClass_CheckTechno* ¼ì²éµ¥Î»ÊôĞÔ²ÎÊı°ü);
+	int Buff_GetEffectDuration(SIBuffTypeClass* Buffç±»å‹, int åŸå§‹çš„æŒ‚è½½æŒç»­æ—¶é—´);
+	double Buff_GetEffectHealth(SIBuffTypeClass* Buffç±»å‹, double åŸå§‹çš„ç”Ÿå‘½å€¼);
+	double Buff_GetEffectPower(SIBuffTypeClass* Buffç±»å‹, double åŸå§‹çš„å¼ºåº¦å€¼);
+	void Buff_TryActive(SIBuffTypeClass* Buffç±»å‹, SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…);
+	void Buff_TryActive(SIBuffTypeClass* Buffç±»å‹, SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…, SIPackTypeClass_CheckTechno* æ£€æŸ¥å•ä½å±æ€§å‚æ•°åŒ…);
+	void Buff_TryActive(void* æ¥æº, bool (*åˆ¤æ–­å¤„ç†å‡½æ•°)(void* æ¥æº, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…)); // [åˆ¤æ–­å¤„ç†å‡½æ•°] è¿”å› true åˆ™å¯¹ Buff è¿›è¡Œå¤„ç†
+	void Buff_TryAfter(SIBuffTypeClass* Buffç±»å‹);
+	void Buff_TryAfter(SIBuffTypeClass* Buffç±»å‹, SIPackTypeClass_CheckTechno* æ£€æŸ¥å•ä½å±æ€§å‚æ•°åŒ…);
+	void Buff_TryAfter(void* æ¥æº, bool (*åˆ¤æ–­å¤„ç†å‡½æ•°)(void* æ¥æº, SIBuffClass* Buff)); // [åˆ¤æ–­å¤„ç†å‡½æ•°] è¿”å› true åˆ™å¯¹ Buff è¿›è¡Œå¤„ç†
+	void Buff_TryRemove(SIBuffTypeClass* Buffç±»å‹);
+	void Buff_TryRemove(SIBuffTypeClass* Buffç±»å‹, SIPackTypeClass_CheckTechno* æ£€æŸ¥å•ä½å±æ€§å‚æ•°åŒ…);
+	void Buff_TryRemove(void* æ¥æº, bool (*åˆ¤æ–­å¤„ç†å‡½æ•°)(void* æ¥æº, SIBuffClass* Buff)); // [åˆ¤æ–­å¤„ç†å‡½æ•°] è¿”å› true åˆ™å¯¹ Buff è¿›è¡Œå¤„ç†
+	void Buff_TryMergeSetting(SIBuffTypeClass* Buffç±»å‹, SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…);
+	void Buff_TryMergeSetting(SIBuffTypeClass* Buffç±»å‹, SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…, SIPackTypeClass_CheckTechno* æ£€æŸ¥å•ä½å±æ€§å‚æ•°åŒ…);
+	void Buff_TryMergeSetting(void* æ¥æº, bool (*åˆ¤æ–­å¤„ç†å‡½æ•°)(void* æ¥æº, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…)); // [åˆ¤æ–­å¤„ç†å‡½æ•°] è¿”å› true åˆ™å¯¹ Buff è¿›è¡Œå¤„ç†
+	void Buff_TryChange(SIBuffTypeClass* æ—§Buffç±»å‹, SIBuffTypeClass* æ–°Buffç±»å‹, SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…, int åŸºç¡€æŒ‚è½½æŒç»­æ—¶é—´å¢åŠ é‡, double å¼ºåº¦å€¼å¢åŠ é‡, AbstractClass* æ¥æº, HouseClass* æ¥æºæ‰€å±ä½œæˆ˜æ–¹);
+	void Buff_TryChange(SIBuffTypeClass* æ—§Buffç±»å‹, SIBuffTypeClass* æ–°Buffç±»å‹, SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…, int åŸºç¡€æŒ‚è½½æŒç»­æ—¶é—´å¢åŠ é‡, double å¼ºåº¦å€¼å¢åŠ é‡, AbstractClass* æ¥æº, HouseClass* æ¥æºæ‰€å±ä½œæˆ˜æ–¹, SIPackTypeClass_CheckTechno* æ£€æŸ¥å•ä½å±æ€§å‚æ•°åŒ…);
 	bool Buff_HasBuffed();
-	bool Buff_HasBuffed(SIBuffTypeClass* BuffÀàĞÍ);
-	bool Buff_HasBuffed(SIBuffTypeClass* BuffÀàĞÍ, SIBuffClass_State Buff×´Ì¬);
-	bool Buff_HasBuffed(SIBuffTypeClass* BuffÀàĞÍ, AbstractClass* ÅÅ³ıµÄÀ´Ô´);
-	bool Buff_HasBuffed(SIBuffTypeClass* BuffÀàĞÍ, AbstractClass* ĞèÇóµÄÀ´Ô´, bool Ã»ÓÃµÄ±êÊ¶);
-	bool Buff_HasBuffed(SIBuffTypeClass_EffectType Ğ§¹ûÖÖÀà);
-	bool Buff_HasBuffed(SIBuffTypeClass_EffectType Ğ§¹ûÖÖÀà, SIBuffClass_State Buff×´Ì¬);
-	void Buff_LookUp(void* À´Ô´, void (*±éÀúº¯Êı)(void* À´Ô´, SIBuffClass* Buff)); // ´Ë´¦²»»áÁ¢¼´ÒÆ³ıÎŞĞ§µÄ Buff
+	bool Buff_HasBuffed(SIBuffTypeClass* Buffç±»å‹);
+	bool Buff_HasBuffed(SIBuffTypeClass* Buffç±»å‹, SIBuffClass_State BuffçŠ¶æ€);
+	bool Buff_HasBuffed(SIBuffTypeClass* Buffç±»å‹, AbstractClass* æ’é™¤çš„æ¥æº);
+	bool Buff_HasBuffed(SIBuffTypeClass* Buffç±»å‹, AbstractClass* éœ€æ±‚çš„æ¥æº, bool æ²¡ç”¨çš„æ ‡è¯†);
+	bool Buff_HasBuffed(SIBuffTypeClass_EffectType æ•ˆæœç§ç±»);
+	bool Buff_HasBuffed(SIBuffTypeClass_EffectType æ•ˆæœç§ç±», SIBuffClass_State BuffçŠ¶æ€);
+	void Buff_LookUp(void* æ¥æº, void (*éå†å‡½æ•°)(void* æ¥æº, SIBuffClass* Buff)); // æ­¤å¤„ä¸ä¼šç«‹å³ç§»é™¤æ— æ•ˆçš„ Buff
 	void Buff_Update();
-	bool Buff_TriggerFire(AbstractClass* Ä¿±ê, int ÎäÆ÷Ë÷Òı, WeaponStruct* ÎäÆ÷Êı¾İ, CoordStruct ±¾Ìå¿ª»ğ×ø±ê, bool ËÀÍöÎäÆ÷);
-	double Buff_TriggerAttacker(TechnoClass* Ä¿±êµ¥Î», args_ReceiveDamage* ÉËº¦²ÎÊı, double µ±Ç°ÉËº¦);
-	double Buff_TriggerDefender(args_ReceiveDamage* ÉËº¦²ÎÊı, double µ±Ç°ÉËº¦);
-	double Buff_TriggerDefender_Final(args_ReceiveDamage* ÉËº¦²ÎÊı, double µ±Ç°ÉËº¦);
-	void Buff_TriggerDeath(args_ReceiveDamage* ÉËº¦²ÎÊı);
-	void Buff_TriggerKiller(TechnoClass* Ä¿±êµ¥Î», args_ReceiveDamage* ÉËº¦²ÎÊı);
-	double Buff_TriggerSelf(double µ±Ç°ÉËº¦);
-	void Buff_DoDamages(double ×¼±¸Ôì³ÉµÄÉËº¦);
+	bool Buff_TriggerFire(AbstractClass* ç›®æ ‡, int æ­¦å™¨ç´¢å¼•, WeaponStruct* æ­¦å™¨æ•°æ®, CoordStruct æœ¬ä½“å¼€ç«åæ ‡, bool æ­»äº¡æ­¦å™¨);
+	double Buff_TriggerAttacker(TechnoClass* ç›®æ ‡å•ä½, args_ReceiveDamage* ä¼¤å®³å‚æ•°, double å½“å‰ä¼¤å®³);
+	double Buff_TriggerDefender(args_ReceiveDamage* ä¼¤å®³å‚æ•°, double å½“å‰ä¼¤å®³);
+	double Buff_TriggerDefender_Final(args_ReceiveDamage* ä¼¤å®³å‚æ•°, double å½“å‰ä¼¤å®³);
+	void Buff_TriggerDeath(args_ReceiveDamage* ä¼¤å®³å‚æ•°);
+	void Buff_TriggerKiller(TechnoClass* ç›®æ ‡å•ä½, args_ReceiveDamage* ä¼¤å®³å‚æ•°);
+	double Buff_TriggerSelf(double å½“å‰ä¼¤å®³);
+	void Buff_DoDamages(double å‡†å¤‡é€ æˆçš„ä¼¤å®³);
 	//Update 0815
-	SIBuffClass* Buff_GetBuff(int BuffË÷Òı); // ·µ»ØÖµ¿ÉÄÜÎª¿Õ
-	SIBuffClass* Buff_GetBuff(SIBuffTypeClass* BuffÀàĞÍ); // ·µ»ØÖµ¿ÉÄÜÎª¿Õ
+	SIBuffClass* Buff_GetBuff(int Buffç´¢å¼•); // è¿”å›å€¼å¯èƒ½ä¸ºç©º
+	SIBuffClass* Buff_GetBuff(SIBuffTypeClass* Buffç±»å‹); // è¿”å›å€¼å¯èƒ½ä¸ºç©º
 	void AvailableEffect();
 	void UnavailableEffect();
 
-	//ÔªËØ¿¹ĞÔ & ÔªËØÃâÒßÏà¹Ø¡£
-	void Element_Merge_ResistanceType(SIElementResistanceTypeClass* ÔªËØ¿¹ĞÔÀàĞÍ, int ²ãÊı¼ÆÊı);
-	void Element_Merge_ImmuneElementType(SIElementTypeClass* ÔªËØÀàĞÍ, int ²ãÊı¼ÆÊı);
+	//å…ƒç´ æŠ—æ€§ & å…ƒç´ å…ç–«ç›¸å…³ã€‚
+	void Element_Merge_ResistanceType(SIElementResistanceTypeClass* å…ƒç´ æŠ—æ€§ç±»å‹, int å±‚æ•°è®¡æ•°);
+	void Element_Merge_ImmuneElementType(SIElementTypeClass* å…ƒç´ ç±»å‹, int å±‚æ•°è®¡æ•°);
 
-	//¸üĞÂ×´Ì¬Ïà¹Ø¡£
-	//°üÀ¨Ìá½»¸½ÊôµÄ°´Å¥µÄ×´Ì¬¡£
+	//æ›´æ–°çŠ¶æ€ç›¸å…³ã€‚
+	//åŒ…æ‹¬æäº¤é™„å±çš„æŒ‰é’®çš„çŠ¶æ€ã€‚
 	void Update();
 	void UpdateBar_UpdateAllow();
 	void UpdateDrawBar();
-	bool UpdateClickBar_Hover(HouseClass* µã»÷µÄ×÷Õ½·½, Point2D* µã»÷ÏñËØÆ«ÒÆ);
-	void UpdateClickBar_TryClick(HouseClass* µã»÷µÄ×÷Õ½·½, Point2D* µã»÷ÏñËØÆ«ÒÆ, int& BuffË÷Òı, SIDigitalClickBarIndex& µã»÷Ë÷Òı, double& µ±Ç°Öµ, bool& ½ûÓÃ±êÊ¶);
-	void UpdateClickBar_Effect(int BuffË÷Òı, SIDigitalClickBarIndex µã»÷Ë÷Òı, HouseClass* µã»÷µÄ×÷Õ½·½, double µ±Ç°Öµ);
-	bool UpdateKeyExecuteBar_TryExecute(HouseClass* µã»÷µÄ×÷Õ½·½, SICommandCode ¿ì½İ¼ü´úÂë);
-	void UpdateKeyExecuteBar_Effect(HouseClass* µã»÷µÄ×÷Õ½·½, SICommandCode ¿ì½İ¼ü´úÂë);
+	bool UpdateClickBar_Hover(HouseClass* ç‚¹å‡»çš„ä½œæˆ˜æ–¹, Point2D* ç‚¹å‡»åƒç´ åç§»);
+	void UpdateClickBar_TryClick(HouseClass* ç‚¹å‡»çš„ä½œæˆ˜æ–¹, Point2D* ç‚¹å‡»åƒç´ åç§», int& Buffç´¢å¼•, SIDigitalClickBarIndex& ç‚¹å‡»ç´¢å¼•, double& å½“å‰å€¼, bool& ç¦ç”¨æ ‡è¯†);
+	void UpdateClickBar_Effect(int Buffç´¢å¼•, SIDigitalClickBarIndex ç‚¹å‡»ç´¢å¼•, HouseClass* ç‚¹å‡»çš„ä½œæˆ˜æ–¹, double å½“å‰å€¼);
+	bool UpdateKeyExecuteBar_TryExecute(HouseClass* ç‚¹å‡»çš„ä½œæˆ˜æ–¹, SICommandCode å¿«æ·é”®ä»£ç );
+	void UpdateKeyExecuteBar_Effect(HouseClass* ç‚¹å‡»çš„ä½œæˆ˜æ–¹, SICommandCode å¿«æ·é”®ä»£ç );
 	void Init();
 	void UnInit();
 
-	//WIC ±äĞÎÂß¼­
-	// Õâ¸öÖ»ÊÇ¸üĞÂº¯Êı£¬ÕæÕıµÄ±äĞÎ´úÂë²»ÔÚÕâ
-	//¾ßÌåÊ¹ÓÃÌõ¼ş¼°ÏŞÖÆÏê¼ûWICËµÃ÷Êé
-	void UpdateTechnoType(TechnoTypeClass* ¾ÉµÄµ¥Î»ÀàĞÍ);
+	//WIC å˜å½¢é€»è¾‘
+	// è¿™ä¸ªåªæ˜¯æ›´æ–°å‡½æ•°ï¼ŒçœŸæ­£çš„å˜å½¢ä»£ç ä¸åœ¨è¿™
+	//å…·ä½“ä½¿ç”¨æ¡ä»¶åŠé™åˆ¶è¯¦è§WICè¯´æ˜ä¹¦
+	void UpdateTechnoType(TechnoTypeClass* æ—§çš„å•ä½ç±»å‹);
 
-	//¶ÔÓ¦ÓÚµ¥Î»µÄSetOwningHouse£¬µ÷ÓÃµÄÌõ¼şÊÇ²»Í¨¹ıtechno->SetOwningHouseº¯Êı¸Ä±äÁËµ¥Î»µÄËùÊô×÷Õ½·½
-	void UpdateOwningHouse(const HouseClass* const ¾ÉµÄµ¥Î»ËùÊô×÷Õ½·½, const HouseClass* const ĞÂµÄµ¥Î»ËùÊô×÷Õ½·½);
+	//å¯¹åº”äºå•ä½çš„SetOwningHouseï¼Œè°ƒç”¨çš„æ¡ä»¶æ˜¯ä¸é€šè¿‡techno->SetOwningHouseå‡½æ•°æ”¹å˜äº†å•ä½çš„æ‰€å±ä½œæˆ˜æ–¹
+	void UpdateOwningHouse(const HouseClass* const æ—§çš„å•ä½æ‰€å±ä½œæˆ˜æ–¹, const HouseClass* const æ–°çš„å•ä½æ‰€å±ä½œæˆ˜æ–¹);
 
 };
 

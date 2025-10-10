@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <functional>
 #include <utility>
 #include <YRMathVector.h>
@@ -34,52 +34,52 @@ public:
 	SIConstVector(noinit_t) {};
 };
 
-// ²»Ö§³Ö unique_ptr , ²»ÄÜÖ±½ÓÇ¶Ì×ĞÎ³É¶şÖØÁĞ±í
+// ä¸æ”¯æŒ unique_ptr , ä¸èƒ½ç›´æ¥åµŒå¥—å½¢æˆäºŒé‡åˆ—è¡¨
 template <typename T>
 class SIDataList final : public SIConstVector<T>
 {
 public:
-	bool Contains(const T& Öµ) const
+	bool Contains(const T& å€¼) const
 	{
-		return std::find(this->begin(), this->end(), Öµ) != this->end();
+		return std::find(this->begin(), this->end(), å€¼) != this->end();
 	}
 
-	int IndexOf(const T& Öµ) const
+	int IndexOf(const T& å€¼) const
 	{
-		typename SIConstVector<T>::const_iterator µü´úÆ÷ = std::find(this->begin(), this->end(), Öµ);
-		if (µü´úÆ÷ != this->end())
+		typename SIConstVector<T>::const_iterator è¿­ä»£å™¨ = std::find(this->begin(), this->end(), å€¼);
+		if (è¿­ä»£å™¨ != this->end())
 		{
-			return ((int)(µü´úÆ÷ - this->begin()));
+			return ((int)(è¿­ä»£å™¨ - this->begin()));
 		}
 		return -1;
 	}
 
-	T GetItem(size_t Ë÷Òı)
+	T GetItem(size_t ç´¢å¼•)
 	{
-		//if (this->InvalidIndex(Ë÷Òı))
+		//if (this->InvalidIndex(ç´¢å¼•))
 		//{
-		//	SIDebug::Log("Ïò SIDataList È¡³öÊı¾İÊ± , Ë÷ÒıÖ¸ÏòÁË·¶Î§Íâ : [%hs]", typeid(T).name());
+		//	SIDebug::Log("å‘ SIDataList å–å‡ºæ•°æ®æ—¶ , ç´¢å¼•æŒ‡å‘äº†èŒƒå›´å¤– : [%hs]", typeid(T).name());
 		//}
-		return this->at(Ë÷Òı);
+		return this->at(ç´¢å¼•);
 	}
 
-	T TryGetItem(size_t Ë÷Òı, T Ä¬ÈÏÖµ)
+	T TryGetItem(size_t ç´¢å¼•, T é»˜è®¤å€¼)
 	{
-		if (this->InvalidIndex(Ë÷Òı))
+		if (this->InvalidIndex(ç´¢å¼•))
 		{
-			return Ä¬ÈÏÖµ;
+			return é»˜è®¤å€¼;
 		}
-		return this->at(Ë÷Òı);
+		return this->at(ç´¢å¼•);
 	}
 
-	bool ValidIndex(int Ë÷Òı)
+	bool ValidIndex(int ç´¢å¼•)
 	{
-		return Ë÷Òı > -1 && Ë÷Òı < static_cast<int>(this->size());
+		return ç´¢å¼• > -1 && ç´¢å¼• < static_cast<int>(this->size());
 	}
 
-	bool InvalidIndex(int Ë÷Òı)
+	bool InvalidIndex(int ç´¢å¼•)
 	{
-		return Ë÷Òı < 0 || Ë÷Òı >= static_cast<int>(this->size());
+		return ç´¢å¼• < 0 || ç´¢å¼• >= static_cast<int>(this->size());
 	}
 
 	SIDataList() = delete;
@@ -88,48 +88,48 @@ public:
 	SIDataList(noinit_t _) :  SIConstVector<T>(_) {}
 };
 
-// ²»Ö§³Ö unique_ptr , ²»ÄÜÖ±½ÓÇ¶Ì×ĞÎ³É¶şÖØ¼¯ºÏ
+// ä¸æ”¯æŒ unique_ptr , ä¸èƒ½ç›´æ¥åµŒå¥—å½¢æˆäºŒé‡é›†åˆ
 template <typename TKey, typename TValue>
 class SIDataMap final
 {
 public:
-	SIConstVector<std::pair<TKey, TValue>> Êı¾İÁĞ±í;
+	SIConstVector<std::pair<TKey, TValue>> æ•°æ®åˆ—è¡¨;
 
-	// ¹¦ÄÜº¯Êı
-	bool Contains(const TKey& ¼ü) const
+	// åŠŸèƒ½å‡½æ•°
+	bool Contains(const TKey& é”®) const
 	{
-		return this->get_iterator(¼ü) != this->Êı¾İÁĞ±í.end();
+		return this->get_iterator(é”®) != this->æ•°æ®åˆ—è¡¨.end();
 	}
 
-	TValue TryGet(const TKey& ¼ü, TValue Ä¬ÈÏÖµ) const
+	TValue TryGet(const TKey& é”®, TValue é»˜è®¤å€¼) const
 	{
-		typename SIConstVector<std::pair<TKey, TValue>>::const_iterator µü´úÆ÷ = this->get_iterator(¼ü);
-		if (µü´úÆ÷ != this->Êı¾İÁĞ±í.end())
+		typename SIConstVector<std::pair<TKey, TValue>>::const_iterator è¿­ä»£å™¨ = this->get_iterator(é”®);
+		if (è¿­ä»£å™¨ != this->æ•°æ®åˆ—è¡¨.end())
 		{
-			return µü´úÆ÷->second;
+			return è¿­ä»£å™¨->second;
 		}
-		return Ä¬ÈÏÖµ;
+		return é»˜è®¤å€¼;
 	}
 
 	size_t Count()
 	{
-		return this->Êı¾İÁĞ±í.size();
+		return this->æ•°æ®åˆ—è¡¨.size();
 	}
 
 	bool Empty() const
 	{
-		return this->Êı¾İÁĞ±í.empty();
+		return this->æ•°æ®åˆ—è¡¨.empty();
 	}
 
 	SIDataMap() = delete;
 	SIDataMap(const SIDataMap&) = delete;
 	SIDataMap(SIDataMap&&) = delete;
-	SIDataMap(noinit_t _) :Êı¾İÁĞ±í(_) {};
+	SIDataMap(noinit_t _) :æ•°æ®åˆ—è¡¨(_) {};
 
 private:
 	typename SIConstVector<std::pair<TKey, TValue>>::const_iterator get_iterator(const TKey& key) const
 	{
-		return std::find_if(this->Êı¾İÁĞ±í.begin(), this->Êı¾İÁĞ±í.end(), [&](const SIConstVector<std::pair<TKey, TValue>>::value_type& item)
+		return std::find_if(this->æ•°æ®åˆ—è¡¨.begin(), this->æ•°æ®åˆ—è¡¨.end(), [&](const SIConstVector<std::pair<TKey, TValue>>::value_type& item)
 			{
 				return item.first == key;
 			});
@@ -147,22 +147,22 @@ template <typename T>
 class SIEnumerable
 {
 public:
-	//ÕæÕıµÄStatic´óÍ·±»·â×°µ½SIClassManagerµÄ½Ó¿ÚÀïÃæÁË
+	//çœŸæ­£çš„Staticå¤§å¤´è¢«å°è£…åˆ°SIClassManagerçš„æ¥å£é‡Œé¢äº†
 
-	// »ù´¡ÊôĞÔ
+	// åŸºç¡€å±æ€§
 	FixedString<32> Name;
-	// ³õÊ¼»¯
-	SIEnumerable(const char* Ãû³Æ)
+	// åˆå§‹åŒ–
+	SIEnumerable(const char* åç§°)
 	{
-		this->Name = Ãû³Æ;
+		this->Name = åç§°;
 	}
-	// Êı¾İ´¦Àíº¯Êı
+	// æ•°æ®å¤„ç†å‡½æ•°
 	virtual ~SIEnumerable() = default;
 	virtual void InitializeConstants() {}
 	virtual void LoadFromINI(CCINIClass* pINI) {}
 	virtual void LoadFromStream(SIStreamReader& Stm) = 0;
 	virtual void SaveToStream(SIStreamWriter& Stm) = 0;
-	// ¹¦ÄÜº¯Êı
+	// åŠŸèƒ½å‡½æ•°
 	const char* GetName()
 	{
 		return (const char*)(this->Name);

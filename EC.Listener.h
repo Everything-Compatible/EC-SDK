@@ -1,13 +1,12 @@
-#pragma once
+ï»¿#pragma once
 #include "IH.Loader.h"
-#include "EC.STL.h"
 
 
 struct ExceptionAnalyzer
 {
-	//ĞĞÎªÊÜSyringeIHÊÇ·ñ´æÔÚÓ°Ïì£¬¿ÉÒÔÍ¨¹ı HasSyringeIH() È·¶¨ÊÇ·ñ´æÔÚ¡£
-	void (CALLBACK* AnalyzeAddr)(DWORD /*In*/ Addr, DWORD& /*Out*/ RelAddr, ECString& /*Out GBK*/ BaseDesc);
-	void (CALLBACK* GetAccessStr)(LPVOID /*In*/ Addr, ECString& /*Out GBK*/ AccessStr);
+	//è¡Œä¸ºå—SyringeIHæ˜¯å¦å­˜åœ¨å½±å“ï¼Œå¯ä»¥é€šè¿‡ HasSyringeIH() ç¡®å®šæ˜¯å¦å­˜åœ¨ã€‚
+	void (CALLBACK* AnalyzeAddr)(DWORD /*In*/ Addr, size_t /*In*/ BaseDescBufSize, DWORD& /*Out*/ RelAddr, char* /*Out GBK*/ BaseDesc);
+	void (CALLBACK* GetAccessStr)(LPVOID /*In*/ Addr, size_t /*In*/ BaseDescBufSize, char* /*Out GBK*/ AccessStr);
 	bool (CALLBACK* IsAddrExecutable)(LPVOID /*In*/ Addr);
 	void (CALLBACK* WriteToExceptIH)(const char* /*In GBK*/ Format, ...);
 
@@ -15,11 +14,11 @@ struct ExceptionAnalyzer
 };
 
 /*
-Ç°ÅÅ£º
-EC¼àÌıÆ÷µÄÊµÏÖ»¹ÊÇ³õÊ¼·şÎñ½Ó¿Ú
-±¾ÖÊÊÇÒ»¸ö½Ğ×öEC::Internal::ListenerAccessµÄ·şÎñ
-ÒÔºóÒ»Ğ©ÂÒÆß°ËÔãµÄ¹¦ÄÜÒ²»áÓÃ·şÎñ½Ó¿Ú¸ø
-£¨»òĞíÕâÑù³õÊ¼·şÎñ¿´ÆğÀ´»á²»ÄÇÃ´·ÏÎï£¿£©
+å‰æ’ï¼š
+ECç›‘å¬å™¨çš„å®ç°è¿˜æ˜¯åˆå§‹æœåŠ¡æ¥å£
+æœ¬è´¨æ˜¯ä¸€ä¸ªå«åšEC::Internal::ListenerAccessçš„æœåŠ¡
+ä»¥åä¸€äº›ä¹±ä¸ƒå…«ç³Ÿçš„åŠŸèƒ½ä¹Ÿä¼šç”¨æœåŠ¡æ¥å£ç»™
+ï¼ˆæˆ–è®¸è¿™æ ·åˆå§‹æœåŠ¡çœ‹èµ·æ¥ä¼šä¸é‚£ä¹ˆåºŸç‰©ï¼Ÿï¼‰
 */
 
 namespace ECListener
@@ -32,49 +31,49 @@ namespace ECListener
 
 	std::vector<LibFuncHandle> GetAll(const char* ListenerType);
 
-	//!!Ò»¸ö¿âÃ¿¼şÊÂÖ»ÄÜÓĞÒ»¸ö¼àÌıÆ÷!!
+	//!!ä¸€ä¸ªåº“æ¯ä»¶äº‹åªèƒ½æœ‰ä¸€ä¸ªç›‘å¬å™¨!!
 
-	//ÔÚEXEµÄ×î¿ªÊ¼£¬È«¾Ö¶ÔÏó³õÊ¼»¯Íê³É£¬ÄÚ´æ¿É·ÖÅä£¬Winmain¶¥Í·Î»ÖÃ
-	//Íê³ÉÒ»Ğ©±ØÒªµÄ³õÊ¼»¯¹¤×÷
+	//åœ¨EXEçš„æœ€å¼€å§‹ï¼Œå…¨å±€å¯¹è±¡åˆå§‹åŒ–å®Œæˆï¼Œå†…å­˜å¯åˆ†é…ï¼ŒWinmainé¡¶å¤´ä½ç½®
+	//å®Œæˆä¸€äº›å¿…è¦çš„åˆå§‹åŒ–å·¥ä½œ
 	typedef void (CALLBACK* Listener_InitBeforeEverything)();
 	void Listen_InitBeforeEverything(Listener_InitBeforeEverything Func);
 
-	//ÔÚ¶ÁÈërules£¨Èçrulesmd.ini£¬µØÍ¼ÎÄ¼ş£©µÈÊ±´¥·¢
-	//Listen_LoadBeforeTypeDataÔÚÔ­°æµÄÀàĞÍ¶ÁÈ¡Ç°´¥·¢
-	//Listen_LoadAfterTypeDataÔÚÔ­°æµÄÀàĞÍ¶ÁÈ¡ºó´¥·¢
-	//ÔØÈë»ò¸üĞÂÉèÖÃ
+	//åœ¨è¯»å…¥rulesï¼ˆå¦‚rulesmd.iniï¼Œåœ°å›¾æ–‡ä»¶ï¼‰ç­‰æ—¶è§¦å‘
+	//Listen_LoadBeforeTypeDataåœ¨åŸç‰ˆçš„ç±»å‹è¯»å–å‰è§¦å‘
+	//Listen_LoadAfterTypeDataåœ¨åŸç‰ˆçš„ç±»å‹è¯»å–åè§¦å‘
+	//è½½å…¥æˆ–æ›´æ–°è®¾ç½®
 	typedef void (CALLBACK* Listener_OnLoadGame)(const CCINIClass* pIni);
 	void Listen_LoadBeforeTypeData(Listener_OnLoadGame Func);
 	void Listen_LoadAfterTypeData(Listener_OnLoadGame Func);
 
-	//ÔÚ´¥·¢FEÊ±µ÷ÓÃ£¬Èë²ÎÎªÒ»×éÔÚÒì³£×´Ì¬ÏÂ¿ÉÒÔ°²È«·ÖÎöÄÚ´æµÄº¯Êı
-	//¼ÇÂ¼±ØÒªµÄ´íÎóĞÅÏ¢£¬×ª´æÈëexcept_ih.txt
+	//åœ¨è§¦å‘FEæ—¶è°ƒç”¨ï¼Œå…¥å‚ä¸ºä¸€ç»„åœ¨å¼‚å¸¸çŠ¶æ€ä¸‹å¯ä»¥å®‰å…¨åˆ†æå†…å­˜çš„å‡½æ•°
+	//è®°å½•å¿…è¦çš„é”™è¯¯ä¿¡æ¯ï¼Œè½¬å­˜å…¥except_ih.txt
 	typedef void (CALLBACK* Listener_BeginWritingExceptIH)(const ExceptionAnalyzer& Anal);
 	void Listen_BeginWritingExceptIH(Listener_BeginWritingExceptIH Func);
 
-	//ÔÚÔØÈëCSFÌõÄ¿Ê±µ÷ÓÃ£¬¿ÉÒÔ½ØÁôCSFµÄ½âÎö
-	//Èç¹ûÏëÒªĞŞ¸Ä½âÎöµÄ½á¹û£¬¿ÉÒÔ·µ»Ø·ÇÁãÖµ×÷ÎªĞÂµÄ½âÎö½á¹û£¬ÒªÇó·µ»ØµÄconst wchar_t*ÊÇ·ÇÁÙÊ±Öµ£¬ÉúÃüÆÚÒ»Ö±±£³Ö
-	//¼àÌıº¯Êı·µ»Ønullptr£¬Ôò·µ»ØÔ­ÓĞ²éÕÒ²ßÂÔ
+	//åœ¨è½½å…¥CSFæ¡ç›®æ—¶è°ƒç”¨ï¼Œå¯ä»¥æˆªç•™CSFçš„è§£æ
+	//å¦‚æœæƒ³è¦ä¿®æ”¹è§£æçš„ç»“æœï¼Œå¯ä»¥è¿”å›éé›¶å€¼ä½œä¸ºæ–°çš„è§£æç»“æœï¼Œè¦æ±‚è¿”å›çš„const wchar_t*æ˜¯éä¸´æ—¶å€¼ï¼Œç”Ÿå‘½æœŸä¸€ç›´ä¿æŒ
+	//ç›‘å¬å‡½æ•°è¿”å›nullptrï¼Œåˆ™è¿”å›åŸæœ‰æŸ¥æ‰¾ç­–ç•¥
 	typedef const wchar_t* (CALLBACK* Listener_LoadCSFString)(const char* pLabel);
 	void Listen_LoadCSFString(Listener_LoadCSFString Func);
 
-	//¶Ô¾Ö´ÓINIÔØÈëÊ±£¬ÔØÈë¹ı³Ìµ±ÖĞ´¥·¢
+	//å¯¹å±€ä»INIè½½å…¥æ—¶ï¼Œè½½å…¥è¿‡ç¨‹å½“ä¸­è§¦å‘
 	typedef void (CALLBACK* Listener_LoadScenario)();
 	void Listen_LoadScenario(Listener_LoadScenario Func);
 
-	//´Ó´æµµÔØÈë¶Ô¾ÖÊ±£¬ÔØÈëÍê³Éºó½«»áµ÷ÓÃ
-	// HasWIC() == true Ê±¿ÉÒÔ¹¤×÷
-	// Ê²Ã´£¬²»ÒªÎÊÎÒÎªÊ²Ã´Õâ¸ö±ØÑùµÄº¯ÊıÖ´ĞĞµÄÊ±ºòSwizzleÔõÃ´»¹Ã»ÉúĞ§
+	//ä»å­˜æ¡£è½½å…¥å¯¹å±€æ—¶ï¼Œè½½å…¥å®Œæˆåå°†ä¼šè°ƒç”¨
+	// HasWIC() == true æ—¶å¯ä»¥å·¥ä½œ
+	// ä»€ä¹ˆï¼Œä¸è¦é—®æˆ‘ä¸ºä»€ä¹ˆè¿™ä¸ªå¿…æ ·çš„å‡½æ•°æ‰§è¡Œçš„æ—¶å€™Swizzleæ€ä¹ˆè¿˜æ²¡ç”Ÿæ•ˆ
 	typedef void (CALLBACK* Listener_AfterLoadGame)();
 	void Listen_AfterLoadGame(Listener_AfterLoadGame Func);
 
-	//´ÓINI¡¢µØÍ¼ÔØÈë¶Ô¾ÖÊ±£¬ÔØÈëÍê³Éºó½«»áµ÷ÓÃ
-	// HasWIC() == true Ê±¿ÉÒÔ¹¤×÷
+	//ä»INIã€åœ°å›¾è½½å…¥å¯¹å±€æ—¶ï¼Œè½½å…¥å®Œæˆåå°†ä¼šè°ƒç”¨
+	// HasWIC() == true æ—¶å¯ä»¥å·¥ä½œ
 	typedef void (CALLBACK* Listener_AfterLoadINI)();
 	void Listen_AfterLoadINI(Listener_AfterLoadINI Func);
 
-	//¶Ô¾Ö½áÊø£¬ÇåÀíÊı¾İÊ±½«»áµ÷ÓÃ
-	// HasWIC() == true Ê±¿ÉÒÔ¹¤×÷
+	//å¯¹å±€ç»“æŸï¼Œæ¸…ç†æ•°æ®æ—¶å°†ä¼šè°ƒç”¨
+	// HasWIC() == true æ—¶å¯ä»¥å·¥ä½œ
 	typedef void (CALLBACK* Listener_ClearScenario)();
 	void Listen_ClearScenario(Listener_ClearScenario Func);
 }

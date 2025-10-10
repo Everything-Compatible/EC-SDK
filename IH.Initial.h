@@ -1,12 +1,12 @@
-#pragma once  
+ï»¿#pragma once  
 
-//ÒÔÏÂµÄInitialLoadParam¼°ÆäÅÉÉúÀà¶¼ÊÇÈ«¾Ö´´½¨Ò»´ÎÓÀ²»Ïú»Ù
-//ËùÓÐ´«Èëconst char*µÄÎ»ÖÃ²»¿É´«ÈëÁÙÊ±¶ÔÏó£¨Èçstd::stringÔËËãµÄ½á¹û£©
-//¿ÉÒÔÖ±½Ó´«ÈëÎÈ¶¨µÄÈ«¾Ö¶ÔÏó»ò³£Á¿¡£
-//Èç¹û´´½¨ÁËÁÙÊ±¶ÔÏó×÷Îª²ÎÊý£¬ÇëÌ×Ò»²ãstrdupÔÙ´«
-//Ö±½Ó´«ÈëÁÙÊ±¶ÔÏó»áµ¼ÖÂ±ÀÀ£
+//ä»¥ä¸‹çš„InitialLoadParamåŠå…¶æ´¾ç”Ÿç±»éƒ½æ˜¯å…¨å±€åˆ›å»ºä¸€æ¬¡æ°¸ä¸é”€æ¯
+//æ‰€æœ‰ä¼ å…¥const char*çš„ä½ç½®ä¸å¯ä¼ å…¥ä¸´æ—¶å¯¹è±¡ï¼ˆå¦‚std::stringè¿ç®—çš„ç»“æžœï¼‰
+//å¯ä»¥ç›´æŽ¥ä¼ å…¥ç¨³å®šçš„å…¨å±€å¯¹è±¡æˆ–å¸¸é‡ã€‚
+//å¦‚æžœåˆ›å»ºäº†ä¸´æ—¶å¯¹è±¡ä½œä¸ºå‚æ•°ï¼Œè¯·å¥—ä¸€å±‚strdupå†ä¼ 
+//ç›´æŽ¥ä¼ å…¥ä¸´æ—¶å¯¹è±¡ä¼šå¯¼è‡´å´©æºƒ
 
-struct InitialLoadParam //IH²»³ÖÓÐËùÓÐÈ¨
+struct InitialLoadParam //IHä¸æŒæœ‰æ‰€æœ‰æƒ
 {
 	size_t size;
 	InitialLoadParam() = default;

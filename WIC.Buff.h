@@ -1,162 +1,162 @@
-#pragma once
+ï»¿#pragma once
 #include "WIC.Define.h"
 #include "WIC.Template.h"
 
 /*
-BuffClassµÄº¯Êıµ÷ÓÃÊÇÓĞÏŞÖÆµÄ£¬
-¿ÉÒÔ¿´µ½ÓĞĞ©º¯ÊıºóÃæ¸ú×Å¡°´æÔÚ Removed¡±×ÖÑù£¬±íÊ¾º¯Êı»áÓ°ÏìBuffµÄÉúÃüÖÜÆÚ£¬
-Ö»ÓĞÔÚÓµÓĞÕâ¸ö×ÖÑùµÄvirtualº¯ÊıÀï²ÅÄÜµ÷ÓÃ¸Ä±äÉúÃüÆÚµÄº¯Êı
+BuffClassçš„å‡½æ•°è°ƒç”¨æ˜¯æœ‰é™åˆ¶çš„ï¼Œ
+å¯ä»¥çœ‹åˆ°æœ‰äº›å‡½æ•°åé¢è·Ÿç€â€œå­˜åœ¨ Removedâ€å­—æ ·ï¼Œè¡¨ç¤ºå‡½æ•°ä¼šå½±å“Buffçš„ç”Ÿå‘½å‘¨æœŸï¼Œ
+åªæœ‰åœ¨æ‹¥æœ‰è¿™ä¸ªå­—æ ·çš„virtualå‡½æ•°é‡Œæ‰èƒ½è°ƒç”¨æ”¹å˜ç”Ÿå‘½æœŸçš„å‡½æ•°
 */
 
 class SIBuffClass
 {
 public:
-	//¹¹Ôìº¯ÊıÇë±£³ÖÀïÃæÊ²Ã´¶¼Ã»ÓĞ¡£ÕæÕıµÄ³õÊ¼»¯ÇëĞ´µ½EffectDataInitº¯Êı¡£
+	//æ„é€ å‡½æ•°è¯·ä¿æŒé‡Œé¢ä»€ä¹ˆéƒ½æ²¡æœ‰ã€‚çœŸæ­£çš„åˆå§‹åŒ–è¯·å†™åˆ°EffectDataInitå‡½æ•°ã€‚
 	SIBuffClass() : SICacheTargetList(noinit_t()) , SICacheTargetMap(noinit_t()) {};
 
-	//·ÇĞéº¯Êı
-	//SIPack_BuffSetting_FromStaticµÄ»ñÈ¡Ïê¼ûSIPackTypeClass_BuffSettingµÄº¯Êı
-	void TryRemark(SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü); // ´æÔÚ Removed , ´æÔÚ Modified
-	void TryActive(SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü); // ´æÔÚ Removed , ´æÔÚ Modified
-	void TryAfter(); // ´æÔÚ Removed , ´æÔÚ Modified
-	void TryDamage(double ×¼±¸Ôì³ÉµÄÉËº¦); // ´æÔÚ Removed , ´æÔÚ Modified
-	// ½Ó¿Úº¯Êı - ÊôĞÔº¯Êı
-	void EnterState(SIBuffClass_State ×´Ì¬); // ´æÔÚ Removed , ´æÔÚ Modified
-	void MergeSetting(SIPack_BuffSetting_FromStatic* Buff²ÎÊıÉèÖÃ°ü); // ´æÔÚ Removed , ´æÔÚ Modified
+	//éè™šå‡½æ•°
+	//SIPack_BuffSetting_FromStaticçš„è·å–è¯¦è§SIPackTypeClass_BuffSettingçš„å‡½æ•°
+	void TryRemark(SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…); // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	void TryActive(SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…); // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	void TryAfter(); // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	void TryDamage(double å‡†å¤‡é€ æˆçš„ä¼¤å®³); // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	// æ¥å£å‡½æ•° - å±æ€§å‡½æ•°
+	void EnterState(SIBuffClass_State çŠ¶æ€); // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	void MergeSetting(SIPack_BuffSetting_FromStatic* Buffå‚æ•°è®¾ç½®åŒ…); // å­˜åœ¨ Removed , å­˜åœ¨ Modified
 	CoordStruct GetCenterCoords();
-	TechnoClass* GetOwnerTechno(); // ·µ»ØÖµ¿ÉÄÜÎª¿Õ
-	TechnoClass* GetSourceTechno(); // ·µ»ØÖµ¿ÉÄÜÎª¿Õ
-	TechnoTypeClass* GetOwnerTechnoType(); // ·µ»ØÖµ¿ÉÄÜÎª¿Õ
-	TechnoTypeClass* GetSourceTechnoType(); // ·µ»ØÖµ¿ÉÄÜÎª¿Õ
+	TechnoClass* GetOwnerTechno(); // è¿”å›å€¼å¯èƒ½ä¸ºç©º
+	TechnoClass* GetSourceTechno(); // è¿”å›å€¼å¯èƒ½ä¸ºç©º
+	TechnoTypeClass* GetOwnerTechnoType(); // è¿”å›å€¼å¯èƒ½ä¸ºç©º
+	TechnoTypeClass* GetSourceTechnoType(); // è¿”å›å€¼å¯èƒ½ä¸ºç©º
 	HouseClass* GetActiveOwnerHouse();
 	HouseClass* GetActiveSourceHouse();
-	// ½Ó¿Úº¯Êı - ¹¤¾ßº¯Êı
-	int GetEffectMode(int ²ÎÊıÏîË÷Òı, int ×î´óÖµ);
-	int GetEffectMode(int ²ÎÊıÏîË÷Òı, int ×î´óÖµ, int ×îĞ¡Öµ);
-	double GetEffectPower(int ²ÎÊıÏîË÷Òı);
-	double GetEffectPower(int ²ÎÊıÏîË÷Òı, double ×îĞ¡Öµ);
-	double GetEffectTotal(int ²ÎÊıÏîË÷Òı, double ºÏ²¢ºóµÄÊµ¼ÊĞ§¹ûÇ¿¶È);
-	double GetEffectTotal(int ²ÎÊıÏîË÷Òı, double ºÏ²¢ºóµÄÊµ¼ÊĞ§¹ûÇ¿¶È, double ×îĞ¡Öµ);
-	double GetEffectTotalMax(int ²ÎÊıÏîË÷Òı);
-	double GetEffectTotalMin(int ²ÎÊıÏîË÷Òı);
+	// æ¥å£å‡½æ•° - å·¥å…·å‡½æ•°
+	int GetEffectMode(int å‚æ•°é¡¹ç´¢å¼•, int æœ€å¤§å€¼);
+	int GetEffectMode(int å‚æ•°é¡¹ç´¢å¼•, int æœ€å¤§å€¼, int æœ€å°å€¼);
+	double GetEffectPower(int å‚æ•°é¡¹ç´¢å¼•);
+	double GetEffectPower(int å‚æ•°é¡¹ç´¢å¼•, double æœ€å°å€¼);
+	double GetEffectTotal(int å‚æ•°é¡¹ç´¢å¼•, double åˆå¹¶åçš„å®é™…æ•ˆæœå¼ºåº¦);
+	double GetEffectTotal(int å‚æ•°é¡¹ç´¢å¼•, double åˆå¹¶åçš„å®é™…æ•ˆæœå¼ºåº¦, double æœ€å°å€¼);
+	double GetEffectTotalMax(int å‚æ•°é¡¹ç´¢å¼•);
+	double GetEffectTotalMin(int å‚æ•°é¡¹ç´¢å¼•);
 	bool Effect_NotPassCommonCheck();
-	bool Effect_NotPassCommonCheck(SIBuffClass_EffectData* ÉúĞ§Êı¾İ);
-	bool Effect_NotPassCommonCheck(args_ReceiveDamage* ÉËº¦²ÎÊı);
-	bool Effect_NotPassCommonCheck(args_ReceiveDamage* ÉËº¦²ÎÊı, double µ±Ç°ÉËº¦);
-	bool Effect_NotPassCommonCheck(double µ±Ç°ÉËº¦);
+	bool Effect_NotPassCommonCheck(SIBuffClass_EffectData* ç”Ÿæ•ˆæ•°æ®);
+	bool Effect_NotPassCommonCheck(args_ReceiveDamage* ä¼¤å®³å‚æ•°);
+	bool Effect_NotPassCommonCheck(args_ReceiveDamage* ä¼¤å®³å‚æ•°, double å½“å‰ä¼¤å®³);
+	bool Effect_NotPassCommonCheck(double å½“å‰ä¼¤å®³);
 	bool Effect_NotPassCommonCheck_NoIronCurtain();
-	bool Effect_PassCheck_TechnoTypeList(TechnoTypeClass* Ä¿±êµ¥Î»ÀàĞÍ);
-	bool Effect_NotPassCheck_TechnoTypeList(TechnoTypeClass* Ä¿±êµ¥Î»ÀàĞÍ);
-	bool Effect_Match_TechnoTypeList(TechnoTypeClass* Ä¿±êµ¥Î»ÀàĞÍ);
-	bool Effect_NotMatch_TechnoTypeList(TechnoTypeClass* Ä¿±êµ¥Î»ÀàĞÍ);
-	void ReceiveWarheadDamage(TechnoClass* Ä¿±êµ¥Î», TechnoClass* ¹¥»÷µ¥Î», double ÉËº¦, WarheadTypeClass* ÉËº¦µ¯Í·ÀàĞÍ); // »áÉèÖÃ SIDamageLeft ÊôĞÔ
-	void ReceiveWarheadDamage(TechnoClass* Ä¿±êµ¥Î», TechnoClass* ¹¥»÷µ¥Î», double ÉËº¦, WarheadTypeClass* ÉËº¦µ¯Í·ÀàĞÍ, HouseClass* ¹¥»÷µ¥Î»ËùÊô×÷Õ½·½); // »áÉèÖÃ SIDamageLeft ÊôĞÔ
-	void ReceiveHealthDamage(TechnoClass* Ä¿±êµ¥Î», double ÉúÃüÖµËğºÄ, WarheadTypeClass* ½áËã»¤¼×µ¯Í·ÀàĞÍ, WarheadTypeClass* ËÀÍöÉËº¦µ¯Í·ÀàĞÍ, bool Ö´ĞĞ×ÔÉí´¦Àí¹ı³Ì); // »áÉèÖÃ SIDamageLeft ÊôĞÔ
-	void ReceiveHealthDamage(TechnoClass* Ä¿±êµ¥Î», double ÉúÃüÖµËğºÄ, double ÉúÃüÖµËğºÄÉÏÏŞ, double ÉúÃüÖµËğºÄÏÂÏŞ, WarheadTypeClass* ½áËã»¤¼×µ¯Í·ÀàĞÍ, WarheadTypeClass* ËÀÍöÉËº¦µ¯Í·ÀàĞÍ, bool Ö´ĞĞ×ÔÉí´¦Àí¹ı³Ì); // »áÉèÖÃ SIDamageLeft ÊôĞÔ
-	bool FreshOrPostBroadcast(double ĞèÒª¸üĞÂµÄ¹ã²¥Ç¿¶È, AbstractClass* Ö¸ÏòÄ¿±ê);
-	void ResetBroadcastPower(double ĞèÒª¸üĞÂµÄ¹ã²¥Ç¿¶È);
-	int GetBroadcastListenerCount(bool ÎŞÊÓÏŞÖÆÌõ¼ş, AbstractClass* Ö¸ÏòÄ¿±ê);
+	bool Effect_PassCheck_TechnoTypeList(TechnoTypeClass* ç›®æ ‡å•ä½ç±»å‹);
+	bool Effect_NotPassCheck_TechnoTypeList(TechnoTypeClass* ç›®æ ‡å•ä½ç±»å‹);
+	bool Effect_Match_TechnoTypeList(TechnoTypeClass* ç›®æ ‡å•ä½ç±»å‹);
+	bool Effect_NotMatch_TechnoTypeList(TechnoTypeClass* ç›®æ ‡å•ä½ç±»å‹);
+	void ReceiveWarheadDamage(TechnoClass* ç›®æ ‡å•ä½, TechnoClass* æ”»å‡»å•ä½, double ä¼¤å®³, WarheadTypeClass* ä¼¤å®³å¼¹å¤´ç±»å‹); // ä¼šè®¾ç½® SIDamageLeft å±æ€§
+	void ReceiveWarheadDamage(TechnoClass* ç›®æ ‡å•ä½, TechnoClass* æ”»å‡»å•ä½, double ä¼¤å®³, WarheadTypeClass* ä¼¤å®³å¼¹å¤´ç±»å‹, HouseClass* æ”»å‡»å•ä½æ‰€å±ä½œæˆ˜æ–¹); // ä¼šè®¾ç½® SIDamageLeft å±æ€§
+	void ReceiveHealthDamage(TechnoClass* ç›®æ ‡å•ä½, double ç”Ÿå‘½å€¼æŸè€—, WarheadTypeClass* ç»“ç®—æŠ¤ç”²å¼¹å¤´ç±»å‹, WarheadTypeClass* æ­»äº¡ä¼¤å®³å¼¹å¤´ç±»å‹, bool æ‰§è¡Œè‡ªèº«å¤„ç†è¿‡ç¨‹); // ä¼šè®¾ç½® SIDamageLeft å±æ€§
+	void ReceiveHealthDamage(TechnoClass* ç›®æ ‡å•ä½, double ç”Ÿå‘½å€¼æŸè€—, double ç”Ÿå‘½å€¼æŸè€—ä¸Šé™, double ç”Ÿå‘½å€¼æŸè€—ä¸‹é™, WarheadTypeClass* ç»“ç®—æŠ¤ç”²å¼¹å¤´ç±»å‹, WarheadTypeClass* æ­»äº¡ä¼¤å®³å¼¹å¤´ç±»å‹, bool æ‰§è¡Œè‡ªèº«å¤„ç†è¿‡ç¨‹); // ä¼šè®¾ç½® SIDamageLeft å±æ€§
+	bool FreshOrPostBroadcast(double éœ€è¦æ›´æ–°çš„å¹¿æ’­å¼ºåº¦, AbstractClass* æŒ‡å‘ç›®æ ‡);
+	void ResetBroadcastPower(double éœ€è¦æ›´æ–°çš„å¹¿æ’­å¼ºåº¦);
+	int GetBroadcastListenerCount(bool æ— è§†é™åˆ¶æ¡ä»¶, AbstractClass* æŒ‡å‘ç›®æ ‡);
 	bool AddAsBroadcastListener();
 	void RemoveAsBroadcastListener();
 	double GetBroadcastPower_Total();
-	TechnoClass* GetFireOwner(); // ·µ»ØÖµ¿ÉÄÜÎª¿Õ
-	bool GetFireOwnerRawOffset(CoordStruct& ±¾Ìå×ø±ê);
-	bool GetFireTargetRawOffset(AbstractClass* Ä¿±ê, CoordStruct& Ä¿±ê×ø±ê);
-	double GetFacingRotate(SIRotateType ¸úËæĞı×ªÀàĞÍ, CoordStruct ±¾Ìå×ø±ê, CoordStruct Ä¿±ê×ø±ê);
-	double GetFacingRotate_Same(SIRotateType ¸úËæĞı×ªÀàĞÍ, CoordStruct ±¾Ìå×ø±ê, CoordStruct Ä¿±ê×ø±ê, SIRotateType ÓÃÓÚÍ¬²½µÄ¸úËæĞı×ªÀàĞÍ, double ÓÃÓÚÍ¬²½µÄĞı×ª½Ç¶È_»¡¶È);
-	void FreshFacingAndAimingRadius_Common(CoordStruct ±¾Ìå×ø±ê, CoordStruct ±¾Ìå¿ª»ğ×ø±ê, CoordStruct Ä¿±ê×ø±ê, CoordStruct& ¿ª»ğ×ø±ê, CoordStruct& ÃüÖĞ×ø±ê);
+	TechnoClass* GetFireOwner(); // è¿”å›å€¼å¯èƒ½ä¸ºç©º
+	bool GetFireOwnerRawOffset(CoordStruct& æœ¬ä½“åæ ‡);
+	bool GetFireTargetRawOffset(AbstractClass* ç›®æ ‡, CoordStruct& ç›®æ ‡åæ ‡);
+	double GetFacingRotate(SIRotateType è·Ÿéšæ—‹è½¬ç±»å‹, CoordStruct æœ¬ä½“åæ ‡, CoordStruct ç›®æ ‡åæ ‡);
+	double GetFacingRotate_Same(SIRotateType è·Ÿéšæ—‹è½¬ç±»å‹, CoordStruct æœ¬ä½“åæ ‡, CoordStruct ç›®æ ‡åæ ‡, SIRotateType ç”¨äºåŒæ­¥çš„è·Ÿéšæ—‹è½¬ç±»å‹, double ç”¨äºåŒæ­¥çš„æ—‹è½¬è§’åº¦_å¼§åº¦);
+	void FreshFacingAndAimingRadius_Common(CoordStruct æœ¬ä½“åæ ‡, CoordStruct æœ¬ä½“å¼€ç«åæ ‡, CoordStruct ç›®æ ‡åæ ‡, CoordStruct& å¼€ç«åæ ‡, CoordStruct& å‘½ä¸­åæ ‡);
 	void OffsetMotion_Init();
 	void OffsetMotion_AI();
-	void DigitalButtonData_Init(int µ¥Î»ÊıÁ¿);
+	void DigitalButtonData_Init(int å•ä½æ•°é‡);
 
-	//Ğéº¯Êı
-	virtual void OnEnterState_Init() {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void OnEnterState_Mark() {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void OnEnterState_Active() {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void OnEnterState_Effect() {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void OnEnterState_After() {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void OnEnterState_Remove() {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void EffectDataInit() {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void EffectPowerChanged() {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void EffectTrigger_Lifecycle_Placeholder_0() {} // Ô¤Áô
-	virtual void EffectTrigger_Lifecycle_Placeholder_1() {} // Ô¤Áô
-	virtual void EffectAI(SIBuffClass_EffectData* ÉúĞ§Êı¾İ) {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual bool EffectTriggerFire(AbstractClass* Ä¿±ê, int ÎäÆ÷Ë÷Òı, WeaponStruct* ÎäÆ÷Êı¾İ, CoordStruct ±¾Ìå¿ª»ğ×ø±ê, bool ËÀÍöÎäÆ÷) { return true; } // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual double EffectTriggerAttacker(TechnoClass* Ä¿±êµ¥Î», args_ReceiveDamage* ÉËº¦²ÎÊı, double µ±Ç°ÉËº¦) { return µ±Ç°ÉËº¦; } // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual double EffectTriggerDefender(args_ReceiveDamage* ÉËº¦²ÎÊı, double µ±Ç°ÉËº¦) { return µ±Ç°ÉËº¦; } // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual double EffectTriggerDefender_FinalPositive_And_0(args_ReceiveDamage* ÉËº¦²ÎÊı, double µ±Ç°ÉËº¦) { return µ±Ç°ÉËº¦; } // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual double EffectTriggerDefender_FinalNegative(args_ReceiveDamage* ÉËº¦²ÎÊı, double µ±Ç°ÉËº¦) { return µ±Ç°ÉËº¦; } // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void EffectTriggerDeath(args_ReceiveDamage* ÉËº¦²ÎÊı) {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void EffectTriggerKiller(TechnoClass* Ä¿±êµ¥Î», args_ReceiveDamage* ÉËº¦²ÎÊı) {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void EffectTrigger_Outside_Placeholder_0() {} // Ô¤Áô
-	virtual void EffectTrigger_Outside_Placeholder_1() {} // Ô¤Áô
-	virtual void EffectTrigger_Outside_Placeholder_2() {} // Ô¤Áô
-	virtual void EffectTrigger_Outside_Placeholder_3() {} // Ô¤Áô
-	virtual void EffectTrigger_Outside_Placeholder_4() {} // Ô¤Áô
-	virtual void EffectTrigger_Outside_Placeholder_5() {} // Ô¤Áô
-	virtual double EffectTriggerSelf_Positive_And_0(double µ±Ç°ÉËº¦) { return µ±Ç°ÉËº¦; } // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual double EffectTriggerSelf_Negative(double µ±Ç°ÉËº¦) { return µ±Ç°ÉËº¦; } // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void EffectTrigger_Self_Placeholder_0() {} // Ô¤Áô
-	virtual void EffectTrigger_Self_Placeholder_1() {} // Ô¤Áô
-	virtual void EffectTrigger_Self_Placeholder_2() {} // Ô¤Áô
-	virtual void EffectTrigger_Self_Placeholder_3() {} // Ô¤Áô
-	virtual bool EffectTriggerBroadcast_Accept(double ¹ã²¥Ç¿¶È, CoordStruct ·¢²¼×ø±ê, TechnoClass* ·¢²¼µ¥Î», AbstractClass* Ö¸ÏòÄ¿±ê) { return true; } // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void EffectTriggerBroadcast(double ¹ã²¥Ç¿¶È, CoordStruct ·¢²¼×ø±ê, TechnoClass* ·¢²¼µ¥Î», AbstractClass* Ö¸ÏòÄ¿±ê) {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void EffectTrigger_Inside_Placeholder_0() {} // Ô¤Áô
-	virtual void EffectTrigger_Inside_Placeholder_1() {} // Ô¤Áô
-	virtual void EffectTrigger_Inside_Placeholder_2() {} // Ô¤Áô
-	virtual void EffectTrigger_Inside_Placeholder_3() {} // Ô¤Áô
-	virtual void EffectTrigger_Inside_Placeholder_4() {} // Ô¤Áô
-	virtual void EffectTrigger_Inside_Placeholder_5() {} // Ô¤Áô
+	//è™šå‡½æ•°
+	virtual void OnEnterState_Init() {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void OnEnterState_Mark() {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void OnEnterState_Active() {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void OnEnterState_Effect() {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void OnEnterState_After() {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void OnEnterState_Remove() {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void EffectDataInit() {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void EffectPowerChanged() {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void EffectTrigger_Lifecycle_Placeholder_0() {} // é¢„ç•™
+	virtual void EffectTrigger_Lifecycle_Placeholder_1() {} // é¢„ç•™
+	virtual void EffectAI(SIBuffClass_EffectData* ç”Ÿæ•ˆæ•°æ®) {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual bool EffectTriggerFire(AbstractClass* ç›®æ ‡, int æ­¦å™¨ç´¢å¼•, WeaponStruct* æ­¦å™¨æ•°æ®, CoordStruct æœ¬ä½“å¼€ç«åæ ‡, bool æ­»äº¡æ­¦å™¨) { return true; } // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual double EffectTriggerAttacker(TechnoClass* ç›®æ ‡å•ä½, args_ReceiveDamage* ä¼¤å®³å‚æ•°, double å½“å‰ä¼¤å®³) { return å½“å‰ä¼¤å®³; } // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual double EffectTriggerDefender(args_ReceiveDamage* ä¼¤å®³å‚æ•°, double å½“å‰ä¼¤å®³) { return å½“å‰ä¼¤å®³; } // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual double EffectTriggerDefender_FinalPositive_And_0(args_ReceiveDamage* ä¼¤å®³å‚æ•°, double å½“å‰ä¼¤å®³) { return å½“å‰ä¼¤å®³; } // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual double EffectTriggerDefender_FinalNegative(args_ReceiveDamage* ä¼¤å®³å‚æ•°, double å½“å‰ä¼¤å®³) { return å½“å‰ä¼¤å®³; } // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void EffectTriggerDeath(args_ReceiveDamage* ä¼¤å®³å‚æ•°) {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void EffectTriggerKiller(TechnoClass* ç›®æ ‡å•ä½, args_ReceiveDamage* ä¼¤å®³å‚æ•°) {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void EffectTrigger_Outside_Placeholder_0() {} // é¢„ç•™
+	virtual void EffectTrigger_Outside_Placeholder_1() {} // é¢„ç•™
+	virtual void EffectTrigger_Outside_Placeholder_2() {} // é¢„ç•™
+	virtual void EffectTrigger_Outside_Placeholder_3() {} // é¢„ç•™
+	virtual void EffectTrigger_Outside_Placeholder_4() {} // é¢„ç•™
+	virtual void EffectTrigger_Outside_Placeholder_5() {} // é¢„ç•™
+	virtual double EffectTriggerSelf_Positive_And_0(double å½“å‰ä¼¤å®³) { return å½“å‰ä¼¤å®³; } // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual double EffectTriggerSelf_Negative(double å½“å‰ä¼¤å®³) { return å½“å‰ä¼¤å®³; } // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void EffectTrigger_Self_Placeholder_0() {} // é¢„ç•™
+	virtual void EffectTrigger_Self_Placeholder_1() {} // é¢„ç•™
+	virtual void EffectTrigger_Self_Placeholder_2() {} // é¢„ç•™
+	virtual void EffectTrigger_Self_Placeholder_3() {} // é¢„ç•™
+	virtual bool EffectTriggerBroadcast_Accept(double å¹¿æ’­å¼ºåº¦, CoordStruct å‘å¸ƒåæ ‡, TechnoClass* å‘å¸ƒå•ä½, AbstractClass* æŒ‡å‘ç›®æ ‡) { return true; } // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void EffectTriggerBroadcast(double å¹¿æ’­å¼ºåº¦, CoordStruct å‘å¸ƒåæ ‡, TechnoClass* å‘å¸ƒå•ä½, AbstractClass* æŒ‡å‘ç›®æ ‡) {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void EffectTrigger_Inside_Placeholder_0() {} // é¢„ç•™
+	virtual void EffectTrigger_Inside_Placeholder_1() {} // é¢„ç•™
+	virtual void EffectTrigger_Inside_Placeholder_2() {} // é¢„ç•™
+	virtual void EffectTrigger_Inside_Placeholder_3() {} // é¢„ç•™
+	virtual void EffectTrigger_Inside_Placeholder_4() {} // é¢„ç•™
+	virtual void EffectTrigger_Inside_Placeholder_5() {} // é¢„ç•™
 	virtual SIPackTypeClass_DigitalSetting* EffectTriggerDrawBar_1_UsePrimary() { return nullptr; }
 	virtual SIPackTypeClass_DigitalSetting* EffectTriggerDrawBar_2_UseSecondary() { return nullptr; }
 	virtual SIPackTypeClass_DigitalSetting* EffectTriggerDrawBar_3_UseTertiary() { return nullptr; }
 	virtual SIPackTypeClass_DigitalSetting* EffectTriggerDrawBar_4_UseQuaternary() { return nullptr; }
 	virtual SIPackTypeClass_DigitalButtonSetting* EffectTriggerDrawBar_5_UseButton() { return nullptr; }
-	virtual void EffectTriggerDrawBar_1_SetDataPrimary(SIPack_DigitalSetting* ÊıÖµÏÔÊ¾ÉèÖÃ°ü) {}
-	virtual void EffectTriggerDrawBar_2_SetDataSecondary(SIPack_DigitalSetting* ÊıÖµÏÔÊ¾ÉèÖÃ°ü) {}
-	virtual void EffectTriggerDrawBar_3_SetDataTertiary(SIPack_DigitalSetting* ÊıÖµÏÔÊ¾ÉèÖÃ°ü) {}
-	virtual void EffectTriggerDrawBar_4_SetDataQuaternary(SIPack_DigitalSetting* ÊıÖµÏÔÊ¾ÉèÖÃ°ü) {}
-	virtual void EffectTriggerDrawBar_5_SetDataButton(SIPack_DigitalSetting* ÊıÖµÏÔÊ¾ÉèÖÃ°ü) {}
+	virtual void EffectTriggerDrawBar_1_SetDataPrimary(SIPack_DigitalSetting* æ•°å€¼æ˜¾ç¤ºè®¾ç½®åŒ…) {}
+	virtual void EffectTriggerDrawBar_2_SetDataSecondary(SIPack_DigitalSetting* æ•°å€¼æ˜¾ç¤ºè®¾ç½®åŒ…) {}
+	virtual void EffectTriggerDrawBar_3_SetDataTertiary(SIPack_DigitalSetting* æ•°å€¼æ˜¾ç¤ºè®¾ç½®åŒ…) {}
+	virtual void EffectTriggerDrawBar_4_SetDataQuaternary(SIPack_DigitalSetting* æ•°å€¼æ˜¾ç¤ºè®¾ç½®åŒ…) {}
+	virtual void EffectTriggerDrawBar_5_SetDataButton(SIPack_DigitalSetting* æ•°å€¼æ˜¾ç¤ºè®¾ç½®åŒ…) {}
 	virtual SIPackTypeClass_DigitalSetting* EffectTriggerClickBar_1_UsePrimary() { return nullptr; }
 	virtual SIPackTypeClass_DigitalSetting* EffectTriggerClickBar_2_UseSecondary() { return nullptr; }
 	virtual SIPackTypeClass_DigitalSetting* EffectTriggerClickBar_3_UseTertiary() { return nullptr; }
 	virtual SIPackTypeClass_DigitalSetting* EffectTriggerClickBar_4_UseQuaternary() { return nullptr; }
 	virtual SIPackTypeClass_DigitalButtonSetting* EffectTriggerClickBar_5_UseButton() { return nullptr; }
-	virtual bool EffectTriggerClickBar_1_HoverPrimary(SIPack_DigitalSetting* ÊıÖµÏÔÊ¾ÉèÖÃ°ü, HouseClass* µã»÷µÄËùÊô·½, Point2D* µã»÷ÏñËØÆ«ÒÆ) { return false; }
-	virtual bool EffectTriggerClickBar_2_HoverSecondary(SIPack_DigitalSetting* ÊıÖµÏÔÊ¾ÉèÖÃ°ü, HouseClass* µã»÷µÄËùÊô·½, Point2D* µã»÷ÏñËØÆ«ÒÆ) { return false; }
-	virtual bool EffectTriggerClickBar_3_HoverTertiary(SIPack_DigitalSetting* ÊıÖµÏÔÊ¾ÉèÖÃ°ü, HouseClass* µã»÷µÄËùÊô·½, Point2D* µã»÷ÏñËØÆ«ÒÆ) { return false; }
-	virtual bool EffectTriggerClickBar_4_HoverQuaternary(SIPack_DigitalSetting* ÊıÖµÏÔÊ¾ÉèÖÃ°ü, HouseClass* µã»÷µÄËùÊô·½, Point2D* µã»÷ÏñËØÆ«ÒÆ) { return false; }
-	virtual bool EffectTriggerClickBar_5_HoverButton(SIPack_DigitalSetting* ÊıÖµÏÔÊ¾ÉèÖÃ°ü, HouseClass* µã»÷µÄËùÊô·½, Point2D* µã»÷ÏñËØÆ«ÒÆ) { return false; }
-	virtual bool EffectTriggerClickBar_1_TryClickPrimary(SIPack_DigitalSetting* ÊıÖµÏÔÊ¾ÉèÖÃ°ü, HouseClass* µã»÷µÄËùÊô·½, Point2D* µã»÷ÏñËØÆ«ÒÆ) { return false; }
-	virtual bool EffectTriggerClickBar_2_TryClickSecondary(SIPack_DigitalSetting* ÊıÖµÏÔÊ¾ÉèÖÃ°ü, HouseClass* µã»÷µÄËùÊô·½, Point2D* µã»÷ÏñËØÆ«ÒÆ) { return false; }
-	virtual bool EffectTriggerClickBar_3_TryClickTertiary(SIPack_DigitalSetting* ÊıÖµÏÔÊ¾ÉèÖÃ°ü, HouseClass* µã»÷µÄËùÊô·½, Point2D* µã»÷ÏñËØÆ«ÒÆ) { return false; }
-	virtual bool EffectTriggerClickBar_4_TryClickQuaternary(SIPack_DigitalSetting* ÊıÖµÏÔÊ¾ÉèÖÃ°ü, HouseClass* µã»÷µÄËùÊô·½, Point2D* µã»÷ÏñËØÆ«ÒÆ) { return false; }
-	virtual bool EffectTriggerClickBar_5_TryClickButton(SIPack_DigitalSetting* ÊıÖµÏÔÊ¾ÉèÖÃ°ü, HouseClass* µã»÷µÄËùÊô·½, Point2D* µã»÷ÏñËØÆ«ÒÆ) { return false; }
-	virtual void EffectTriggerClickBar_1_EffectPrimary(HouseClass* µã»÷µÄ×÷Õ½·½, double µ±Ç°Öµ) {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void EffectTriggerClickBar_2_EffectSecondary(HouseClass* µã»÷µÄ×÷Õ½·½, double µ±Ç°Öµ) {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void EffectTriggerClickBar_3_EffectTertiary(HouseClass* µã»÷µÄ×÷Õ½·½, double µ±Ç°Öµ) {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void EffectTriggerClickBar_4_EffectQuaternary(HouseClass* µã»÷µÄ×÷Õ½·½, double µ±Ç°Öµ) {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void EffectTriggerClickBar_5_EffectButton(HouseClass* µã»÷µÄ×÷Õ½·½, double µ±Ç°Öµ) {} // ´æÔÚ Removed , ´æÔÚ Modified
-	virtual void EffectTrigger_GUI_Placeholder_0() {} // Ô¤Áô
-	virtual void EffectTrigger_GUI_Placeholder_1() {} // Ô¤Áô
-	virtual void EffectTrigger_GUI_Placeholder_2() {} // Ô¤Áô
-	virtual void EffectTrigger_GUI_Placeholder_3() {} // Ô¤Áô
-	virtual void EffectTrigger_GUI_Placeholder_4() {} // Ô¤Áô
-	virtual void EffectTrigger_GUI_Placeholder_5() {} // Ô¤Áô
-	virtual void EffectTrigger_GUI_Placeholder_6() {} // Ô¤Áô
-	virtual void EffectTrigger_GUI_Placeholder_7() {} // Ô¤Áô
+	virtual bool EffectTriggerClickBar_1_HoverPrimary(SIPack_DigitalSetting* æ•°å€¼æ˜¾ç¤ºè®¾ç½®åŒ…, HouseClass* ç‚¹å‡»çš„æ‰€å±æ–¹, Point2D* ç‚¹å‡»åƒç´ åç§») { return false; }
+	virtual bool EffectTriggerClickBar_2_HoverSecondary(SIPack_DigitalSetting* æ•°å€¼æ˜¾ç¤ºè®¾ç½®åŒ…, HouseClass* ç‚¹å‡»çš„æ‰€å±æ–¹, Point2D* ç‚¹å‡»åƒç´ åç§») { return false; }
+	virtual bool EffectTriggerClickBar_3_HoverTertiary(SIPack_DigitalSetting* æ•°å€¼æ˜¾ç¤ºè®¾ç½®åŒ…, HouseClass* ç‚¹å‡»çš„æ‰€å±æ–¹, Point2D* ç‚¹å‡»åƒç´ åç§») { return false; }
+	virtual bool EffectTriggerClickBar_4_HoverQuaternary(SIPack_DigitalSetting* æ•°å€¼æ˜¾ç¤ºè®¾ç½®åŒ…, HouseClass* ç‚¹å‡»çš„æ‰€å±æ–¹, Point2D* ç‚¹å‡»åƒç´ åç§») { return false; }
+	virtual bool EffectTriggerClickBar_5_HoverButton(SIPack_DigitalSetting* æ•°å€¼æ˜¾ç¤ºè®¾ç½®åŒ…, HouseClass* ç‚¹å‡»çš„æ‰€å±æ–¹, Point2D* ç‚¹å‡»åƒç´ åç§») { return false; }
+	virtual bool EffectTriggerClickBar_1_TryClickPrimary(SIPack_DigitalSetting* æ•°å€¼æ˜¾ç¤ºè®¾ç½®åŒ…, HouseClass* ç‚¹å‡»çš„æ‰€å±æ–¹, Point2D* ç‚¹å‡»åƒç´ åç§») { return false; }
+	virtual bool EffectTriggerClickBar_2_TryClickSecondary(SIPack_DigitalSetting* æ•°å€¼æ˜¾ç¤ºè®¾ç½®åŒ…, HouseClass* ç‚¹å‡»çš„æ‰€å±æ–¹, Point2D* ç‚¹å‡»åƒç´ åç§») { return false; }
+	virtual bool EffectTriggerClickBar_3_TryClickTertiary(SIPack_DigitalSetting* æ•°å€¼æ˜¾ç¤ºè®¾ç½®åŒ…, HouseClass* ç‚¹å‡»çš„æ‰€å±æ–¹, Point2D* ç‚¹å‡»åƒç´ åç§») { return false; }
+	virtual bool EffectTriggerClickBar_4_TryClickQuaternary(SIPack_DigitalSetting* æ•°å€¼æ˜¾ç¤ºè®¾ç½®åŒ…, HouseClass* ç‚¹å‡»çš„æ‰€å±æ–¹, Point2D* ç‚¹å‡»åƒç´ åç§») { return false; }
+	virtual bool EffectTriggerClickBar_5_TryClickButton(SIPack_DigitalSetting* æ•°å€¼æ˜¾ç¤ºè®¾ç½®åŒ…, HouseClass* ç‚¹å‡»çš„æ‰€å±æ–¹, Point2D* ç‚¹å‡»åƒç´ åç§») { return false; }
+	virtual void EffectTriggerClickBar_1_EffectPrimary(HouseClass* ç‚¹å‡»çš„ä½œæˆ˜æ–¹, double å½“å‰å€¼) {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void EffectTriggerClickBar_2_EffectSecondary(HouseClass* ç‚¹å‡»çš„ä½œæˆ˜æ–¹, double å½“å‰å€¼) {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void EffectTriggerClickBar_3_EffectTertiary(HouseClass* ç‚¹å‡»çš„ä½œæˆ˜æ–¹, double å½“å‰å€¼) {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void EffectTriggerClickBar_4_EffectQuaternary(HouseClass* ç‚¹å‡»çš„ä½œæˆ˜æ–¹, double å½“å‰å€¼) {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void EffectTriggerClickBar_5_EffectButton(HouseClass* ç‚¹å‡»çš„ä½œæˆ˜æ–¹, double å½“å‰å€¼) {} // å­˜åœ¨ Removed , å­˜åœ¨ Modified
+	virtual void EffectTrigger_GUI_Placeholder_0() {} // é¢„ç•™
+	virtual void EffectTrigger_GUI_Placeholder_1() {} // é¢„ç•™
+	virtual void EffectTrigger_GUI_Placeholder_2() {} // é¢„ç•™
+	virtual void EffectTrigger_GUI_Placeholder_3() {} // é¢„ç•™
+	virtual void EffectTrigger_GUI_Placeholder_4() {} // é¢„ç•™
+	virtual void EffectTrigger_GUI_Placeholder_5() {} // é¢„ç•™
+	virtual void EffectTrigger_GUI_Placeholder_6() {} // é¢„ç•™
+	virtual void EffectTrigger_GUI_Placeholder_7() {} // é¢„ç•™
 	virtual void EffectTriggerDataReset() {}
-	virtual void EffectTriggerPointerGotInvalid(AbstractClass* ¼ÄµôµÄÄ¿±ê, bool ÒÑÒÆ³ı) {}
-	virtual void EffectTrigger_Data_Placeholder_0() {} // Ô¤Áô
-	virtual void EffectTrigger_Data_Placeholder_1() {} // Ô¤Áô
+	virtual void EffectTriggerPointerGotInvalid(AbstractClass* å¯„æ‰çš„ç›®æ ‡, bool å·²ç§»é™¤) {}
+	virtual void EffectTrigger_Data_Placeholder_0() {} // é¢„ç•™
+	virtual void EffectTrigger_Data_Placeholder_1() {} // é¢„ç•™
 
 
-	// »ù´¡ÊôĞÔ£¬²»¿ÉÔÚÍâ²¿¸Ä¶¯
+	// åŸºç¡€å±æ€§ï¼Œä¸å¯åœ¨å¤–éƒ¨æ”¹åŠ¨
 	SIBuffTypeClass* Type;
 	SIBuffTypeClass_EffectType EffectType;
 	int UID;
-	// Ö÷ÌåÊôĞÔ£¬²»¿ÉÔÚÍâ²¿¸Ä¶¯
+	// ä¸»ä½“å±æ€§ï¼Œä¸å¯åœ¨å¤–éƒ¨æ”¹åŠ¨
 	AbstractClass* SIOwner;
 	TechnoTypeClass* SIOwner_TechnoType;
 	SIInterface_ExtendData* SIOwner_Extend;
@@ -180,7 +180,7 @@ public:
 	bool SISource_IsPlaceholder_A;
 	bool SISource_IsPlaceholder_B;
 	bool SISource_IsPlaceholder_C;
-	// ×´Ì¬ÊôĞÔ£¬²»¿ÉÔÚÍâ²¿¸Ä¶¯
+	// çŠ¶æ€å±æ€§ï¼Œä¸å¯åœ¨å¤–éƒ¨æ”¹åŠ¨
 	SIBuffClass_State SIBuffState;
 	int SITimeLeft_ActiveAuto;
 	int SITimeLeft_ActiveBefore;
@@ -199,11 +199,11 @@ public:
 	bool SIPlaceholderState_B;
 	bool SIPlaceholderState_C;
 	bool SIPlaceholderState_D;
-	//Ğ§¹ûÊôĞÔ,¿ÉÒÔĞŞ¸Ä
-	//Èç¹ûÏëÒªÌí¼ÓÊôĞÔ£¬ÇëÖ±½ÓÊ¹ÓÃSIExtraCode_Aµ½SIEffectData_15µÄ³ÉÔ±´æ´¢¶ø²»ĞÂÔö
-	//ÕâĞ©³ÉÔ±¿ÉÒÔÔÚ±£Ö¤Õ¼¾İ¿Õ¼ä²»±äµÄÇ°ÌáÏÂ¸Ä±äÆäÖĞµÄÀàĞÍ
-	//ÕâĞ©³ÉÔ±»á×Ô¶¯´æ¶Áµµ£¬Çë²»Òª´æ´¢Ö¸Õë£¬·ñÔòÇë×ÔĞĞSwizzle
-	AnimClass* SIAnimation;//Õâ¸ö³ÉÔ±¸ÄÆğÀ´Ğ¡ĞÄµã£¬¸Ä²»ºÃ¾Í±¬Õ¨
+	//æ•ˆæœå±æ€§,å¯ä»¥ä¿®æ”¹
+	//å¦‚æœæƒ³è¦æ·»åŠ å±æ€§ï¼Œè¯·ç›´æ¥ä½¿ç”¨SIExtraCode_Aåˆ°SIEffectData_15çš„æˆå‘˜å­˜å‚¨è€Œä¸æ–°å¢
+	//è¿™äº›æˆå‘˜å¯ä»¥åœ¨ä¿è¯å æ®ç©ºé—´ä¸å˜çš„å‰æä¸‹æ”¹å˜å…¶ä¸­çš„ç±»å‹
+	//è¿™äº›æˆå‘˜ä¼šè‡ªåŠ¨å­˜è¯»æ¡£ï¼Œè¯·ä¸è¦å­˜å‚¨æŒ‡é’ˆï¼Œå¦åˆ™è¯·è‡ªè¡ŒSwizzle
+	AnimClass* SIAnimation;//è¿™ä¸ªæˆå‘˜æ”¹èµ·æ¥å°å¿ƒç‚¹ï¼Œæ”¹ä¸å¥½å°±çˆ†ç‚¸
 	int SICountLeft;
 	int SIDelayLeft;
 	int SITimerLeft;
@@ -251,7 +251,7 @@ public:
 	double SIEffectData_13;
 	double SIEffectData_14;
 	double SIEffectData_15;
-	//ÆäºóµÄ³ÉÔ±Ôİ²»±£Ö¤¶ş½øÖÆ¼æÈİ£¬¹Ê²»ÁĞ³ö
+	//å…¶åçš„æˆå‘˜æš‚ä¸ä¿è¯äºŒè¿›åˆ¶å…¼å®¹ï¼Œæ•…ä¸åˆ—å‡º
 };
 
 
@@ -259,9 +259,9 @@ public:
 class NOVTABLE SIBuffTypeClass final : public SIEnumerable<SIBuffTypeClass>
 {
 public:
-	// ³õÊ¼»¯ÊôĞÔ
+	// åˆå§‹åŒ–å±æ€§
 	bool SIIsFirstTimeLoad;
-	// »ù´¡ÊôĞÔ
+	// åŸºç¡€å±æ€§
 	int SIOrder;
 	bool SIAllowExist_Transfer;
 	bool SIAllowExist_Passenger;
@@ -278,22 +278,22 @@ public:
 	bool SIWaitingIronCurtain;
 	bool SILockOwnerHouse;
 	SIDamageProcessType SIDamageProcessType;
-	// ¶¯»­Ïà¹ØÊôĞÔ
+	// åŠ¨ç”»ç›¸å…³å±æ€§
 	SIDataList<AnimTypeClass*> SIAnim;
 	SIDataList<AnimTypeClass*> SIAnim_Death;
 	SIDataList<AnimTypeClass*> SIAnim_Removed;
 	SIDataList<AnimTypeClass*> SIAnim_End;
 	SIDataList<AnimTypeClass*> SIAnim_BuffDeath;
-	// ¹ÒÔØ³ÖĞøÊ±¼äÏà¹ØÊôĞÔ
+	// æŒ‚è½½æŒç»­æ—¶é—´ç›¸å…³å±æ€§
 	int SIDuration;
 	int SIDuration_Max;
 	int SIDuration_Min;
-	// ÉúÃüÖµÏà¹ØÊôĞÔ
+	// ç”Ÿå‘½å€¼ç›¸å…³å±æ€§
 	double SIHealth;
 	double SIHealth_Max;
 	double SIHealth_Min;
 	bool SIHealth_Damage;
-	// ×´Ì¬¿ØÖÆÏà¹ØÊôĞÔ
+	// çŠ¶æ€æ§åˆ¶ç›¸å…³å±æ€§
 	bool SIBuff_Multy;
 	int SIActive_Auto;
 	SIPackTypeClass_BuffSetting* SIActive_Auto_Setting;
@@ -306,7 +306,7 @@ public:
 	SIBuffTypeClass_AfterType SIAfter_Type;
 	SIDataList<SIBuffTypeClass*> SIAfter_NextBuffs;
 	SIDataList<SIPackTypeClass_BuffSetting*> SIAfter_NextBuff_Settings;
-	// Ğ§¹ûÖÖÀàÏà¹ØÊôĞÔ
+	// æ•ˆæœç§ç±»ç›¸å…³å±æ€§
 	SIBuffTypeClass_EffectType SIEffect_Type;
 	SIDataList<SIBuffTypeClass*> SIEffect_AcceptBuffs;
 	SIDataList<SIBuffTypeClass*> SIEffect_ExceptBuffs;
@@ -354,7 +354,7 @@ public:
 	SIRotateType SIEffect_OffsetSourceBaseDirection;
 	SIRotateType SIEffect_OffsetTargetDirection;
 	SIRotateType SIEffect_OffsetTargetBaseDirection;
-	// Ğ§¹ûÇ¿¶ÈÖµÏà¹ØÊôĞÔ
+	// æ•ˆæœå¼ºåº¦å€¼ç›¸å…³å±æ€§
 	SIDataList<double> SIPower_Bases;
 	SIDataList<double> SIPower_Mults;
 	SIDataList<double> SIPower_Maxs;
@@ -365,7 +365,7 @@ public:
 	SIDataList<double> SIPower_Mins_Real;
 	SIDataList<double> SIPower_Maxs_Effect;
 	SIDataList<double> SIPower_Mins_Effect;
-	// ¹ã²¥Óë¼àÌıÏà¹ØÊôĞÔ
+	// å¹¿æ’­ä¸ç›‘å¬ç›¸å…³å±æ€§
 	bool SIBroadcast;
 	SIDataList<int> SIBroadcast_Channels;
 	int SIBroadcast_Owner;
@@ -375,7 +375,7 @@ public:
 	int SIListener_Owner;
 	double SIListener_Range;
 	bool SIListener_ActiveMode;
-	// ÊıÖµÏÔÊ¾Ïà¹ØÊôĞÔ
+	// æ•°å€¼æ˜¾ç¤ºç›¸å…³å±æ€§
 	bool SIDigital;
 	SIPackTypeClass_DigitalSetting* SIDigital_Primary;
 	SIPackTypeClass_DigitalSetting* SIDigital_Secondary;
@@ -387,38 +387,38 @@ public:
 	bool SIDigital_Button_Observer;
 	bool SIDigital_AutoOffset;
 	double SIDigital_BufferSpeed;
-	// ×Ô¶¯Éú³É
+	// è‡ªåŠ¨ç”Ÿæˆ
 	bool SIEffect_NeedCheckBuffs;
 	bool SIEffect_IsFull_OffsetSource;
 	bool SIEffect_IsFull_OffsetSourceBase;
 	bool SIEffect_IsFull_OffsetTarget;
 	bool SIEffect_IsFull_OffsetTargetBase;
-	// Êı¾İ´¦Àíº¯Êı
+	// æ•°æ®å¤„ç†å‡½æ•°
 	virtual void InitializeConstants() {};
 	virtual void LoadFromINI(CCINIClass* INI) {};
-	virtual void LoadFromStream(SIStreamReader& Á÷) {};
-	virtual void SaveToStream(SIStreamWriter& Á÷) {};
+	virtual void LoadFromStream(SIStreamReader& æµ) {};
+	virtual void SaveToStream(SIStreamWriter& æµ) {};
 
 	SIBuffTypeClass() = delete;
 	SIBuffTypeClass(const SIBuffTypeClass&) = delete;
 	SIBuffTypeClass(SIBuffTypeClass&& ) = delete;
 public:
 
-	// ¹¦ÄÜº¯Êı ½Ó¿Ú±»ÀÎ´óÖâ·ÉÁË
-	//WarheadTypeClass* GetRandomWarhead(int& µ¯Í·Ë÷Òı);
+	// åŠŸèƒ½å‡½æ•° æ¥å£è¢«ç‰¢å¤§è‚˜é£äº†
+	//WarheadTypeClass* GetRandomWarhead(int& å¼¹å¤´ç´¢å¼•);
 	//int GetRandomWarheadIndex();
 	//WeaponTypeClass* GetRandomWeapon();
 	//int GetRandomWeaponIndex();
-	//bool CanEffectBuff(SIBuffTypeClass* BuffÀàĞÍ);
-	//bool CanPassBuffsCheck(SIInterface_ExtendData* Êı¾İÀ©Õ¹);
-	//bool CannotPassBuffsCheck(SIInterface_ExtendData* Êı¾İÀ©Õ¹);
+	//bool CanEffectBuff(SIBuffTypeClass* Buffç±»å‹);
+	//bool CanPassBuffsCheck(SIInterface_ExtendData* æ•°æ®æ‰©å±•);
+	//bool CannotPassBuffsCheck(SIInterface_ExtendData* æ•°æ®æ‰©å±•);
 };
 
 
 class NOVTABLE SIPackTypeClass_BuffSetting : public SIEnumerable<SIPackTypeClass_BuffSetting>
 {
 public:
-	// ³ÖĞøÊ±¼ä
+	// æŒç»­æ—¶é—´
 	bool SIDuration_Self;
 	SIVariableType SIDuration_ValueType;
 	int SIDuration;
@@ -427,7 +427,7 @@ public:
 	bool SIDuration_Reset;
 	bool SIDuration_Effect;
 	bool SIDuration_AffectAfter;
-	// ÉúÃüÖµ
+	// ç”Ÿå‘½å€¼
 	bool SIHealth_Self;
 	SIVariableType SIHealth_ValueType;
 	double SIHealth;
@@ -435,53 +435,53 @@ public:
 	double SIHealth_Min;
 	bool SIHealth_Reset;
 	bool SIHealth_Effect;
-	// Ç¿¶ÈÖµ
+	// å¼ºåº¦å€¼
 	SIVariableType SIPower_ValueType;
 	double SIPower;
 	double SIPower_Max;
 	double SIPower_Min;
 	bool SIPower_Reset;
 	bool SIPower_Effect;
-	// ³õÊ¼»¯£º£¡£¡ÕâÖÖ·½Ê½²»»á×¢²á
-	SIPackTypeClass_BuffSetting(const char* Æ¬¶Î±êÌâ) : SIEnumerable<SIPackTypeClass_BuffSetting>(Æ¬¶Î±êÌâ)
-		// ³ÖĞøÊ±¼ä
+	// åˆå§‹åŒ–ï¼šï¼ï¼è¿™ç§æ–¹å¼ä¸ä¼šæ³¨å†Œ
+	SIPackTypeClass_BuffSetting(const char* ç‰‡æ®µæ ‡é¢˜) : SIEnumerable<SIPackTypeClass_BuffSetting>(ç‰‡æ®µæ ‡é¢˜)
+		// æŒç»­æ—¶é—´
 		, SIDuration_Self(SIBuffSetting_DefaultValue_Duration_Self)
-		, SIDuration_ValueType(SIVariableType::ÆÕÍ¨±äÁ¿)
+		, SIDuration_ValueType(SIVariableType::æ™®é€šå˜é‡)
 		, SIDuration(SIBuffSetting_DefaultValue_Duration)
 		, SIDuration_Max(SIBuffSetting_DefaultValue_Duration_Max)
 		, SIDuration_Min(SIBuffSetting_DefaultValue_Duration_Min)
 		, SIDuration_Reset(SIBuffSetting_DefaultValue_Duration_Reset)
 		, SIDuration_Effect(SIBuffSetting_DefaultValue_Duration_Effect)
 		, SIDuration_AffectAfter(SIBuffSetting_DefaultValue_Duration_AffectAfter)
-		// ÉúÃüÖµ
+		// ç”Ÿå‘½å€¼
 		, SIHealth_Self(SIBuffSetting_DefaultValue_Health_Self)
-		, SIHealth_ValueType(SIVariableType::ÆÕÍ¨±äÁ¿)
+		, SIHealth_ValueType(SIVariableType::æ™®é€šå˜é‡)
 		, SIHealth(SIBuffSetting_DefaultValue_Health)
 		, SIHealth_Max(SIBuffSetting_DefaultValue_Health_Max)
 		, SIHealth_Min(SIBuffSetting_DefaultValue_Health_Min)
 		, SIHealth_Reset(SIBuffSetting_DefaultValue_Health_Reset)
 		, SIHealth_Effect(SIBuffSetting_DefaultValue_Health_Effect)
-		// Ç¿¶ÈÖµ
-		, SIPower_ValueType(SIVariableType::ÆÕÍ¨±äÁ¿)
+		// å¼ºåº¦å€¼
+		, SIPower_ValueType(SIVariableType::æ™®é€šå˜é‡)
 		, SIPower(SIBuffSetting_DefaultValue_Power)
 		, SIPower_Max(SIBuffSetting_DefaultValue_Power_Max)
 		, SIPower_Min(SIBuffSetting_DefaultValue_Power_Min)
 		, SIPower_Reset(SIBuffSetting_DefaultValue_Power_Reset)
 		, SIPower_Effect(SIBuffSetting_DefaultValue_Power_Effect)
 	{}
-	// Êı¾İ´¦Àíº¯Êı
+	// æ•°æ®å¤„ç†å‡½æ•°
 	~SIPackTypeClass_BuffSetting() = default;
 	virtual void InitializeConstants() {};
 	virtual void LoadFromINI(CCINIClass* INI) {};
-	virtual void LoadFromStream(SIStreamReader& Á÷) {};
-	virtual void SaveToStream(SIStreamWriter& Á÷) {};
+	virtual void LoadFromStream(SIStreamReader& æµ) {};
+	virtual void SaveToStream(SIStreamWriter& æµ) {};
 public:
-	// ¹¦ÄÜº¯Êı
-	SIPack_BuffSetting_FromStatic MakePack(HouseClass* µ±Ç°×÷Õ½·½);
-	// ¹¹½¨º¯Êı
+	// åŠŸèƒ½å‡½æ•°
+	SIPack_BuffSetting_FromStatic MakePack(HouseClass* å½“å‰ä½œæˆ˜æ–¹);
+	// æ„å»ºå‡½æ•°
 	static SIPack_BuffSetting_FromStatic MakePack_Empty();
-	static SIPack_BuffSetting_FromStatic MakePack_DurationOnly(int ³ÖĞøÊ±¼ä, bool ¸²¸Ç³ÖĞøÊ±¼ä, bool ³ĞÊÜ³ÖĞøÊ±¼ä¿¹ĞÔ);
-	static SIPack_BuffSetting_FromStatic MakePack_PowerOnly(double Ç¿¶ÈÖµ, bool ¸²¸ÇÇ¿¶ÈÖµ, bool ³ĞÊÜÇ¿¶ÈÖµ¿¹ĞÔ);
+	static SIPack_BuffSetting_FromStatic MakePack_DurationOnly(int æŒç»­æ—¶é—´, bool è¦†ç›–æŒç»­æ—¶é—´, bool æ‰¿å—æŒç»­æ—¶é—´æŠ—æ€§);
+	static SIPack_BuffSetting_FromStatic MakePack_PowerOnly(double å¼ºåº¦å€¼, bool è¦†ç›–å¼ºåº¦å€¼, bool æ‰¿å—å¼ºåº¦å€¼æŠ—æ€§);
 };
 
 
@@ -489,11 +489,11 @@ public:
 class NOVTABLE SIPackTypeClass_OffsetMotion final : public SIEnumerable<SIPackTypeClass_OffsetMotion>
 {
 public:
-	// »ù´¡ÊôĞÔ
+	// åŸºç¡€å±æ€§
 	int SIDuration;
 	SIPackTypeClass_OffsetMotion* SINext;
 	bool SINextReset;
-	// ×ø±êÆ½ÒÆ¿ØÖÆ
+	// åæ ‡å¹³ç§»æ§åˆ¶
 	double SITranslationXSpeed;
 	double SITranslationYSpeed;
 	double SITranslationZSpeed;
@@ -509,25 +509,25 @@ public:
 	bool SITranslationXReciprocating;
 	bool SITranslationYReciprocating;
 	bool SITranslationZReciprocating;
-	// Ğı×ªËÙ¶È¿ØÖÆ
+	// æ—‹è½¬é€Ÿåº¦æ§åˆ¶
 	double SIRotateSpeed;
 	double SIRotateStart;
 	double SIRotateMax;
 	double SIRotateMin;
 	bool SIRotateReciprocating;
-	// ¾¶ÏòËÙ¶È¿ØÖÆ
+	// å¾„å‘é€Ÿåº¦æ§åˆ¶
 	double SIRadiusSpeed;
 	double SIRadiusStart;
 	double SIRadiusMax;
 	double SIRadiusMin;
 	bool SIRadiusReciprocating;
-	// ³õÊ¼»¯£º£¡£¡ÕâÖÖ·½Ê½²»»á×¢²á
-	SIPackTypeClass_OffsetMotion(const char* Æ¬¶Î±êÌâ) : SIEnumerable<SIPackTypeClass_OffsetMotion>(Æ¬¶Î±êÌâ)
-		// »ù´¡ÊôĞÔ
+	// åˆå§‹åŒ–ï¼šï¼ï¼è¿™ç§æ–¹å¼ä¸ä¼šæ³¨å†Œ
+	SIPackTypeClass_OffsetMotion(const char* ç‰‡æ®µæ ‡é¢˜) : SIEnumerable<SIPackTypeClass_OffsetMotion>(ç‰‡æ®µæ ‡é¢˜)
+		// åŸºç¡€å±æ€§
 		, SIDuration(0)
 		, SINext(nullptr)
 		, SINextReset(false)
-		// ×ø±êÆ½ÒÆ¿ØÖÆ
+		// åæ ‡å¹³ç§»æ§åˆ¶
 		, SITranslationXSpeed(0.0)
 		, SITranslationYSpeed(0.0)
 		, SITranslationZSpeed(0.0)
@@ -543,25 +543,25 @@ public:
 		, SITranslationXReciprocating(false)
 		, SITranslationYReciprocating(false)
 		, SITranslationZReciprocating(false)
-		// Ğı×ªËÙ¶È¿ØÖÆ
+		// æ—‹è½¬é€Ÿåº¦æ§åˆ¶
 		, SIRotateSpeed(0.0)
 		, SIRotateStart(0.0)
 		, SIRotateMax(360.0)
 		, SIRotateMin(0.0)
 		, SIRotateReciprocating(false)
-		// ¾¶ÏòËÙ¶È¿ØÖÆ
+		// å¾„å‘é€Ÿåº¦æ§åˆ¶
 		, SIRadiusSpeed(0.0)
 		, SIRadiusStart(1.0)
 		, SIRadiusMax(1.0)
 		, SIRadiusMin(1.0)
 		, SIRadiusReciprocating(false)
 	{}
-	// Êı¾İ´¦Àíº¯Êı
+	// æ•°æ®å¤„ç†å‡½æ•°
 	~SIPackTypeClass_OffsetMotion() = default;
 	virtual void InitializeConstants() {};
 	virtual void LoadFromINI(CCINIClass* INI) {};
-	virtual void LoadFromStream(SIStreamReader& Á÷) {};
-	virtual void SaveToStream(SIStreamWriter& Á÷) {};
+	virtual void LoadFromStream(SIStreamReader& æµ) {};
+	virtual void SaveToStream(SIStreamWriter& æµ) {};
 public:
-	// ¹¦ÄÜº¯Êı
+	// åŠŸèƒ½å‡½æ•°
 };

@@ -1,4 +1,4 @@
-#include "IH.Loader.h"
+﻿#include "IH.Loader.h"
 #include "IH.Config.h"
 #include "IH.Initial.h"
 #include "IH.InitialService.h"
@@ -42,9 +42,6 @@ namespace Init
 	LPCVOID(__cdecl* _GetNamedPointer)(const char* Usage, const char* Name);
 	void  (__cdecl* _SetNamedPointer)(const char* Usage, const char* Name, LPCVOID Pointer);
 	const char* (__cdecl* _NamedPointer_GetName)(const char* Usage, LPCVOID Pointer);
-	void ( __cdecl* _DeleteNamedPointer_Name)(const char* Usage, const char* Name);
-	void (__cdecl* _DeleteNamedPointer_Ptr)(const char* Usage, LPCVOID Pointer);
-	void (__cdecl* _QueryNamedPointer)(const char* Usage, void* Data, void(__cdecl* Func)(const char*, LPCVOID, void*));
 
 	bool IsSyringeReadingHooks()
 	{
@@ -74,9 +71,6 @@ namespace Init
 			____GetFunc(GetNamedPointer);
 			____GetFunc(SetNamedPointer);
 			____GetFunc(NamedPointer_GetName);
-			____GetFunc(DeleteNamedPointer_Name);
-			____GetFunc(DeleteNamedPointer_Ptr);
-			____GetFunc(QueryNamedPointer);
 #undef ____GetFunc
 			LoaderLoaded = true;
 		}
@@ -226,32 +220,28 @@ const char* Internal_GetRTTIClassName(const ECRTTIInfo* pInfo)
 	return Init::_NamedPointer_GetName("EC::RTTI", pInfo);
 }
 
-void Internal_RegisterClassFactory(const char* ClassName, void* DefaultConstruct, void* CopyConstruct, void* Destroy)
+void Internal_SetGlobalVarString(const char* Usage, const char* Key, const char* Value)
 {
 	Init::Loader.Rely();
-	//if (!Init::_SetNamedPointer)MessageBoxA(Game::hWnd, "Init::_SetNamedPointer == nullptr", "EC SDK", MB_OK);
-	Init::_SetNamedPointer("EC::Factory::DefInit", ClassName, DefaultConstruct);
-	if(CopyConstruct)Init::_SetNamedPointer("EC::Factory::CopyInit", ClassName, CopyConstruct);
-	Init::_SetNamedPointer("EC::Factory::Destroy", ClassName, Destroy);
+	Init::_SetNamedPointer(Usage, Key, Value);
 }
 
-void Internal_GetClassFactory(const char* ClassName,LibFuncHandle & DefaultConstruct, LibFuncHandle & CopyConstruct, LibFuncHandle & Destroy) 
+const char* Internal_GetGlobalVarString(const char* Usage, const char* Key)
 {
 	Init::Loader.Rely();
-	//if (!Init::_GetNamedPointer)MessageBoxA(Game::hWnd, "Init::_GetNamedPointer == nullptr", "EC SDK", MB_OK);
-	DefaultConstruct = (LibFuncHandle)Init::_GetNamedPointer("EC::Factory::DefInit", ClassName);
-	CopyConstruct = (LibFuncHandle)Init::_GetNamedPointer("EC::Factory::CopyInit", ClassName);
-	Destroy = (LibFuncHandle)Init::_GetNamedPointer("EC::Factory::Destroy", ClassName);
+	return (const char*)Init::_GetNamedPointer(Usage, Key);
 }
 
-struct ECStaticInit;
-void RegisterECStaticInit(ECStaticInit* ptr)
+void Internal_SetGlobalVarPtr(const char* Usage, const char* Key, LPCVOID Ptr)
 {
-	Init::_SetNamedPointer("EC::StaticInitPtr", RandStr(8).c_str(), ptr);
+	Init::Loader.Rely();
+	Init::_SetNamedPointer(Usage, Key, Ptr);
 }
-void UnregisterECStaticInit(ECStaticInit* ptr)
+
+LPCVOID Internal_GetGlobalVarPtr(const char* Usage, const char* Key)
 {
-	Init::_DeleteNamedPointer_Ptr("EC::StaticInitPtr", ptr);
+	Init::Loader.Rely();
+	return Init::_GetNamedPointer(Usage, Key);
 }
 
 namespace InitialLoad

@@ -1,27 +1,9 @@
-#pragma once
+ï»¿#pragma once
 #pragma once
 #include "IH.Loader.h"
 #include "EC.Stream.h"
 #include "EC.LoadSave.h"
 #include "EC.ObjBase.h"
-
-/*
-
-É¾µôËùÓĞ×Ô¼ÓÔØº¯Êı£¡£¡
-Ğ´Ò»Ì×ĞÂµÄ×Ô¼ÓÔØ½Ó¿Ú
-Load
-Save
-FinalSwizzle
-2¸öPointerGotInvalid
-InitFromINI
-LoadFromINI
-Update
-ComputeCRC
-OnExeRun
-AfterECInitialize
-OnReadingScenario
-
-*/
 
 
 class ECGameClass_
@@ -38,7 +20,7 @@ public:
 	virtual size_t GetSizeMax() = 0;
 
 
-	//bRemoved : true=Õæ¼ÄÁË false=ÁÙÊ±Àë³¡
+	//bRemoved : true=çœŸå¯„äº† false=ä¸´æ—¶ç¦»åœº
 	virtual void PointerGotInvalid(AbstractClass* const pObject, bool bRemoved) = 0;
 
 	virtual void FinalSwizzle() = 0;
@@ -52,130 +34,57 @@ public:
 	virtual ~ECGameClass_();
 };
 
-#ifndef IHCore
-
-//ÆäRTTIĞÅÏ¢×¢²áÓÚIHCore
-ECObjType ECGameClass : EC_USERTTI, EC_USEUNIQUEID, EC_USELOADSAVE
+//å…¶RTTIä¿¡æ¯æ³¨å†ŒäºIHCore
+ECObjType ECGameClass : EC_USERTTI, EC_USEUNIQUEID, EC_SYNC, EC_USELOADSAVE
 {
 	ECRTTI_DefineRTTIFunction(ECGameClass)
-	ECObj_DefineLoadSaveFunction
-public:
+	ECRTTI_DefineLoadSaveFunction
 	/*
-	ÒÑ¾­¶¨ÒåÁËÒÔÏÂ½Ó¿Ú£º
+	å·²ç»å®šä¹‰äº†ä»¥ä¸‹æ¥å£ï¼š
 	virtual const ECRTTIInfo* WhatAmI() const;
+	
 	int GetUniqueID() const;
+	
 	template<typename T>
-	T* DynamicCast();
+	T* DynamicCast()
+
 	template<typename T>
-	const T* DynamicCast() const;
-
-	ÒÔÏÂ½Ó¿ÚÇë×ÔĞĞÊµÏÖ£º
-
-	virtual void LoadGame(ECStreamReader& Stream) = 0;
-	virtual void SaveGame(ECStreamWriter& Stream) = 0;
-	virtual size_t GetSizeMax() = 0;
-	virtual void FinalSwizzle() = 0;
-	virtual void PointerGotInvalid(AbstractClass* const pObject, bool bRemoved) = 0;
-	virtual void PointerGotInvalid(ECGameClass* const pObject, bool bRemoved) = 0;
-	*/
+	const T* DynamicCast() const
 
 	virtual void ComputeCRC(CRCEngine& crc) = 0;
-	virtual void Init() = 0;
-	virtual void Update() = 0;
 
-	virtual HouseClass* GetHouse() const = 0;
-	virtual CoordStruct GetCoords() const = 0;
-	virtual CoordStruct GetCenterCoords() const = 0;
-
-	ECGameClass() { Init(); };
-
-private:
-	//ÔÚÅÉÉúÀàµ±ÖĞ×ÔĞĞÊµÏÖSerializeº¯Êı
-	template <typename T>
-	void Serialize(T& Stream) {};
-public:
-
-	const ECRTTI* GetRTTI() const
-	{
-		return static_cast<const ECRTTI*>(this);
-	}
-};
-ECObj_ImportFactory(ECGameClass)
-
-
-//´æ¶ÁÈ«¾ÖÉèÖÃ
-ECObjType ECGlobalData : EC_USELOADSAVE, EC_LOADFROMRULES, EC_STATICINIT
-{
-public:
-	/*
-	ÒÑ¾­¶¨ÒåÁËÒÔÏÂ½Ó¿Ú£¬ÒÔÏÂ½Ó¿ÚÇë×ÔĞĞÊµÏÖ£º
 	virtual void LoadGame(ECStreamReader& Stream) = 0;
 	virtual void SaveGame(ECStreamWriter& Stream) = 0;
 	virtual size_t GetSizeMax() = 0;
 	virtual void FinalSwizzle() = 0;
-	virtual void LoadFromINI(CCINIClass* INI) = 0;
 	virtual void PointerGotInvalid(AbstractClass* const pObject, bool bRemoved) = 0;
+	//æš‚æ—¶æ— æ•ˆ
 	virtual void PointerGotInvalid(ECGameClass* const pObject, bool bRemoved) = 0;
-
-	virtual void InitFromINI(CCINIClass* INI) = 0;
-	virtual void LoadFromINI(CCINIClass* INI) = 0;
-
-	virtual void InitOnExeRun() = 0;
-	virtual void InitAfterECInitialize() = 0;
-	virtual void InitOnLoadScenario() = 0;
+	//æš‚æ—¶æ— æ•ˆ
+	virtual void PointerGotInvalid(SIBuffClass* const pObject, bool bRemoved) = 0;
 	*/
 
-	ECGlobalData() {}
-};
-ECObj_ImportFactory(ECGlobalData)
+	virtual void Update() = 0;
 
-//ÆäRTTIĞÅÏ¢×¢²áÓÚIHCore
-ECObjType ECGameTypeClass : public ECGameClass, EC_LOADFROMRULES, EC_STATICINIT
+private:
+	//åœ¨æ´¾ç”Ÿç±»å½“ä¸­è‡ªè¡Œå®ç°Serializeå‡½æ•°
+	template <typename T>
+	void Serialize(T& Stream) {};
+};
+
+
+ECObjType ECGameTypeClass : public ECGameClass
 {
 	ECRTTI_DefineRTTIFunction(ECGameTypeClass)
-	ECObj_DefineLoadSaveFunction
-public:
+	ECRTTI_DefineLoadSaveFunction
 
-	/*
-	ÒÑ¾­¶¨ÒåÁËÒÔÏÂ½Ó¿Ú£º
-	virtual const ECRTTIInfo* WhatAmI() const;
-	int GetUniqueID() const;
-	template<typename T>
-	T* DynamicCast();
-	template<typename T>
-	const T* DynamicCast() const;
+	virtual void Update() {}
 
-	ÒÔÏÂ½Ó¿ÚÇë×ÔĞĞÊµÏÖ£º
-
-	virtual void ComputeCRC(CRCEngine& crc) = 0;
-
-	virtual void LoadGame(ECStreamReader& Stream) = 0;
-	virtual void SaveGame(ECStreamWriter& Stream) = 0;
-	virtual size_t GetSizeMax() = 0;
-	virtual void FinalSwizzle() = 0;
-	virtual void PointerGotInvalid(AbstractClass* const pObject, bool bRemoved) = 0;
-	virtual void PointerGotInvalid(ECGameClass* const pObject, bool bRemoved) = 0;
-
-	virtual void Update() = 0;
-	virtual HouseClass* GetHouse() const = 0;
-	virtual CoordStruct GetCoords() const = 0;
-	virtual CoordStruct GetCenterCoords() const = 0;
-
-	virtual void InitFromINI(CCINIClass* INI) = 0;
+	virtual void InitializeConstants() = 0;
 	virtual void LoadFromINI(CCINIClass* INI) = 0;
 
-	virtual void InitOnExeRun() = 0;
-	virtual void InitAfterECInitialize() = 0;
-	virtual void InitOnLoadScenario() = 0;
-	*/
-	virtual ECObjPtr<ECGameClass> CreateObjectOfType() = 0;
-
-	ECGameTypeClass() : ECGameClass() { }
 private:
-	//ÔÚÅÉÉúÀàµ±ÖĞ×ÔĞĞÊµÏÖSerializeº¯Êı
+	//åœ¨æ´¾ç”Ÿç±»å½“ä¸­è‡ªè¡Œå®ç°Serializeå‡½æ•°
 	template <typename T>
 	void Serialize(T& Stream) {};
 };
-ECObj_ImportFactory(ECGameTypeClass)
-
-#endif

@@ -1,4 +1,4 @@
-#include "SyringeEx.h"
+﻿#include "SyringeEx.h"
 #include <YRPP.h>
 
 
@@ -25,7 +25,8 @@ namespace SyringeData
 		int AddrDataListOffset;
 		int HookDataListOffset;
 		int CopyMemListOffset;
-		int dwReserved[20];
+		int DaemonDataOffset;
+		int dwReserved[19];
 
 		int HookOpCodeSize;
 		int JmpBackCodeSize;
@@ -35,7 +36,8 @@ namespace SyringeData
 
 	RemoteDataHeader* pHeader;
 	ExeRemoteData* pExe;
-
+	DaemonData* pDaemonData;
+	bool DaemonSupported;
 	SyrPArray<LibRemoteData*> pLibArray;
 	std::unordered_map<std::string, LibRemoteData*> LibMap;
 	std::unordered_map<DWORD, LibRemoteData*> LibMap_ID;
@@ -237,6 +239,12 @@ namespace SyringeData
 		{
 			MemMap[pMemArray.Data[i]->Name] = pMemArray.Data[i];
 		}
+
+		DaemonSupported = (pHeader->DaemonDataOffset != 0);
+		if (DaemonSupported)
+		{
+			pDaemonData = BufferOffset<DaemonData>(pHeader->DaemonDataOffset);
+		}
 	}
 
 	ExeRemoteData& GetExeData()
@@ -391,12 +399,12 @@ namespace SyringeData
 	{
 		return Lib.SettingText;
 	}
-
+	/*
 	JsonObject GetSettingJson(const LibRemoteData& Lib)
 	{
 		UpdateJson(Lib.LibName, Lib.SettingText);
 		return GetJson(Lib.LibName);
-	}
+	}*/
 
 	void ReplaceCallFunctionAt(DWORD Address, DWORD Func)
 	{
@@ -605,7 +613,7 @@ namespace SyringeData
 	//BYTE const hook_jmp[5] = { 0xE9, _INIT, _INIT, _INIT, _INIT };
 	void ReplaceFuncBody(DWORD Addr,DWORD Proc)
 	{
-		RestoreBackUp(Addr);//����Ǹ���ʽ��
+		RestoreBackUp(Addr);//这个是覆盖式的
 		SetBackUp(Addr, 5);
 		DWORD OldProtect;
 		VirtualProtect((LPVOID)Addr, 5, PAGE_EXECUTE_READWRITE, &OldProtect);
@@ -617,5 +625,135 @@ namespace SyringeData
 	void RestoreFuncBody(DWORD Addr)
 	{
 		RestoreBackUp(Addr);
+	}
+
+	bool IsDaemonSupported()
+	{
+		return DaemonSupported;
+	}
+
+	bool SetDaemonThread(DWORD id)
+	{
+		if (!IsDaemonSupported())
+			return false;
+		pDaemonData->ThreadID = id;
+		pDaemonData->EnableDaemon = TRUE;
+		return true;
+	}
+
+	bool IsADaemonNow()
+	{
+		if (!IsDaemonSupported())
+			return false;
+		return pDaemonData->OpenAsDaemon && pDaemonData->ThreadID == GetCurrentThreadId();
+	}
+
+	HANDLE DaemonPipeHandle{ INVALID_HANDLE_VALUE };
+	bool DaemonPipeClosed{ false };
+
+	bool DaemonConnect(int WaitBusyMillis)
+	{
+		if (!IsDaemonSupported())
+			return false;
+		if (DaemonPipeHandle != INVALID_HANDLE_VALUE)
+			return true;
+		//printf((const char*)u8"\033[33m正在连接调试管道 \033[1;34m%s \033[33m。\033[0m\n", pDaemonData->lpDebugPipeName);
+
+		DaemonPipeClosed = false;
+		DaemonPipeHandle = CreateFileA(pDaemonData->lpDebugPipeName, GENERIC_READ | GENERIC_WRITE,
+			0, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
+
+		if (DaemonPipeHandle != INVALID_HANDLE_VALUE)return true;
+		DWORD dwError = GetLastError();
+		if (dwError == ERROR_PIPE_BUSY)
+		{
+			if (!WaitNamedPipeA(pDaemonData->lpDebugPipeName, WaitBusyMillis))
+				return false;
+			DaemonPipeHandle = CreateFileA(pDaemonData->lpDebugPipeName, GENERIC_READ | GENERIC_WRITE,
+				0, NULL, OPEN_EXISTING, FILE_FLAG_OVERLAPPED, NULL);
+			return DaemonPipeHandle != INVALID_HANDLE_VALUE;
+		}
+		else return false;
+	}
+
+	bool DaemonDisconnect()
+	{
+		if (!IsDaemonSupported())
+			return false;
+		if (DaemonPipeHandle == INVALID_HANDLE_VALUE)
+			return true; 
+		else
+		{
+			CloseHandle(DaemonPipeHandle);
+			DaemonPipeHandle = INVALID_HANDLE_VALUE;
+			return true;
+		}
+	}
+
+	bool IsDaemonConnected()
+	{
+		if (!IsDaemonSupported())
+			return false;
+		return DaemonPipeHandle != INVALID_HANDLE_VALUE;
+	}
+
+	const wchar_t* GetDaemonReport()
+	{
+		if (!IsDaemonSupported())
+			return L"";
+		return pDaemonData->lpReportString;
+	}
+
+	static const size_t PipeBufferSize = 32768;// 32KB
+	char PipeBuffer[PipeBufferSize] = { 0 };
+	//ERROR_NOT_SUPPORTED = 50
+	//ERROR_NOT_CONNECTED = 2250
+	//ERROR_NO_DATA = 232
+	static const char* NotSupportedMsg = "{\"Response\" : \"Syringe Version Too Low\",\"Error\" : 50}";
+	static const char* NotConnectedMsg = "{\"Response\" : \"Syringe Is Not Connected\",\"Error\" : 2250}";
+	static const char* NoDataMsg = "{\"Response\" : \"No Data\",\"Error\" : 232}";
+	std::string SendRequestMessage(const std::string& Message)
+	{
+		if (!IsDaemonSupported())
+			return NotSupportedMsg;
+		if (!IsDaemonConnected())
+			return NotConnectedMsg;
+		DWORD dwWritten = 0;
+		if (!WriteFile(DaemonPipeHandle, Message.c_str(), Message.size(), &dwWritten, NULL))
+		{
+			DWORD dwError = GetLastError();
+			if (dwError == ERROR_BROKEN_PIPE)
+			{
+				DaemonPipeClosed = true;
+				return NotConnectedMsg;
+			}
+			else
+				return "{\"Response\" : \"Write Failed\",\"Error\" : " + std::to_string(dwError) + "}";
+		}
+		std::string Result;
+		DWORD dwRead = 0;
+		if (!ReadFile(DaemonPipeHandle, PipeBuffer, PipeBufferSize, &dwRead, NULL))
+		{
+			DWORD dwError = GetLastError();
+			if (dwError == ERROR_BROKEN_PIPE)
+			{
+				DaemonPipeClosed = true;
+				return NotConnectedMsg;
+			}
+			else
+				return "{\"Response\" : \"Read Failed\",\"Error\" : " + std::to_string(dwError) + "}";
+		}
+		if (!dwRead)
+		{
+			return NoDataMsg;
+		}
+		Result = PipeBuffer;
+		PipeBuffer[0] = 0; 
+		return Result;
+	}
+
+	bool ShouldCloseDaemonPipe()
+	{
+		return IsDaemonConnected() && DaemonPipeClosed;
 	}
 }	

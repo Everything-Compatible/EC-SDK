@@ -1,8 +1,8 @@
-#include "IH.Initial.h"
+ï»¿#include "IH.Initial.h"
 #include "SyringeEx.h"
 
-//ÒÔÏÂµÄInitialLoadParam¼°ÆäÅÉÉúÀà¶¼ÊÇÈ«¾Ö´´½¨Ò»´ÎÓÀ²»Ïú»Ù
-//ËùÒÔ¾¡¹ÜÏ¹·ÖÅäÄÚ´æ¾ÍĞĞ
+//ä»¥ä¸‹çš„InitialLoadParamåŠå…¶æ´¾ç”Ÿç±»éƒ½æ˜¯å…¨å±€åˆ›å»ºä¸€æ¬¡æ°¸ä¸é”€æ¯
+//æ‰€ä»¥å°½ç®¡çåˆ†é…å†…å­˜å°±è¡Œ
 
 InitialLoadParam::InitialLoadParam(size_t sz) 
 	:size(sz) {};

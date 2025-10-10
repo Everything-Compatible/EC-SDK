@@ -1,64 +1,62 @@
-#pragma once
+ï»¿#pragma once
 
 /*
-ÍòÎï»¥Í¨ SDK
+ä¸‡ç‰©äº’é€š SDK
 
 2024.12
 
-ÕâÌ×SDKÕûºÏÁËÓĞ¹ØIHCore SyringeIH SIWICÈı¸öÀ´Ô´µÄ½Ó¿Ú
-Í¬Ê±°üº¬ÁËÒ»¸ö¹«¿ª¿âcJson×÷ÎªÊı¾İ½»»»¸ñÊ½
+è¿™å¥—SDKæ•´åˆäº†æœ‰å…³IHCore SyringeIH SIWICä¸‰ä¸ªæ¥æºçš„æ¥å£
+åŒæ—¶åŒ…å«äº†ä¸€ä¸ªå…¬å¼€åº“cJsonä½œä¸ºæ•°æ®äº¤æ¢æ ¼å¼
 */
 
 /*
-cJSONÊÇDave Gamble¿ª·¢µÄÒ»¸öJson½âÎö¿â¡£
-ExtJson.h¶ÔcJson×öÁËC++µÄ¼òµ¥°ü×°¡£
+cJSONæ˜¯Dave Gambleå¼€å‘çš„ä¸€ä¸ªJsonè§£æåº“ã€‚
+ExtJson.hå¯¹cJsonåšäº†C++çš„ç®€å•åŒ…è£…ã€‚
 https://github.com/DaveGamble/cJSON
 */
 #include "ExtJson.h"
 
 /*
-SyringeIH ÊÇ ¸ÖÌúÖ®´¸ ¶ÔSyringeµÄÉı¼¶¡£
-SyringeEx.hÀïÃæ°üº¬ÁËÆäÖ§³ÖµÄ½Ó¿Ú¡£
+SyringeIH æ˜¯ é’¢é“ä¹‹é”¤ å¯¹Syringeçš„å‡çº§ã€‚
+SyringeEx.hé‡Œé¢åŒ…å«äº†å…¶æ”¯æŒçš„æ¥å£ã€‚
 https://github.com/IronHammer-Std/Syringe-IH
-£¨×îĞÂÔ´Âë×îºÃ¿´Ò»ÏÂÍòÎï»¥Í¨QQÈºÀïÃæ×îĞÂ¿ª·¢°üµ±ÖĞµÄ£©
-´ËÏîÄ¿ÓÉAres-Developers µÄ Syringe0.7.2.0 Éı¼¶¶øÀ´
+ï¼ˆæœ€æ–°æºç æœ€å¥½çœ‹ä¸€ä¸‹ä¸‡ç‰©äº’é€šQQç¾¤é‡Œé¢æœ€æ–°å¼€å‘åŒ…å½“ä¸­çš„ï¼‰
+æ­¤é¡¹ç›®ç”±Ares-Developers çš„ Syringe0.7.2.0 å‡çº§è€Œæ¥
 https://github.com/Ares-Developers/Syringe
 */
 #include "SyringeEx.h"
 
 /*
-IH ÊÇ ¸ÖÌúÖ®´¸ ¿ª·¢µÄYRÒıÇæÀ©Õ¹¡£
+IH æ˜¯ é’¢é“ä¹‹é”¤ å¼€å‘çš„YRå¼•æ“æ‰©å±•ã€‚
 */
 #include "IH.h"
 
 /*
-SIWinterIsComing£¨¼ò³ÆWIC£©ÊÇSidoupiar¡¢º½Î¶Âé½´ ¿ª·¢µÄYRÒıÇæÀ©Õ¹¡£
+SIWinterIsComingï¼ˆç®€ç§°WICï¼‰æ˜¯Sidoupiarã€èˆªå‘³éº»é…± å¼€å‘çš„YRå¼•æ“æ‰©å±•ã€‚
 */
 #ifndef SIWIC
 #include "WIC.h"
 #endif
 
 /*
-ECµÄÒ»Ğ©×ÛºÏ½Ó¿Ú¡£
+ECçš„ä¸€äº›ç»¼åˆæ¥å£ã€‚
 */
 #include "EC.Misc.h"
 #include "EC.Listener.h"
 #include "EC.LoadSave.h"
 #include "EC.ObjBase.h"
-#include "EC.GameClass.h"
-#include "EC.STL.h"
 
 /*
-Ò»×é¼ì²âÄ³Ğ©ÌØ¶¨µÄ×é¼şÊÇ·ñÔÚ¹¤×÷µÄAPI¡£
-Èç¹û·µ»Øtrue£¬±íÃ÷Ïà¹ØµÄ¹¦ÄÜÄÜ¹»Õı³£¹¤×÷¡£
+ä¸€ç»„æ£€æµ‹æŸäº›ç‰¹å®šçš„ç»„ä»¶æ˜¯å¦åœ¨å·¥ä½œçš„APIã€‚
+å¦‚æœè¿”å›trueï¼Œè¡¨æ˜ç›¸å…³çš„åŠŸèƒ½èƒ½å¤Ÿæ­£å¸¸å·¥ä½œã€‚
 
-cJSON.hºÍExtJson.hÎŞÒÀÀµ¡£
-SyringeEx.hµÄ½Ó¿ÚÒÀÀµSyringeIH
-IH.xxx.hµÄ½Ó¿ÚÒÀÀµIH×é¼ş
-WIC.xxx.hµÄ½Ó¿ÚÒÀÀµWIC×é¼ş
+cJSON.hå’ŒExtJson.hæ— ä¾èµ–ã€‚
+SyringeEx.hçš„æ¥å£ä¾èµ–SyringeIH
+IH.xxx.hçš„æ¥å£ä¾èµ–IHç»„ä»¶
+WIC.xxx.hçš„æ¥å£ä¾èµ–WICç»„ä»¶
 
-ÔÚDllMainµÄInit::Initialize()ºó HasSyringeIH ºÍ HasIH ¿ÉÒÔ¹¤×÷
-ÔÚEC³õÊ¼»¯ºó HasWIC ¿ÉÒÔ¹¤×÷
+åœ¨DllMainçš„Init::Initialize()å HasSyringeIH å’Œ HasIH å¯ä»¥å·¥ä½œ
+åœ¨ECåˆå§‹åŒ–å HasWIC å¯ä»¥å·¥ä½œ
 */
 bool HasSyringeIH();
 bool HasIH();
@@ -68,19 +66,55 @@ bool HasWIC();
 
 
 /*
-»ñÈ¡ECµÄÔØÈë×´Ì¬
-º¯ÊıÊ¼ÖÕ¿ÉÓÃ
-µ±·µ»ØÖµÎªExt::ECLoadStage::InitCompleteÊ±
-ECÔØÈëÕıÊ½Íê³É
+è·å–ECçš„è½½å…¥çŠ¶æ€
+å‡½æ•°å§‹ç»ˆå¯ç”¨
+å½“è¿”å›å€¼ä¸ºExt::ECLoadStage::InitCompleteæ—¶
+ECè½½å…¥æ­£å¼å®Œæˆ
 */
 inline Ext::ECLoadStage GetECLoadStage()
 {
     return Ext::GetLoadStage();
 }
 
+
 /*
-½á¹¹£º
-ÏÖÓĞµÄÍ·ÎÄ¼ş
+
+åˆå§‹åŒ–å‡½æ•° åœ¨DllMainçš„DLL_PROCESS_ATTACHé˜¶æ®µè°ƒç”¨
+
+*/
+bool ECInitLibrary(
+    const char* LibraryName, //åº“å
+    int Version,
+    int LowestSupportedVersion,
+    UTF8_CString Description,
+    const std::function<void()>& OnFirstInit,
+    const std::function<void()>& OnOrderedInit,
+    std::initializer_list<InitDependency> Dependencies = {}
+);
+bool ECInitLibrary(
+    const char* LibraryName, //åº“å
+    int Version,
+    int LowestSupportedVersion,
+    UTF8_CString Description,
+    const std::function<void()>& OnFirstInit,
+    const std::function<void()>& OnOrderedInit,
+    GetFunc_t GetFunc,
+	std::initializer_list<InitDependency> Dependencies = {}
+);
+bool ECInitLibrary(
+    const char* LibraryName, //åº“å
+    int Version,
+    int LowestSupportedVersion,
+    UTF8_CString Description,
+    const std::function<void()>& OnFirstInit,
+    const std::function<void()>& OnOrderedInit,
+    const std::unordered_map<std::string, LibFuncHandle>& ExportFuncs,
+    std::initializer_list<InitDependency> Dependencies = {}
+);
+
+/*
+ç»“æ„ï¼š
+ç°æœ‰çš„å¤´æ–‡ä»¶
 cJSON.h->ExtJson.h->SyringeEx.h->
                 IH.Initial.h->IH.File.h  ->IH.Ext.h
                               IH.Loader.h->IH.InitialService.h                        ->IH.h  

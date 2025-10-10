@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include <CCFileClass.h>
 #include "SyringeEx.h"
 #include "IH.Initial.h"
 
-//ËùÓĞµÄÅÉÉúÀàÓ¦ÅÉÉú×Ô IHFileClass »ò IHReadOnlyFileClass 
-//²¢¾ßÓĞ½ÓÊÜnoinit_tµÄ¹¹Ôìº¯Êı
-//ÊµÏÖËùÓĞĞéº¯Êı²¢¹ÒÔØ¼´¿É
+//æ‰€æœ‰çš„æ´¾ç”Ÿç±»åº”æ´¾ç”Ÿè‡ª IHFileClass æˆ– IHReadOnlyFileClass 
+//å¹¶å…·æœ‰æ¥å—noinit_tçš„æ„é€ å‡½æ•°
+//å®ç°æ‰€æœ‰è™šå‡½æ•°å¹¶æŒ‚è½½å³å¯
 
 class IHFileClass :public FileClass
 {
@@ -67,7 +67,7 @@ public:
 template<typename ParamType>
 vptr_t GetIHFileRegisterKey()
 {
-	static_assert(std::is_base_of<IHFileClass, ParamType>::value, "ParamType ±ØĞëÅÉÉú×Ô IHFileClass £¡");
+	static_assert(std::is_base_of<IHFileClass, ParamType>::value, "ParamType å¿…é¡»æ´¾ç”Ÿè‡ª IHFileClass ï¼");
 	ParamType p{ noinit_t() };
 	return *reinterpret_cast<vptr_t*>(&p);
 }

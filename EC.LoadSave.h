@@ -1,33 +1,33 @@
-#pragma once
+ï»¿#pragma once
 #include "IH.Loader.h"
 #include <SwizzleManagerClass.h>
 
-//ÔÚMyInitº¯Êıµ±ÖĞµ÷ÓÃ
-//µ÷ÓÃÔò¹Ø±Õ´æ¶Áµµ
-//·ñÔò¶Ô´Ë¿âÆôÓÃ´æ¶Áµµ¹¦ÄÜ
+//åœ¨MyInitå‡½æ•°å½“ä¸­è°ƒç”¨
+//è°ƒç”¨åˆ™å…³é—­å­˜è¯»æ¡£
+//å¦åˆ™å¯¹æ­¤åº“å¯ç”¨å­˜è¯»æ¡£åŠŸèƒ½
 void DisableLoadSave();
 
 
 
-//ËæÊ±µ÷ÓÃ
-//¿ØÖÆ¶ÁµµµÄÊ±ºòÊÇ·ñ¼ì²é
-//Èç¹û¼ì²éÔò»áÔÚ³öÏÖÒì³£Çé¿öµÄÊ±ºòÈÕÖ¾¼ÇÂ¼£¬²¢µ÷ÓÃ´íÎó´¦Àí£¨Èç¹ûÉèÖÃÁËSetStreamReadErrorHandlerµÄ»°£©
-//Ä¬ÈÏ¿ªÆô
+//éšæ—¶è°ƒç”¨
+//æ§åˆ¶è¯»æ¡£çš„æ—¶å€™æ˜¯å¦æ£€æŸ¥
+//å¦‚æœæ£€æŸ¥åˆ™ä¼šåœ¨å‡ºç°å¼‚å¸¸æƒ…å†µçš„æ—¶å€™æ—¥å¿—è®°å½•ï¼Œå¹¶è°ƒç”¨é”™è¯¯å¤„ç†ï¼ˆå¦‚æœè®¾ç½®äº†SetStreamReadErrorHandlerçš„è¯ï¼‰
+//é»˜è®¤å¼€å¯
 void StreamReaderLoadCheck(bool bCheck);
-//·µ»ØÊÇ·ñ¼ì²éµÄ×´Ì¬
+//è¿”å›æ˜¯å¦æ£€æŸ¥çš„çŠ¶æ€
 bool StreamReaderLoadCheck();
 
-//ËæÊ±µ÷ÓÃ
-//¿ØÖÆ´æµµµÄÊ±ºòÊÇ·ñ¼ì²é
-//Èç¹û¼ì²éÔò»áÔÚ³öÏÖÒì³£Çé¿öµÄÊ±ºòÈÕÖ¾¼ÇÂ¼£¬²¢µ÷ÓÃ´íÎó´¦Àí£¨Èç¹ûÉèÖÃÁËSetStreamReadErrorHandlerµÄ»°£©
-//Ä¬ÈÏ¿ªÆô
+//éšæ—¶è°ƒç”¨
+//æ§åˆ¶å­˜æ¡£çš„æ—¶å€™æ˜¯å¦æ£€æŸ¥
+//å¦‚æœæ£€æŸ¥åˆ™ä¼šåœ¨å‡ºç°å¼‚å¸¸æƒ…å†µçš„æ—¶å€™æ—¥å¿—è®°å½•ï¼Œå¹¶è°ƒç”¨é”™è¯¯å¤„ç†ï¼ˆå¦‚æœè®¾ç½®äº†SetStreamReadErrorHandlerçš„è¯ï¼‰
+//é»˜è®¤å¼€å¯
 void StreamWriterSaveCheck(bool bCheck);
-//·µ»ØÊÇ·ñ¼ì²éµÄ×´Ì¬
+//è¿”å›æ˜¯å¦æ£€æŸ¥çš„çŠ¶æ€
 bool StreamWriterSaveCheck();
 
 
 
-//ÉèÖÃÁ÷¶ÁĞ´´íÎóµÄ´¦Àí»Øµ÷
+//è®¾ç½®æµè¯»å†™é”™è¯¯çš„å¤„ç†å›è°ƒ
 enum class ECStreamErrorType
 {
 	//Read
@@ -49,10 +49,10 @@ ECStreamErrorHandler GetStreamWriteErrorHandler();
 
 
 bool SIFinalSwizzleImpl(void* pOld, void*& pNew);
-//ÓÃÓÚÖØÅÅSIInterface_ExtendDataÖ¸Õë
-// £¡£¡½öÔÚFinalSwizzleº¯Êıµ±ÖĞµ÷ÓÃ£¡£¡
-//SIInterface_ExtendDataÖ¸ÕëÊÇÔ­Ê¼Ö¸Õë+4£¬ËùÒÔÄ¬ÈÏµÄSwizzleÎŞ·¨¸ü»»SIInterface_ExtendDataÖ¸Õë±äÁ¿
-//ÔÚFinalSwizzle½×¶ÎÊÖ¶¯ÓÃSIFinalSwizzleÕâ¸öº¯ÊıÀ´´¦Àí¶ÔÏóµ±ÖĞµÄSIInterface_ExtendData*
+//ç”¨äºé‡æ’SIInterface_ExtendDataæŒ‡é’ˆ
+// ï¼ï¼ä»…åœ¨FinalSwizzleå‡½æ•°å½“ä¸­è°ƒç”¨ï¼ï¼
+//SIInterface_ExtendDataæŒ‡é’ˆæ˜¯åŸå§‹æŒ‡é’ˆ+4ï¼Œæ‰€ä»¥é»˜è®¤çš„Swizzleæ— æ³•æ›´æ¢SIInterface_ExtendDataæŒ‡é’ˆå˜é‡
+//åœ¨FinalSwizzleé˜¶æ®µæ‰‹åŠ¨ç”¨SIFinalSwizzleè¿™ä¸ªå‡½æ•°æ¥å¤„ç†å¯¹è±¡å½“ä¸­çš„SIInterface_ExtendData*
 template<typename T>
 bool SIFinalSwizzle(T* pOld, T*& pNew)
 {

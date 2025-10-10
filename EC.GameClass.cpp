@@ -1,7 +1,4 @@
-#include "EC.GameClass.h"
-#ifdef IHCore
-#include "..\IHCore\ECGameClass_IHCore.h"
-#endif
+﻿#include "EC.GameClass.h"
 #include <unordered_set>
 
 void Internal_DebugLog(const char* pFormat, ...);
