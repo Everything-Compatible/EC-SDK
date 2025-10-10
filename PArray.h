@@ -13,6 +13,7 @@ struct PArray
 	PArray(const std::vector<T>& p) :N(p.size()), Data(p.data()) {}
 	template<size_t _N>
 	PArray(const T p[_N]) : N(_N), Data(p) {}
+    PArray(size_t _N, const T* p) : N(_N), Data(p) {}
 
     void Delete()
     {
