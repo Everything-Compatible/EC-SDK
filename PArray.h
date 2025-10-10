@@ -35,7 +35,7 @@ struct PArray
 };
 
 template<typename T>
-PArrat<T> GetNullPArray()
+PArray<T> GetNullPArray()
 {
     return PArray<T>();
 }
