@@ -209,18 +209,3 @@ public:
 inline const char* Json_GetErrorPtr() { return cJSON_GetErrorPtr(); }//不理他
 
 std::string EscapeString(const std::string& str);
-
-
-#ifdef IHCore
-#include "..\Common\DataStructure.h"
-template<typename FileLoader>
-std::string GetStringFromFile(const char* FileName)
-{
-    FileLoader File;
-    if (!File.Open(FileName, FileLoader::GetReadSign()))return "";
-    BytePointerArray Arr = File.ReadWholeFile(16);
-    std::string LoadStr{ (char*)Arr.Data };
-    Arr.Delete();
-    return LoadStr;
-}
-#endif
