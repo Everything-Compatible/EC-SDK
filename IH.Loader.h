@@ -7,22 +7,9 @@
 #include "IH.Initial.h"
 #include "ExtJson.h"
 #include <YRPP.h>
+#include "PArray.h"
 
 
-#ifndef PARRAY_DEFINITION
-#define PARRAY_DEFINITION
-template<typename T>
-struct PArray
-{
-	size_t N;
-	const T* Data;
-
-	PArray() :N(0), Data(nullptr) {}
-	PArray(const std::vector<T>& p) :N(p.size()), Data(p.data()) {}
-	template<size_t _N>
-	PArray(const T p[_N]) : N(_N), Data(p) {}
-};
-#endif
 
 using LibFuncHandle = void*;
 using CSFHandle = void*;

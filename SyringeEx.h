@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <string>
 #include "ExtJson.h"
+#include "PArray.h"
 
 #if SYR_VER == 2
 
@@ -51,17 +52,6 @@ EXPORT_FUNC(funcname)
 declhookex(hook, funcname, size, priority, sub_priority)
 
 using HookType = DWORD(__cdecl*)(REGISTERS*);
-
-template<typename T>
-struct SyrPArray
-{
-	size_t N;
-	const T* Data;
-
-	SyrPArray() :N(0), Data(nullptr) {}
-	SyrPArray(const std::vector<T>& p) :N(p.size()), Data(p.data()) {}
-
-};
 
 
 //在DllMain当中Init::Initialize()后即可使用
