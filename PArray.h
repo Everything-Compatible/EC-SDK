@@ -33,4 +33,11 @@ struct PArray
         }
     }
 };
+
+template<typename T>
+PArrat<T> GetNullPArray()
+{
+    return PArray<T>();
+}
+
 #endif
