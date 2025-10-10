@@ -150,7 +150,7 @@ namespace SyringeData
 	struct HookContext
 	{
 		REGISTERS* pReg;
-		SyrPArray<BYTE> Stack;
+		PArray<BYTE> Stack;
 
 		HookContext() = delete;
 		HookContext(const HookContext&) = delete;
@@ -189,7 +189,7 @@ namespace SyringeData
 	HookRemoteData* GetHookData(const DWORD HookID);
 	DWORD GetLibBaseAddress(std::wstring Name);
 
-	SyrPArray<BYTE> GetOpCode(DWORD Addr);
+	PArray<BYTE> GetOpCode(DWORD Addr);
 	int GetValidHookCount(DWORD Addr);
 	const char* GetSettingText(const LibRemoteData& Lib);
 	void ReplaceHookFunction(DWORD Address, const std::string& Lib, const std::string& Proc, DWORD pFunc);

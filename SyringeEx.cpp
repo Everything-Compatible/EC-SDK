@@ -38,14 +38,14 @@ namespace SyringeData
 	ExeRemoteData* pExe;
 	DaemonData* pDaemonData;
 	bool DaemonSupported;
-	SyrPArray<LibRemoteData*> pLibArray;
+	PArray<LibRemoteData*> pLibArray;
 	std::unordered_map<std::string, LibRemoteData*> LibMap;
 	std::unordered_map<DWORD, LibRemoteData*> LibMap_ID;
-	SyrPArray<AddrRemoteData*> pAddrArray;
+	PArray<AddrRemoteData*> pAddrArray;
 	std::unordered_map<DWORD, AddrRemoteData*> AddrMap;
-	SyrPArray<HookRemoteData*> pHookArray;
+	PArray<HookRemoteData*> pHookArray;
 	std::unordered_map<DWORD, HookRemoteData*> HookMap;
-	SyrPArray<MemCopyData*> pMemArray;
+	PArray<MemCopyData*> pMemArray;
 	std::unordered_map<std::string, MemCopyData*> MemMap;
 	std::string SharedMemoryName;
 	DWORD SyringeProcID;
@@ -313,10 +313,10 @@ namespace SyringeData
 	}
 
 	
-	SyrPArray<BYTE> GetOpCode(DWORD Addr)
+	PArray<BYTE> GetOpCode(DWORD Addr)
 	{
 		auto pAddr = GetAddrData(Addr);
-		SyrPArray<BYTE> Ret;
+		PArray<BYTE> Ret;
 		Ret.N = 0; Ret.Data = nullptr;
 		if (!pAddr)return Ret;
 		AddrHiddenHeader* pHidden = (AddrHiddenHeader*)(pAddr->HookDataAddr - sizeof(AddrHiddenHeader));
