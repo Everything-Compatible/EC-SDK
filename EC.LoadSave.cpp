@@ -92,7 +92,7 @@ bool ECStreamReader::RegisterChange(void* pNew)
 	long pOld = 0;
 	if (this->Load(pOld))
 	{
-		if (SUCCEEDED(SwizzleManagerClass::Instance().Here_I_Am(pOld, pNew)))
+		if (SUCCEEDED(SwizzleManagerClass::Instance->Here_I_Am(pOld, pNew)))
 		{
 			return true;
 		}
