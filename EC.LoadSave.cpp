@@ -200,6 +200,22 @@ bool SIFinalSwizzleImpl(void* pOld, void*& pNew)
 	return SIFinalSwizzleFunc(pOld, pNew);
 }
 
+#ifdef EC_NoObjBase
+
+void ECGameClass_PointerGotInvalid(AbstractClass* const pObject, bool bRemoved)
+{
+}
+void ECGameClass_FinalSwizzle()
+{
+}
+void ECGameClass_LoadGame(IStream* pStream)
+{
+}
+void ECGameClass_SaveGame(IStream* pStream)
+{
+}
+
+#endif
 
 //bRemoved : true=真寄了 false=临时离场
 void CALLBACK ISF_PointerGotInvalid(AbstractClass* const pObject, bool bRemoved)
