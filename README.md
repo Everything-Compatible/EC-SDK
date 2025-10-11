@@ -7,6 +7,11 @@ EC-SDK
 概览
 ----
 
+如果需要添加到自己仓库，可以考虑Git Submodules：
+```bash
+git submodule add https://github.com/Everything-Compatible/EC-SDK.git ECSDK
+```
+
 EC-SDK 是为 YR（Yuri's Revenge）/IH 引擎提供的扩展 SDK，整合了以下几部分：
 
 - IH（IronHammer）扩展接口
