@@ -2,10 +2,16 @@
 #include "WIC.Interface.h"
 #include "WIC.Template.h"
 
-SIException::SIException(const char* info) : Info(info) {};
-const char* SIException::what() const noexcept
+ECDispatchException::ECDispatchException(const char* info) : Info(info) {};
+const char* ECDispatchException::what() const noexcept
 {
 	return Info;
+}
+
+SIException::SIException(const char* info) : ECDispatchException(info) {};
+const char* SIException::what() const noexcept
+{
+	return ECDispatchException::what();
 }
 
 char* SIInterface_ExtendData::GetName() // 类型 ID 名称

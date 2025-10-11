@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "IH.Loader.h"
+#include "EC.Exception.h"
 
 //在Init之后才可用的东西
 namespace Ext
@@ -42,8 +43,12 @@ namespace Ext
 		DispatchInterface(const std::string& Lib, const std::string& Proc, int Version);
 		void Reset(const std::string& Lib, const std::string& Proc, int Version);
 		void Reset();
-		FuncInfo* GetInfo();
-		LibFuncHandle GetFunc();
+		FuncInfo* GetInfo() noexcept;
+		LibFuncHandle GetFunc() noexcept;
+
+		//return Not nullptr or throw ECDispatchException
+		LibFuncHandle GetFunc_throw(const char* throw_info = "Ext::DispatchInterface : 未找到接口。") throw();
+
 		template<typename T>
 		T* Func()
 		{
@@ -55,14 +60,25 @@ namespace Ext
 			return ((Ret(*)(TArgs))GetFunc())(std::forward(Args));
 		}
 
+		bool Available() const { return !!GetFunc(); }
+		operator bool() const { return !!GetFunc(); }
+
 		template<typename Ret, class... TArgs>
 		Ret operator()(TArgs&&... Args)
 		{
 			return Call<Ret>(std::forward(Args)...);
 		}
 	};
-	#define ECDispatch(Name, Lib, Proc, Version) \
+	#define ECDispatchInterfaceDecl(Name, Lib, Proc, Version) \
 		::Ext::DispatchInterface Name(Lib, Proc, Version)
+	#define ECDispatchInterfaceCall(FuncName, InterfaceName) \
+		return AsType<decltype(FuncName)>(InterfaceName.GetFunc_throw(\
+			"Ext::DispatchInterface :" #InterfaceName.Lib " 库不存在或未实现接口 " #FuncName "。"\
+		)) 
+	#define ECDispatch(FuncName, Lib, Proc, Version) \
+		static ECDispatchInterfaceDecl(ECDispatch_##FuncName, Lib, Proc, Version);\
+		ECDispatchInterfaceCall(FuncName, ECDispatch_##FuncName)
+
 
 	//假如你不想用Executor
 	class ActiveContext

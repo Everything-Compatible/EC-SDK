@@ -200,7 +200,7 @@ namespace Ext
 	{
 		Info = nullptr;
 	}
-	FuncInfo* DispatchInterface::GetInfo()
+	FuncInfo* DispatchInterface::GetInfo() noexcept
 	{
 		static FuncInfo* NotFound = (FuncInfo*)0xFFFFFFFF;
 		if (Info == NotFound)return nullptr;
@@ -215,10 +215,17 @@ namespace Ext
 		}
 		return Info;
 	}
-	LibFuncHandle DispatchInterface::GetFunc()
+	LibFuncHandle DispatchInterface::GetFunc() noexcept
 	{
 		auto i = GetInfo();
 		return i ? i->Func : nullptr;
+	}
+
+	LibFuncHandle GetFunc_throw(const char* throw_info) throw()
+	{
+		auto f = GetFunc();
+		if (!f)throw ECDispatchException(throw_info);
+		return f;
 	}
 
 	void*& TableFunctionImpl(LibInputFnTable& Tbl, int FuncIdx)
