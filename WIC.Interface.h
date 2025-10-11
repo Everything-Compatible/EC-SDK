@@ -348,16 +348,16 @@ public:
 	double Buff_GetEffectPower(SIBuffTypeClass* Buff类型, double 原始的强度值);
 	void Buff_TryActive(SIBuffTypeClass* Buff类型, SIPack_BuffSetting_FromStatic* Buff参数设置包);
 	void Buff_TryActive(SIBuffTypeClass* Buff类型, SIPack_BuffSetting_FromStatic* Buff参数设置包, SIPackTypeClass_CheckTechno* 检查单位属性参数包);
-	void Buff_TryActive(void* 来源, bool (*SI_API 判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包)); // [判断处理函数] 返回 true 则对 Buff 进行处理
+	void Buff_TryActive(void* 来源, bool (SI_API* 判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包)); // [判断处理函数] 返回 true 则对 Buff 进行处理
 	void Buff_TryAfter(SIBuffTypeClass* Buff类型);
 	void Buff_TryAfter(SIBuffTypeClass* Buff类型, SIPackTypeClass_CheckTechno* 检查单位属性参数包);
-	void Buff_TryAfter(void* 来源, bool (*SI_API 判断处理函数)(void* 来源, SIBuffClass* Buff)); // [判断处理函数] 返回 true 则对 Buff 进行处理
+	void Buff_TryAfter(void* 来源, bool (SI_API* 判断处理函数)(void* 来源, SIBuffClass* Buff)); // [判断处理函数] 返回 true 则对 Buff 进行处理
 	void Buff_TryRemove(SIBuffTypeClass* Buff类型);
 	void Buff_TryRemove(SIBuffTypeClass* Buff类型, SIPackTypeClass_CheckTechno* 检查单位属性参数包);
 	void Buff_TryRemove(void* 来源, bool (*SI_API 判断处理函数)(void* 来源, SIBuffClass* Buff)); // [判断处理函数] 返回 true 则对 Buff 进行处理
 	void Buff_TryMergeSetting(SIBuffTypeClass* Buff类型, SIPack_BuffSetting_FromStatic* Buff参数设置包);
 	void Buff_TryMergeSetting(SIBuffTypeClass* Buff类型, SIPack_BuffSetting_FromStatic* Buff参数设置包, SIPackTypeClass_CheckTechno* 检查单位属性参数包);
-	void Buff_TryMergeSetting(void* 来源, bool (*SI_API 判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包)); // [判断处理函数] 返回 true 则对 Buff 进行处理
+	void Buff_TryMergeSetting(void* 来源, bool (SI_API* 判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包)); // [判断处理函数] 返回 true 则对 Buff 进行处理
 	void Buff_TryChange(SIBuffTypeClass* 旧Buff类型, SIBuffTypeClass* 新Buff类型, SIPack_BuffSetting_FromStatic* Buff参数设置包, int 基础挂载持续时间增加量, double 强度值增加量, AbstractClass* 来源, HouseClass* 来源所属作战方);
 	void Buff_TryChange(SIBuffTypeClass* 旧Buff类型, SIBuffTypeClass* 新Buff类型, SIPack_BuffSetting_FromStatic* Buff参数设置包, int 基础挂载持续时间增加量, double 强度值增加量, AbstractClass* 来源, HouseClass* 来源所属作战方, SIPackTypeClass_CheckTechno* 检查单位属性参数包);
 	bool Buff_HasBuffed();
@@ -367,7 +367,7 @@ public:
 	bool Buff_HasBuffed(SIBuffTypeClass* Buff类型, AbstractClass* 需求的来源, bool 没用的标识);
 	bool Buff_HasBuffed(SIBuffTypeClass_EffectType 效果种类);
 	bool Buff_HasBuffed(SIBuffTypeClass_EffectType 效果种类, SIBuffClass_State Buff状态);
-	void Buff_LookUp(void* 来源, void (*SI_API 遍历函数)(void* 来源, SIBuffClass* Buff)); // 此处不会立即移除无效的 Buff
+	void Buff_LookUp(void* 来源, void (SI_API* 遍历函数)(void* 来源, SIBuffClass* Buff)); // 此处不会立即移除无效的 Buff
 	void Buff_Update();
 	bool Buff_TriggerFire(AbstractClass* 目标, int 武器索引, WeaponStruct* 武器数据, CoordStruct 本体开火坐标, bool 死亡武器);
 	double Buff_TriggerAttacker(TechnoClass* 目标单位, args_ReceiveDamage* 伤害参数, double 当前伤害);
