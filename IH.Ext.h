@@ -71,13 +71,13 @@ namespace Ext
 	};
 	#define ECDispatchInterfaceDecl(Name, Lib, Proc, Version) \
 		::Ext::DispatchInterface Name(Lib, Proc, Version)
-	#define ECDispatchInterfaceCall(FuncName, InterfaceName) \
+	#define ECDispatchInterfaceCall(FuncName, InterfaceName, Lib, Proc) \
 		return AsType<decltype(FuncName)>(InterfaceName.GetFunc_throw(\
-			"Ext::DispatchInterface :" #InterfaceName.Lib " 库不存在或未实现接口 " #FuncName "。"\
+			"Ext::DispatchInterface :" Lib " 库不存在或未实现接口 " Proc "。"\
 		)) 
 	#define ECDispatch(FuncName, Lib, Proc, Version) \
 		static ECDispatchInterfaceDecl(ECDispatch_##FuncName, Lib, Proc, Version);\
-		ECDispatchInterfaceCall(FuncName, ECDispatch_##FuncName)
+		ECDispatchInterfaceCall(FuncName, ECDispatch_##FuncName, Lib, Proc)
 
 
 	//假如你不想用Executor
