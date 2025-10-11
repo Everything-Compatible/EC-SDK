@@ -204,36 +204,36 @@ std::wstring RandWStr(int i)
 
 std::wstring GBKToUTF16(const std::string& GBK)
 {
-    int nLength = MultiByteToWideChar(CP_ACP, 0, GBK.c_str(), -1, NULL, NULL);   // ��ȡ���������ȣ��ٷ����ڴ�
+    int nLength = MultiByteToWideChar(CP_ACP, 0, GBK.c_str(), -1, NULL, NULL);   // 锟斤拷取锟斤拷锟斤拷锟斤拷锟斤拷锟饺ｏ拷锟劫凤拷锟斤拷锟节达拷
     WCHAR* tch = new WCHAR[nLength + 4]();
-    nLength = MultiByteToWideChar(CP_ACP, 0, GBK.c_str(), -1, tch, nLength);     // ��GBKת����UTF16
+    nLength = MultiByteToWideChar(CP_ACP, 0, GBK.c_str(), -1, tch, nLength);     // 锟斤拷GBK转锟斤拷锟斤拷UTF16
     std::wstring ret = tch;
     delete[] tch;
     return ret;
 }
 std::wstring UTF8ToUTF16(const std::string& UTF8)
 {
-    int nLength = MultiByteToWideChar(CP_UTF8, 0, UTF8.c_str(), -1, NULL, NULL);   // ��ȡ���������ȣ��ٷ����ڴ�
+    int nLength = MultiByteToWideChar(CP_UTF8, 0, UTF8.c_str(), -1, NULL, NULL);   // 锟斤拷取锟斤拷锟斤拷锟斤拷锟斤拷锟饺ｏ拷锟劫凤拷锟斤拷锟节达拷
     WCHAR* tch = new WCHAR[nLength + 4]{};
-    MultiByteToWideChar(CP_UTF8, 0, UTF8.c_str(), -1, tch, nLength);     // ��UTF-8ת����UTF16
+    MultiByteToWideChar(CP_UTF8, 0, UTF8.c_str(), -1, tch, nLength);     // 锟斤拷UTF-8转锟斤拷锟斤拷UTF16
     std::wstring ret = tch;
     delete[] tch;
     return ret;
 }
 std::string UTF16ToUTF8(const std::wstring& UTF16)
 {
-    int UTF8len = WideCharToMultiByte(CP_UTF8, 0, UTF16.c_str(), -1, 0, 0, 0, 0);// ��ȡUTF-8���볤��
+    int UTF8len = WideCharToMultiByte(CP_UTF8, 0, UTF16.c_str(), -1, 0, 0, 0, 0);// 锟斤拷取UTF-8锟斤拷锟诫长锟斤拷
     char* UTF8 = new CHAR[UTF8len + 4]{};
-    WideCharToMultiByte(CP_UTF8, 0, UTF16.c_str(), -1, UTF8, UTF8len, 0, 0); //ת����UTF-8����
+    WideCharToMultiByte(CP_UTF8, 0, UTF16.c_str(), -1, UTF8, UTF8len, 0, 0); //转锟斤拷锟斤拷UTF-8锟斤拷锟斤拷
     std::string ret = UTF8;
     delete[] UTF8;
     return ret;
 }
 std::string UTF16ToGBK(const std::wstring& UTF16)
 {
-    int GBKlen = WideCharToMultiByte(CP_ACP, 0, UTF16.c_str(), -1, 0, 0, 0, 0);// ��ȡUTF-8���볤��
+    int GBKlen = WideCharToMultiByte(CP_ACP, 0, UTF16.c_str(), -1, 0, 0, 0, 0);// 锟斤拷取UTF-8锟斤拷锟诫长锟斤拷
     char* GBK = new CHAR[GBKlen + 4]{};
-    WideCharToMultiByte(CP_ACP, 0, UTF16.c_str(), -1, GBK, GBKlen, 0, 0); //ת����UTF-8����
+    WideCharToMultiByte(CP_ACP, 0, UTF16.c_str(), -1, GBK, GBKlen, 0, 0); //转锟斤拷锟斤拷UTF-8锟斤拷锟斤拷
     std::string ret = GBK;
     delete[] GBK;
     return ret;
