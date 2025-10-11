@@ -60,8 +60,8 @@ namespace Ext
 			return ((Ret(*)(TArgs))GetFunc())(std::forward(Args));
 		}
 
-		bool Available() const { return !!GetFunc(); }
-		operator bool() const { return !!GetFunc(); }
+		bool Available() noexcept { return !!GetFunc(); }
+		operator bool() noexcept { return !!GetFunc(); }
 
 		template<typename Ret, class... TArgs>
 		Ret operator()(TArgs&&... Args)
