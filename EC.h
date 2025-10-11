@@ -44,7 +44,9 @@ EC的一些综合接口。
 #include "EC.Misc.h"
 #include "EC.Listener.h"
 #include "EC.LoadSave.h"
+#ifndef EC_NoObjBase
 #include "EC.ObjBase.h"
+#endif
 
 /*
 一组检测某些特定的组件是否在工作的API。
