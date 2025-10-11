@@ -221,7 +221,7 @@ namespace Ext
 		return i ? i->Func : nullptr;
 	}
 
-	LibFuncHandle GetFunc_throw(const char* throw_info) throw()
+	LibFuncHandle GetFunc_throw(const char* throw_info)
 	{
 		auto f = GetFunc();
 		if (!f)throw ECDispatchException(throw_info);

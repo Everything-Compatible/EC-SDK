@@ -47,7 +47,7 @@ namespace Ext
 		LibFuncHandle GetFunc() noexcept;
 
 		//return Not nullptr or throw ECDispatchException
-		LibFuncHandle GetFunc_throw(const char* throw_info = "Ext::DispatchInterface : 未找到接口。") throw();
+		LibFuncHandle GetFunc_throw(const char* throw_info = "Ext::DispatchInterface : 未找到接口。");
 
 		template<typename T>
 		T* Func()
