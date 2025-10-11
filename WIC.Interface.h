@@ -354,7 +354,7 @@ public:
 	void Buff_TryAfter(void* 来源, bool (SI_API* 判断处理函数)(void* 来源, SIBuffClass* Buff)); // [判断处理函数] 返回 true 则对 Buff 进行处理
 	void Buff_TryRemove(SIBuffTypeClass* Buff类型);
 	void Buff_TryRemove(SIBuffTypeClass* Buff类型, SIPackTypeClass_CheckTechno* 检查单位属性参数包);
-	void Buff_TryRemove(void* 来源, bool (*SI_API 判断处理函数)(void* 来源, SIBuffClass* Buff)); // [判断处理函数] 返回 true 则对 Buff 进行处理
+	void Buff_TryRemove(void* 来源, bool (SI_API* 判断处理函数)(void* 来源, SIBuffClass* Buff)); // [判断处理函数] 返回 true 则对 Buff 进行处理
 	void Buff_TryMergeSetting(SIBuffTypeClass* Buff类型, SIPack_BuffSetting_FromStatic* Buff参数设置包);
 	void Buff_TryMergeSetting(SIBuffTypeClass* Buff类型, SIPack_BuffSetting_FromStatic* Buff参数设置包, SIPackTypeClass_CheckTechno* 检查单位属性参数包);
 	void Buff_TryMergeSetting(void* 来源, bool (SI_API* 判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包)); // [判断处理函数] 返回 true 则对 Buff 进行处理
