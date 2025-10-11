@@ -54,7 +54,15 @@ namespace Ext
 		{
 			return ((Ret(*)(TArgs))GetFunc())(std::forward(Args));
 		}
+
+		template<typename Ret, class... TArgs>
+		Ret operator()(TArgs&&... Args)
+		{
+			return Call<Ret>(std::forward(Args)...);
+		}
 	};
+	#define ECDispatch(Name, Lib, Proc, Version) \
+		::Ext::DispatchInterface Name(Lib, Proc, Version)
 
 	//假如你不想用Executor
 	class ActiveContext
