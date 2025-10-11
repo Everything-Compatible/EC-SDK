@@ -197,7 +197,7 @@ void RaiseEmitLoadWarning()
 SIFinalSwizzleFn SIFinalSwizzleFunc;
 bool SIFinalSwizzleImpl(void* pOld, void*& pNew)
 {
-	SIFinalSwizzleFunc(pOld, pNew);
+	return SIFinalSwizzleFunc(pOld, pNew);
 }
 
 
