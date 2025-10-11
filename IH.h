@@ -66,5 +66,4 @@ namespace IH
 	//considering all variables and routers.
 	//return nullptr if not found.
 	UTF8_CString GetTextDrawValue(UTF8_CString Key);
-	UTF8_CString GetTextDrawValue(const char* Key);
 }

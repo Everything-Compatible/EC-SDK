@@ -588,10 +588,6 @@ namespace IH
 	{
 		return Init::LibInput->FunctionTable->GetTextDrawValue(Key);
 	}
-	UTF8_CString GetTextDrawValue(const char* Key)
-	{
-		return Init::LibInput->FunctionTable->GetTextDrawValue((UTF8_CString)Key);
-	}
 }
 
 namespace ECDebug
