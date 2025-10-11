@@ -840,7 +840,7 @@ void SIInterface_ExtendData::Buff_TryActive(SIBuffTypeClass* Buff类型, SIPack_
 }
 
 // [判断处理函数] 返回 true 则对 Buff 进行处理
-void SIInterface_ExtendData::Buff_TryActive(void* 来源, bool(*判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包))
+void SIInterface_ExtendData::Buff_TryActive(void* 来源, bool(*SI_API 判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包))
 {
 	SI::Buff_TryActive_C(this, 来源, 判断处理函数);
 }
@@ -856,7 +856,7 @@ void SIInterface_ExtendData::Buff_TryAfter(SIBuffTypeClass* Buff类型, SIPackTy
 }
 
 // [判断处理函数] 返回 true 则对 Buff 进行处理
-void SIInterface_ExtendData::Buff_TryAfter(void* 来源, bool(*判断处理函数)(void* 来源, SIBuffClass* Buff))
+void SIInterface_ExtendData::Buff_TryAfter(void* 来源, bool(*SI_API 判断处理函数)(void* 来源, SIBuffClass* Buff))
 {
 	SI::Buff_TryAfter_C(this, 来源, 判断处理函数);
 }
@@ -872,7 +872,7 @@ void SIInterface_ExtendData::Buff_TryRemove(SIBuffTypeClass* Buff类型, SIPackT
 }
 
 // [判断处理函数] 返回 true 则对 Buff 进行处理
-void SIInterface_ExtendData::Buff_TryRemove(void* 来源, bool(*判断处理函数)(void* 来源, SIBuffClass* Buff))
+void SIInterface_ExtendData::Buff_TryRemove(void* 来源, bool(*SI_API 判断处理函数)(void* 来源, SIBuffClass* Buff))
 {
 	SI::Buff_TryRemove_C(this, 来源, 判断处理函数);
 }
@@ -888,7 +888,7 @@ void SIInterface_ExtendData::Buff_TryMergeSetting(SIBuffTypeClass* Buff类型, S
 }
 
 // [判断处理函数] 返回 true 则对 Buff 进行处理
-void SIInterface_ExtendData::Buff_TryMergeSetting(void* 来源, bool(*判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包))
+void SIInterface_ExtendData::Buff_TryMergeSetting(void* 来源, bool(*SI_API 判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包))
 {
 	SI::Buff_TryMergeSetting_C(this, 来源, 判断处理函数);
 }
@@ -939,7 +939,7 @@ bool SIInterface_ExtendData::Buff_HasBuffed(SIBuffTypeClass_EffectType 效果种
 }
 
 // 此处不会立即移除无效的 Buff
-void SIInterface_ExtendData::Buff_LookUp(void* 来源, void(*遍历函数)(void* 来源, SIBuffClass* Buff))
+void SIInterface_ExtendData::Buff_LookUp(void* 来源, void(*SI_API 遍历函数)(void* 来源, SIBuffClass* Buff))
 {
 	SI::Buff_LookUp(this, 来源, 遍历函数);
 }

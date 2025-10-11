@@ -1288,16 +1288,16 @@ namespace SI
 	SIBuffClass* SI_API Buff_CreateOrMerge(SIInterface_ExtendData* 接口, SIBuffTypeClass* Buff类型, SIPack_BuffSetting_FromStatic* Buff参数设置包, AbstractClass* 来源, HouseClass* 来源所属作战方);
 	void SI_API Buff_TryActive_A(SIInterface_ExtendData* 接口, SIBuffTypeClass* Buff类型, SIPack_BuffSetting_FromStatic* Buff参数设置包);
 	void SI_API Buff_TryActive_B(SIInterface_ExtendData* 接口, SIBuffTypeClass* Buff类型, SIPack_BuffSetting_FromStatic* Buff参数设置包, SIPackTypeClass_CheckTechno* 检查单位属性参数包);
-	void SI_API Buff_TryActive_C(SIInterface_ExtendData* 接口, void* 来源, bool (*判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包)); // [判断处理函数] 返回 true 则对 Buff 进行处理
+	void SI_API Buff_TryActive_C(SIInterface_ExtendData* 接口, void* 来源, bool (SI_API *判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包)); // [判断处理函数] 返回 true 则对 Buff 进行处理
 	void SI_API Buff_TryAfter_A(SIInterface_ExtendData* 接口, SIBuffTypeClass* Buff类型);
 	void SI_API Buff_TryAfter_B(SIInterface_ExtendData* 接口, SIBuffTypeClass* Buff类型, SIPackTypeClass_CheckTechno* 检查单位属性参数包);
-	void SI_API Buff_TryAfter_C(SIInterface_ExtendData* 接口, void* 来源, bool (*判断处理函数)(void* 来源, SIBuffClass* Buff)); // [判断处理函数] 返回 true 则对 Buff 进行处理
+	void SI_API Buff_TryAfter_C(SIInterface_ExtendData* 接口, void* 来源, bool (SI_API *判断处理函数)(void* 来源, SIBuffClass* Buff)); // [判断处理函数] 返回 true 则对 Buff 进行处理
 	void SI_API Buff_TryRemove_A(SIInterface_ExtendData* 接口, SIBuffTypeClass* Buff类型);
 	void SI_API Buff_TryRemove_B(SIInterface_ExtendData* 接口, SIBuffTypeClass* Buff类型, SIPackTypeClass_CheckTechno* 检查单位属性参数包);
-	void SI_API Buff_TryRemove_C(SIInterface_ExtendData* 接口, void* 来源, bool (*判断处理函数)(void* 来源, SIBuffClass* Buff)); // [判断处理函数] 返回 true 则对 Buff 进行处理
+	void SI_API Buff_TryRemove_C(SIInterface_ExtendData* 接口, void* 来源, bool (SI_API *判断处理函数)(void* 来源, SIBuffClass* Buff)); // [判断处理函数] 返回 true 则对 Buff 进行处理
 	void SI_API Buff_TryMergeSetting_A(SIInterface_ExtendData* 接口, SIBuffTypeClass* Buff类型, SIPack_BuffSetting_FromStatic* Buff参数设置包);
 	void SI_API Buff_TryMergeSetting_B(SIInterface_ExtendData* 接口, SIBuffTypeClass* Buff类型, SIPack_BuffSetting_FromStatic* Buff参数设置包, SIPackTypeClass_CheckTechno* 检查单位属性参数包);
-	void SI_API Buff_TryMergeSetting_C(SIInterface_ExtendData* 接口, void* 来源, bool (*判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包)); // [判断处理函数] 返回 true 则对 Buff 进行处理
+	void SI_API Buff_TryMergeSetting_C(SIInterface_ExtendData* 接口, void* 来源, bool (SI_API *判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包)); // [判断处理函数] 返回 true 则对 Buff 进行处理
 	void SI_API Buff_TryChange_A(SIInterface_ExtendData* 接口, SIBuffTypeClass* 旧Buff类型, SIBuffTypeClass* 新Buff类型, SIPack_BuffSetting_FromStatic* Buff参数设置包, int 基础挂载持续时间增加量, double 强度值增加量, AbstractClass* 来源, HouseClass* 来源所属作战方);
 	void SI_API Buff_TryChange_B(SIInterface_ExtendData* 接口, SIBuffTypeClass* 旧Buff类型, SIBuffTypeClass* 新Buff类型, SIPack_BuffSetting_FromStatic* Buff参数设置包, int 基础挂载持续时间增加量, double 强度值增加量, AbstractClass* 来源, HouseClass* 来源所属作战方, SIPackTypeClass_CheckTechno* 检查单位属性参数包);
 	bool SI_API Buff_HasBuffed_A(SIInterface_ExtendData* 接口);
@@ -1307,7 +1307,7 @@ namespace SI
 	bool SI_API Buff_HasBuffed_E(SIInterface_ExtendData* 接口, SIBuffTypeClass* Buff类型, AbstractClass* 需求的来源, bool 没用的标识);
 	bool SI_API Buff_HasBuffed_F(SIInterface_ExtendData* 接口, SIBuffTypeClass_EffectType 效果种类);
 	bool SI_API Buff_HasBuffed_G(SIInterface_ExtendData* 接口, SIBuffTypeClass_EffectType 效果种类, SIBuffClass_State Buff状态);
-	void SI_API Buff_LookUp(SIInterface_ExtendData* 接口, void* 来源, void (*遍历函数)(void* 来源, SIBuffClass* Buff)); // 此处不会立即移除无效的 Buff
+	void SI_API Buff_LookUp(SIInterface_ExtendData* 接口, void* 来源, void (SI_API *遍历函数)(void* 来源, SIBuffClass* Buff)); // 此处不会立即移除无效的 Buff
 	void SI_API Buff_Update(SIInterface_ExtendData* 接口);
 	bool SI_API Buff_TriggerFire(SIInterface_ExtendData* 接口, AbstractClass* 目标, int 武器索引, WeaponStruct* 武器数据, CoordStruct 本体开火坐标, bool 死亡武器);
 	double SI_API Buff_TriggerAttacker(SIInterface_ExtendData* 接口, TechnoClass* 目标单位, args_ReceiveDamage* 伤害参数, double 当前伤害);
@@ -1438,8 +1438,8 @@ namespace SIHouseExt
 	void SI_API RemoveBroadcastListener(SIHouse_ExtendData* 接口, int 频道, SIBuffClass* 监听Buff);
 	void SI_API EXPPool_Add(SIHouse_ExtendData* 接口, double 额外经验值);
 	double SI_API EXPPool_Pop(SIHouse_ExtendData* 接口, double 需求的额外经验值);
-	void SI_API ForEach_HouseVar(SIHouse_ExtendData* 接口, void* 参数集, void (CALLBACK* 处理函数)(void* 参数集, int 索引, double& 值));
-	void SI_API ForEach_Broadcast(SIHouse_ExtendData* 接口, void* 参数集, void (CALLBACK* 处理函数)(void* 参数集, int 频道, SIBroadcastClass* 值));
+	void SI_API ForEach_HouseVar(SIHouse_ExtendData* 接口, void* 参数集, void (SI_API * 处理函数)(void* 参数集, int 索引, double& 值));
+	void SI_API ForEach_Broadcast(SIHouse_ExtendData* 接口, void* 参数集, void (SI_API * 处理函数)(void* 参数集, int 频道, SIBroadcastClass* 值));
 	SIBroadcastClass* SI_API Broadcast_FindOrAllocate(SIHouse_ExtendData* 接口, int 频道);// 返回值可能为空
 	SIBroadcastClass* SI_API Broadcast_Find(SIHouse_ExtendData* 接口, int 频道);// 返回值可能为空
 	HouseClass* SI_API OwnerObject(SIHouse_ExtendData* 接口);

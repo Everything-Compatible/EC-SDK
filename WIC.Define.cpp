@@ -848,7 +848,7 @@ namespace SI
 	}
 
 	// [判断处理函数] 返回 true 则对 Buff 进行处理
-	void SI_API Buff_TryActive_C(SIInterface_ExtendData* 接口, void* 来源, bool(*判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包))
+	void SI_API Buff_TryActive_C(SIInterface_ExtendData* 接口, void* 来源, bool(SI_API *判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包))
 	{
 		SIInterface_void(Buff_TryActive_C)(接口, 来源, 判断处理函数);
 	}
@@ -864,7 +864,7 @@ namespace SI
 	}
 
 	// [判断处理函数] 返回 true 则对 Buff 进行处理
-	void SI_API Buff_TryAfter_C(SIInterface_ExtendData* 接口, void* 来源, bool(*判断处理函数)(void* 来源, SIBuffClass* Buff))
+	void SI_API Buff_TryAfter_C(SIInterface_ExtendData* 接口, void* 来源, bool(SI_API *判断处理函数)(void* 来源, SIBuffClass* Buff))
 	{
 		SIInterface_void(Buff_TryAfter_C)(接口, 来源, 判断处理函数);
 	}
@@ -880,7 +880,7 @@ namespace SI
 	}
 
 	// [判断处理函数] 返回 true 则对 Buff 进行处理
-	void SI_API Buff_TryRemove_C(SIInterface_ExtendData* 接口, void* 来源, bool(*判断处理函数)(void* 来源, SIBuffClass* Buff))
+	void SI_API Buff_TryRemove_C(SIInterface_ExtendData* 接口, void* 来源, bool(SI_API *判断处理函数)(void* 来源, SIBuffClass* Buff))
 	{
 		SIInterface_void(Buff_TryRemove_C)(接口, 来源, 判断处理函数);
 	}
@@ -896,7 +896,7 @@ namespace SI
 	}
 
 	// [判断处理函数] 返回 true 则对 Buff 进行处理
-	void SI_API Buff_TryMergeSetting_C(SIInterface_ExtendData* 接口, void* 来源, bool(*判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包))
+	void SI_API Buff_TryMergeSetting_C(SIInterface_ExtendData* 接口, void* 来源, bool(SI_API *判断处理函数)(void* 来源, SIBuffClass* Buff, SIPack_BuffSetting_FromStatic* Buff参数设置包))
 	{
 		SIInterface_void(Buff_TryMergeSetting_C)(接口, 来源, 判断处理函数);
 	}
@@ -947,7 +947,7 @@ namespace SI
 	}
 
 	// 此处不会立即移除无效的 Buff
-	void SI_API Buff_LookUp(SIInterface_ExtendData* 接口, void* 来源, void(*遍历函数)(void* 来源, SIBuffClass* Buff))
+	void SI_API Buff_LookUp(SIInterface_ExtendData* 接口, void* 来源, void(SI_API *遍历函数)(void* 来源, SIBuffClass* Buff))
 	{
 		SIInterface_void(Buff_LookUp)(接口, 来源, 遍历函数);
 	}
@@ -1225,11 +1225,11 @@ namespace SIHouseExt
 	{
 		SIHouseExtDecl(EXPPool_Pop)(接口, 需求的额外经验值);
 	}
-	void SI_API ForEach_HouseVar(SIHouse_ExtendData* 接口, void* 参数集, void (CALLBACK* 处理函数)(void* 参数集, int 索引, double& 值))
+	void SI_API ForEach_HouseVar(SIHouse_ExtendData* 接口, void* 参数集, void (SI_API * 处理函数)(void* 参数集, int 索引, double& 值))
 	{
 		SIHouseExtDecl(ForEach_HouseVar)(接口, 参数集, 处理函数);
 	}
-	void SI_API ForEach_Broadcast(SIHouse_ExtendData* 接口, void* 参数集, void (CALLBACK* 处理函数)(void* 参数集, int 频道, SIBroadcastClass* 值))
+	void SI_API ForEach_Broadcast(SIHouse_ExtendData* 接口, void* 参数集, void (SI_API * 处理函数)(void* 参数集, int 频道, SIBroadcastClass* 值))
 	{
 		SIHouseExtDecl(ForEach_Broadcast)(接口, 参数集, 处理函数);
 	}
