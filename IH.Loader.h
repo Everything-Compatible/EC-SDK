@@ -42,6 +42,18 @@ struct RoutineParam
 };
 const RoutineParam NullRoutineParam{};
 
+struct RemoteReturnInfo
+{
+private:
+	void* PlaceHolder;
+public:
+	~RemoteReturnInfo();
+
+	UTF8_CString GetErrorMessage() const;
+	bool Succeeded() const;
+	JsonObject GetResponseData() const;
+};
+
 enum class FuncType
 {
 	Default = 0,//idk type
@@ -52,7 +64,8 @@ enum class FuncType
 	Comm = 5,//void* (__cdecl *)(void*)
 	ConditionAlt = 6,//bool (__cdecl *)(GeneratorParam Param)
 	ActionAlt = 7,//void (__cdecl *)(GeneratorParam Param)
-	CommAlt = 8//RoutineParam (__cdecl*)(RoutineParam)
+	CommAlt = 8,//RoutineParam (__cdecl*)(RoutineParam)
+	Remote = 9, //RemoteReturnInfo (__cdecl *)(JsonObject Context)
 };
 using FuncType_Condition = bool(__cdecl*)(JsonObject Context);
 using FuncType_Action = void(__cdecl*)(JsonObject Context);
@@ -62,6 +75,7 @@ using FuncType_Comm = void*(__cdecl*)(void*);
 using FuncType_ConditionAlt = bool(__cdecl*)(GeneratorParam Param);
 using FuncType_ActionAlt = void(__cdecl*)(GeneratorParam Param);
 using FuncType_CommAlt = RoutineParam(__cdecl*)(RoutineParam);
+using FuncType_Remote = RemoteReturnInfo(__cdecl*)(JsonObject Context);
 
 
 
@@ -84,13 +98,14 @@ struct FuncInfo
 	LibFuncHandle Func;
 	FuncType Type;
 	FuncInfo(LibFuncHandle F, FuncType T) :ClassVersion(GClassVersion), Func(F), Type(T) {}
-	FuncInfo() = default;
+	FuncInfo() : ClassVersion(GClassVersion), Func(nullptr), Type(FuncType::Default) {}
 	template<typename T>
 	T* SeeAsType()
 	{
 		return (T*)Func;
 	}
 };
+
 
 
 struct GeneralExecutor;
