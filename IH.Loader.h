@@ -241,6 +241,10 @@ namespace Init
 	extern InitResult Result;
 }
 
+/*
+NOTE : DO NOT DIRECTLY USE BasicLibData IN YOUR CODE
+It's only for internal use and ABI compatibility.
+*/
 struct BasicLibData
 {
 	bool Available;

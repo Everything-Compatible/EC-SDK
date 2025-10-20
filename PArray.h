@@ -1,5 +1,6 @@
-#pragma once
+﻿#pragma once
 #include <vector>
+#include <string_view>
 
 #ifndef PARRAY_DEFINITION
 #define PARRAY_DEFINITION
@@ -33,6 +34,10 @@ struct PArray
             N = Size;
         }
     }
+	std::string_view AsStringView() const
+	{
+		return std::string_view((const char*)Data, N * sizeof(T));
+	}
 };
 
 template<typename T>
