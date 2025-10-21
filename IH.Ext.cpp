@@ -532,7 +532,10 @@ namespace Ext
 		return CustomFunctionImpl(*Init::LibInput->FunctionTable, FuncIdx);
 	}
 
-	
+	bool PostAsyncRemoteCall(const char* pLib, const char* pFunc, int Version, JsonObject Context)
+	{
+		return Init::LibInput->FunctionTable->PostAsyncRemoteCall(pLib, pFunc, Version, Context);
+	}
 }
 
 
@@ -636,4 +639,24 @@ namespace ECDebug
 		Init::LibInput->FunctionTable->IHCore_Free((void*)Ret);
 		return s;
 	}
+}
+
+RemoteReturnInfo::~RemoteReturnInfo()
+{
+	Init::LibInput->FunctionTable->RemoteReturnInfo_Destroy(this);
+}
+
+UTF8_CString RemoteReturnInfo::GetErrorMessage() const
+{
+	return Init::LibInput->FunctionTable->RemoteReturnInfo_GetErrorMessage(this);
+}
+
+bool RemoteReturnInfo::Succeeded() const
+{
+	return Init::LibInput->FunctionTable->RemoteReturnInfo_Succeeded(this);
+}
+
+JsonObject RemoteReturnInfo::GetResponseData() const
+{
+	return Init::LibInput->FunctionTable->RemoteReturnInfo_GetResponseData(this);
 }

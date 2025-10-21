@@ -258,9 +258,8 @@ namespace Ext
 	FuncInfo* QueryFunction(BasicLibData* Lib, const char* Name, int Version);//DoNotCheckVersion还是匹配当前版本 但大部分检查都不会工作 甚至不检查传出的是不是FuncInfo*
 	void* CustomFunction(int FuncIdx);
 
-	
-
-
+	//异步远程调用（丢弃返回值），仅在pLib不是本地库时有效，若pLib是本地库返回false。
+	bool PostAsyncRemoteCall(const char* pLib, const char* pFunc, int Version, JsonObject Context);
 }
 
 namespace ECDebug
@@ -405,4 +404,11 @@ struct LibInputFnTable
 	int(__cdecl* DbgFunc_GetErrorCode)();
 	void(__cdecl* DbgFunc_GetLastResult)(UTF8_CString& Ret, UTF8_CString& ErrorStr, int& ErrorCode);
 	UTF8_CString(__cdecl* DbgFunc_GetVar)(UTF8_CString Key);
+
+	//FuncIdx 75~79
+	void(__cdecl* RemoteReturnInfo_Destroy)(RemoteReturnInfo* Info);
+	UTF8_CString(__cdecl* RemoteReturnInfo_GetErrorMessage)(const RemoteReturnInfo* Info);
+	bool(__cdecl* RemoteReturnInfo_Succeeded)(const RemoteReturnInfo* Info);
+	JsonObject(__cdecl* RemoteReturnInfo_GetResponseData)(const RemoteReturnInfo* Info);
+	bool(__cdecl* PostAsyncRemoteCall)(const char* pLib, const char* pFunc, int Version, JsonObject Context);
 };

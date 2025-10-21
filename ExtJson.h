@@ -44,6 +44,9 @@ public:
     inline cJSON* GetRaw() const { return Object; }
 
     inline bool Available() const { return Object != nullptr; }
+	inline operator bool() const { return Available(); }
+	inline bool operator! () const { return !Available(); }
+
     inline int GetType() const { return Object->type; }
     inline bool IsTypeNumber() const { return ((Object->type & 0xFF) == cJSON_Number); }
     inline bool IsTypeNull() const { return ((Object->type & 0xFF) == cJSON_NULL); }
@@ -184,7 +187,7 @@ public:
     JsonObject GetObj() const { return JsonObject(File); }
 
     cJSON* GetRaw() const { return File; }
-    cJSON* Release() { auto _F = File; File = nullptr; return _F; }
+    cJSON* Release() { auto _F = File; File = cJSON_CreateObject(); return _F; }
 
     bool Available() const { return File != nullptr; }
     JsonFile Duplicate(bool Recurse) const { return cJSON_Duplicate(File, Recurse); }//是否递归
@@ -205,6 +208,7 @@ public:
 
     JsonFile(const JsonFile&) : File(cJSON_Duplicate(File, true)) {}
     JsonFile(JsonFile&& _File)  noexcept : File(_File.Release()) {}
+	JsonFile& operator= (JsonFile&& _File) noexcept { if (this != &_File) { Clear(); File = _File.Release(); } return *this; }
 };
 
 inline const char* Json_GetErrorPtr() { return cJSON_GetErrorPtr(); }//不理他
