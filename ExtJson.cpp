@@ -510,6 +510,19 @@ void JsonObject::AddStrBool(const std::string& Str, bool Val, StrBoolType Type) 
 {
     cJSON_AddStringToObject(Object, Str.c_str(), CStrBoolImpl(Val, Type));
 }
+void JsonObject::AddArrayString(const std::string& Str, const std::vector<std::string>& Vec) const
+{
+    std::vector<const char*> CStrs;
+    CStrs.reserve(Vec.size());
+    for (const auto& s : Vec)
+    {
+        CStrs.push_back(s.c_str());
+    }
+    auto Obj = cJSON_CreateStringArray(CStrs.data(), (int)Vec.size());
+
+	cJSON_AddItemToObject(Object, Str.c_str(), Obj);
+}
+
 JsonFile JsonObject::SwapNull() const
 {
     JsonFile F(cJSON_CreateNull());
