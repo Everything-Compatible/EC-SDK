@@ -106,8 +106,6 @@ struct FuncInfo
 	}
 };
 
-
-
 struct GeneralExecutor;
 using SwizzleExecutor_t = void(__cdecl*)(GeneralExecutor* Exec, const GeneratorParam* Param, JsonObject CurrentContext);
 

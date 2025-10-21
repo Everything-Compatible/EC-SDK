@@ -210,6 +210,8 @@ namespace Ext
 	};
 	ECLoadStage GetLoadStage();
 
+	int GetIHCoreVersion();
+
 	FuncInfo* GetFuncFromLib(const char* pLib, const char* pFunc, int Version);
 	PArray<FuncInfo*> GetFuncByName(const char* pFunc);
 	void RegisterContextProcessor(const char* Type, ContextFunc_t pProcessor);
@@ -303,7 +305,7 @@ struct LibInputFnTable
 	//FuncIdx 0~4
 	FuncInfo* (__cdecl* GetFuncFromLib)(const char* pLib, const char* pFunc, int Version);
 	PArray<FuncInfo*>(__cdecl* GetFuncByName)(const char* pFunc);
-	void* PlaceHolder_1;
+	int  (__cdecl* GetVersion)();
 	void* PlaceHolder_2;
 	void(__cdecl* RegisterContextProcessor)(const char* Type, ContextFunc_t pProcessor);
 

@@ -370,6 +370,11 @@ namespace Ext
 		}
 	}
 
+	int GetIHCoreVersion()
+	{
+		return Init::LibInput->FunctionTable->GetVersion();
+	}
+
 	FuncInfo* GetFuncFromLib(const char* pLib, const char* pFunc, int Version)
 	{
 		return Init::LibInput->FunctionTable->GetFuncFromLib(pLib, pFunc, Version);
