@@ -97,6 +97,15 @@ std::string JsonObject::GetText() const
     return Str;
 }
 
+std::string JsonObject::GetCompactText() const
+{
+    if (Object == nullptr) return "";
+    char* CStr = cJSON_PrintUnformatted(Object);
+    std::string Str = CStr;
+    cJSON_Free(CStr);
+    return Str;
+}
+
 std::string ProcessJsonText(const std::string& json) 
 {
     std::string result = "\033[1;33m";

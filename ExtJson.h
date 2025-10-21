@@ -105,6 +105,7 @@ public:
 
     std::string GetText() const;
     std::string GetTextEx() const;
+    std::string GetCompactText() const;
 
     JsonObject CreateObjectItem(const std::string& Str) const;
     void AddObjectItem(const std::string& Str, JsonObject Child, bool NeedsCopy) const;
