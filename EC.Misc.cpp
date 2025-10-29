@@ -2,6 +2,7 @@
 #include "SyringeEx.h"
 #include <random>
 #include <Windows.h>
+#include <fstream>
 
 //Original: EXPANDMD%02d.MIX at 0x82668C
 void RedirectExpandMD(const char* NewTarget)
@@ -220,12 +221,12 @@ std::wstring UTF8ToUTF16(const std::string& UTF8)
     delete[] tch;
     return ret;
 }
-std::string UTF16ToUTF8(const std::wstring& UTF16)
+UTF8_String UTF16ToUTF8(const std::wstring& UTF16)
 {
     int UTF8len = WideCharToMultiByte(CP_UTF8, 0, UTF16.c_str(), -1, 0, 0, 0, 0);// 获取UTF-8编码长度
     char* UTF8 = new CHAR[UTF8len + 4]{};
     WideCharToMultiByte(CP_UTF8, 0, UTF16.c_str(), -1, UTF8, UTF8len, 0, 0); //转换成UTF-8编码
-    std::string ret = UTF8;
+    UTF8_String ret = (UTF8_CString)UTF8;
     delete[] UTF8;
     return ret;
 }
@@ -238,13 +239,26 @@ std::string UTF16ToGBK(const std::wstring& UTF16)
     delete[] GBK;
     return ret;
 }
-std::string GBKToUTF8(const std::string& GBK)
+UTF8_String GBKToUTF8(const std::string& GBK)
 {
     return UTF16ToUTF8(GBKToUTF16(GBK));
 }
-std::string UTF8ToGBK(const std::string& GBK)
+std::string UTF8ToGBK(const std::string& UTF8)
 {
-    return UTF16ToGBK(UTF8ToUTF16(GBK));
+    return UTF16ToGBK(UTF8ToUTF16(UTF8));
+}
+std::wstring UTF8ToUTF16(const UTF8_String& UTF8)
+{
+    int nLength = MultiByteToWideChar(CP_UTF8, 0, (const char*)UTF8.c_str(), -1, NULL, NULL);   // 获取缓冲区长度，再分配内存
+    WCHAR* tch = new WCHAR[nLength + 4]{};
+    MultiByteToWideChar(CP_UTF8, 0, (const char*)UTF8.c_str(), -1, tch, nLength);     // 将UTF-8转换成UTF16
+    std::wstring ret = tch;
+    delete[] tch;
+    return ret;
+}
+std::string UTF8ToGBK(const UTF8_String& UTF8)
+{
+    return UTF16ToGBK(UTF8ToUTF16(UTF8));
 }
 
 
@@ -278,4 +292,65 @@ void ForcedMemcpy(size_t Target, size_t Source, size_t Size)
 bool ReadMemory(const void* Source, void* Buffer, size_t Size)
 {
     return (ReadProcessMemory(GetCurrentProcess(), Source, Buffer, Size, nullptr) != FALSE);
+}
+
+
+UTF8_String TryRemoveBOM(UTF8_String&& Str)
+{
+	if (Str.size() >= 3 &&
+		static_cast<unsigned char>(Str[0]) == 0xEF &&
+		static_cast<unsigned char>(Str[1]) == 0xBB &&
+		static_cast<unsigned char>(Str[2]) == 0xBF)
+	{
+		return Str.substr(3);
+	}
+	else if (Str.size() >= 2 &&
+		static_cast<unsigned char>(Str[0]) == 0xFF &&
+		static_cast<unsigned char>(Str[1]) == 0xFE)
+	{
+		std::wstring utf16;
+		utf16.resize((Str.size() - 2) / 2);
+		memcpy(&utf16[0], &Str[2], Str.size() - 2);
+		return UTF16ToUTF8(utf16);
+	}
+	else if (Str.size() >= 2 &&
+		static_cast<unsigned char>(Str[0]) == 0xFE &&
+		static_cast<unsigned char>(Str[1]) == 0xFF)
+	{
+		std::wstring utf16;
+		utf16.resize((Str.size() - 2) / 2);
+		memcpy(&utf16[0], &Str[2], Str.size() - 2);
+		//转换为小端
+		for (size_t i = 0; i < utf16.size(); i++)
+		{
+			utf16[i] = (utf16[i] >> 8) | (utf16[i] << 8);
+		}
+		return UTF16ToUTF8(utf16);
+	}
+	else return Str;
+}
+
+UTF8_String ReadFileToString(const std::string& FilePath)
+{
+    std::ifstream file(FilePath, std::ios::binary);
+    if (!file.is_open()) {
+        return UTF8_String{};
+    }
+    std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
+	return TryRemoveBOM(reinterpret_cast<UTF8_String&&>(std::move(content)));
+}
+UTF8_String ReadCCFileToString(const std::string& FilePath)
+{
+    CCFileClass* pFile = GameCreate<CCFileClass>(FilePath.c_str());
+    if (!pFile->Exists())
+		return UTF8_String{};
+
+	auto ptr = pFile->ReadWholeFile();
+	UTF8_String content(reinterpret_cast<UTF8_CharType*>(ptr), pFile->GetFileSize());
+    pFile->Close();
+    GameDelete(pFile);
+	YRMemory::Deallocate(ptr);
+
+	return TryRemoveBOM(std::move(content));
 }

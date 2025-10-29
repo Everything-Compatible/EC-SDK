@@ -19,8 +19,7 @@ https://github.com/DaveGamble/cJSON
 /*
 SyringeIH 是 钢铁之锤 对Syringe的升级。
 SyringeEx.h里面包含了其支持的接口。
-https://github.com/IronHammer-Std/Syringe-IH
-（最新源码最好看一下万物互通QQ群里面最新开发包当中的）
+https://github.com/IronHammer-Std/SyringeIH_0.2
 此项目由Ares-Developers 的 Syringe0.7.2.0 升级而来
 https://github.com/Ares-Developers/Syringe
 */
@@ -131,5 +130,5 @@ cJSON.h->ExtJson.h->SyringeEx.h->
                 IH.Initial.h->IH.File.h  ->IH.Ext.h
                               IH.Loader.h->IH.InitialService.h                        ->IH.h  
                                               WIC.Define.h->WIC.Interface.h              ->WIC.h
-                                            WIC.Template.h->WIC.Buff.h->WIC.ExampleBuff.h
+                                            WIC.Template.h->WIC.Buff.h
 */

@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <functional>
-
+#include "IH.Loader.h"
 
 //下面的Redirect系列是更改了原有请求位置的请求目标
 //原位的字符串并未更改，直接访问仍为原值
@@ -71,10 +71,12 @@ std::wstring RandWStr(int i);
 //一点编码转换函数 包括 GBK UTF8 UTF16
 std::wstring GBKToUTF16(const std::string& GBK);
 std::wstring UTF8ToUTF16(const std::string& UTF8);
-std::string UTF16ToUTF8(const std::wstring& UTF16);
+UTF8_String UTF16ToUTF8(const std::wstring& UTF16);
 std::string UTF16ToGBK(const std::wstring& UTF16);
-std::string GBKToUTF8(const std::string& GBK);
-std::string UTF8ToGBK(const std::string& GBK);
+UTF8_String GBKToUTF8(const std::string& GBK);
+std::string UTF8ToGBK(const std::string& UTF8);
+std::wstring UTF8ToUTF16(const UTF8_String& UTF8);
+std::string UTF8ToGBK(const UTF8_String& UTF8);
 
 
 //大小写处理
@@ -114,3 +116,9 @@ void ForcedMemcpy(size_t TargetAddr, size_t SourceAddr, size_t Size);
 
 //比较安全的内存读入（Source可以是任意地址，如果是不可读会返回false）
 bool ReadMemory(const void* Source, void* Buffer, size_t Size);
+
+
+//从文件读取全部数据到UTF8字符串
+//接受：UTF8 UTF8-BOM UTF16-LE-BOM UTF16-BE-BOM
+UTF8_String ReadFileToString(const std::string& FilePath);
+UTF8_String ReadCCFileToString(const std::string& FilePath);
