@@ -1,9 +1,21 @@
 ﻿#pragma once
 #include <vector>
 #include <string_view>
+#include <Windows.h>
 
 #ifndef PARRAY_DEFINITION
 #define PARRAY_DEFINITION
+
+void* AllocateMemory(size_t Size)
+{
+	return HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, Size);
+}
+
+void FreeMemory(void* Ptr)
+{
+	HeapFree(GetProcessHeap(), 0, Ptr);
+}
+
 template<typename T>
 struct PArray
 {
@@ -20,7 +32,7 @@ struct PArray
     {
         if (Data != nullptr)
         {
-            delete[] Data;
+            FreeMemory(Data);
             Data = nullptr;
             N = 0;
         }
@@ -30,7 +42,11 @@ struct PArray
         Delete();
         if (Size > 0)
         {
-            Data = new T[Size];
+            Data = AllocateMemory(sizeof(T) * Size);
+            for (size_t i = 0; i < Size; i++)
+            {
+                new ((T*)Data + i) T();
+            }
             N = Size;
         }
     }
