@@ -83,8 +83,10 @@ namespace Init
 	{
 		LibInput = Input;
 		MyInit(Result);
+#ifndef EC_NoObjBase
 #ifndef SIWIC
 		if(Init::Internal_EnableSaveLoad)RegisterLoadSaveInterface();
+#endif
 #endif
 		return &Result;
 	}
