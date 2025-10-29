@@ -6,12 +6,12 @@
 #ifndef PARRAY_DEFINITION
 #define PARRAY_DEFINITION
 
-void* AllocateMemory(size_t Size)
+inline void* GlobalHeapAllocateMemory(size_t Size)
 {
 	return HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, Size);
 }
 
-void FreeMemory(void* Ptr)
+inline void GlobalHeapFreeMemory(void* Ptr)
 {
 	HeapFree(GetProcessHeap(), 0, Ptr);
 }
@@ -32,7 +32,7 @@ struct PArray
     {
         if (Data != nullptr)
         {
-            FreeMemory(Data);
+            GlobalHeapFreeMemory(Data);
             Data = nullptr;
             N = 0;
         }
@@ -42,7 +42,7 @@ struct PArray
         Delete();
         if (Size > 0)
         {
-            Data = AllocateMemory(sizeof(T) * Size);
+            Data = GlobalHeapAllocateMemory(sizeof(T) * Size);
             for (size_t i = 0; i < Size; i++)
             {
                 new ((T*)Data + i) T();
