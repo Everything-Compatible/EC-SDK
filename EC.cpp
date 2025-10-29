@@ -199,6 +199,23 @@ bool ECInitLibrary(
 	return Init::Initialize();
 }
 
+bool ECInitLibrary(
+	const char* LibraryName, //库名
+	int Version,
+	int LowestSupportedVersion,
+	UTF8_CString Description,
+	const std::function<void()>& OnFirstInit,
+	const std::function<void()>& OnOrderedInit,
+	const std::unordered_map<std::string, FuncInfo>& ExportFuncs,
+	std::initializer_list<InitDependency> Dependencies
+)
+{
+	StoreInitConfig(LibraryName, Version, LowestSupportedVersion, Description, OnFirstInit, OnOrderedInit, Dependencies);
+	Temp_GetFunc = GetFuncFromList;
+	Temp_FuncList = ExportFuncs;
+	return Init::Initialize();
+}
+
 void __cdecl MyOrderedInit()
 {
 	if (Temp_OnOrderedInit)Temp_OnOrderedInit();

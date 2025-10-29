@@ -42,10 +42,16 @@ struct RoutineParam
 };
 const RoutineParam NullRoutineParam{};
 
+using UTF8_CString = std::decay_t<decltype(u8"")>;
+using UTF8_CharType = std::remove_cv_t<std::remove_pointer_t<UTF8_CString>>;
+using UTF8_View = std::basic_string_view<UTF8_CharType>;
+using UTF8_String = std::basic_string<UTF8_CharType>;
+
+
 struct RemoteReturnInfo
 {
 private:
-	void* PlaceHolder;
+	uint32_t PlaceHolder;
 public:
 	~RemoteReturnInfo();
 
@@ -65,7 +71,7 @@ enum class FuncType
 	ConditionAlt = 6,//bool (__cdecl *)(GeneratorParam Param)
 	ActionAlt = 7,//void (__cdecl *)(GeneratorParam Param)
 	CommAlt = 8,//RoutineParam (__cdecl*)(RoutineParam)
-	Remote = 9, //RemoteReturnInfo (__cdecl *)(JsonObject Context)
+	Remote = 9, //void (__cdecl *)(RemoteReturnInfo& Ret, JsonObject Context)
 };
 using FuncType_Condition = bool(__cdecl*)(JsonObject Context);
 using FuncType_Action = void(__cdecl*)(JsonObject Context);
@@ -75,7 +81,7 @@ using FuncType_Comm = void*(__cdecl*)(void*);
 using FuncType_ConditionAlt = bool(__cdecl*)(GeneratorParam Param);
 using FuncType_ActionAlt = void(__cdecl*)(GeneratorParam Param);
 using FuncType_CommAlt = RoutineParam(__cdecl*)(RoutineParam);
-using FuncType_Remote = RemoteReturnInfo(__cdecl*)(JsonObject Context);
+using FuncType_Remote = void(__cdecl*)(RemoteReturnInfo& Ret, JsonObject Context);
 
 
 
@@ -151,10 +157,7 @@ struct ContextIndex
 	GeneratorParam Param;
 };
 
-using UTF8_CString = std::decay_t<decltype(u8"")>;
-using UTF8_CharType = std::remove_cv_t<std::remove_pointer_t<UTF8_CString>>;
-using UTF8_View = std::basic_string_view<UTF8_CharType>;
-using UTF8_String = std::basic_string<UTF8_CharType>;
+
 
 struct LibVersionInfo
 {

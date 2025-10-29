@@ -113,6 +113,16 @@ bool ECInitLibrary(
     const std::unordered_map<std::string, LibFuncHandle>& ExportFuncs,
     std::initializer_list<InitDependency> Dependencies = {}
 );
+bool ECInitLibrary(
+    const char* LibraryName, //库名
+    int Version,
+    int LowestSupportedVersion,
+    UTF8_CString Description,
+    const std::function<void()>& OnFirstInit,
+    const std::function<void()>& OnOrderedInit,
+    const std::unordered_map<std::string, FuncInfo>& ExportFuncs,
+    std::initializer_list<InitDependency> Dependencies = {}
+);
 
 /*
 结构：
