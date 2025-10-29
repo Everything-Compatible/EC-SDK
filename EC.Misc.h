@@ -122,3 +122,26 @@ bool ReadMemory(const void* Source, void* Buffer, size_t Size);
 //接受：UTF8 UTF8-BOM UTF16-LE-BOM UTF16-BE-BOM
 UTF8_String ReadFileToString(const std::string& FilePath);
 UTF8_String ReadCCFileToString(const std::string& FilePath);
+
+//一些UTF8和std::string/std::u8string的转换操作符重载
+//只是看起来更方便一些而已
+#ifndef UTF8_CONV
+#define UTF8_CONV
+std::u8string& operator~(std::string& str);
+std::string& operator~(std::u8string& str);
+const std::u8string& operator~(const std::string& str);
+const std::string& operator~(const std::u8string& str);
+std::u8string&& operator~(std::string&& str);
+std::string&& operator~(std::u8string&& str);
+const std::u8string&& operator~(const std::string&& str);
+const std::string&& operator~(const std::u8string&& str);
+std::string_view& operator~(std::u8string_view& str);
+std::u8string_view& operator~(std::string_view& str);
+const std::string_view& operator~(const std::u8string_view& str);
+const std::u8string_view& operator~(const std::string_view& str);
+struct conv_t final {};
+inline const conv_t conv_x;
+#define conv conv_x-
+const char* operator-(const conv_t&, const char8_t* str);
+const char8_t* operator-(const conv_t&, const char* str);
+#endif
