@@ -42,7 +42,7 @@ struct PArray
         Delete();
         if (Size > 0)
         {
-            Data = GlobalHeapAllocateMemory(sizeof(T) * Size);
+            Data = reinterpret_cast<decltype(Data)>(GlobalHeapAllocateMemory(sizeof(T) * Size));
             for (size_t i = 0; i < Size; i++)
             {
                 new ((T*)Data + i) T();

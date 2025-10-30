@@ -96,6 +96,16 @@ namespace Init
 		InitialLoad::CreateRequestAndSubmit<InitialLoadParam_RegisterFunction>("EC::Internal::ListenerAccess", _strdup(RandStr(12).c_str()), ListenerAccess);
 	}
 
+	void BindConsole()
+	{
+		if (GetConsoleWindow() != NULL) {
+			FILE* fp;
+			freopen_s(&fp, "CONOUT$", "w", stdout);
+			freopen_s(&fp, "CONOUT$", "w", stderr);
+			freopen_s(&fp, "CONIN$", "r", stdin);
+		}
+	}
+
 	bool Initialize()
 	{
 		if (IsSyringeReadingHooks())return false;
@@ -105,6 +115,11 @@ namespace Init
 		if (InitAvailable)return true;
 
 		InitAvailable = true;
+
+		RegisterListenerImpl();
+
+		BindConsole();
+
 		RegisterEntry(InitFn);
 		return true;
 	}
