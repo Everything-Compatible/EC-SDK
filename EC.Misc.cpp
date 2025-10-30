@@ -412,3 +412,11 @@ const std::u8string_view& operator~(const std::string_view& str)
 {
     return *(const std::u8string_view*)&str;
 }
+
+
+
+int ECUniqueID()
+{
+    int Internal_GenerateID();
+	return Internal_GenerateID();
+}

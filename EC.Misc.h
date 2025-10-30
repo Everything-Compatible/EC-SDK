@@ -145,3 +145,6 @@ inline const conv_t conv_x;
 const char* operator-(const conv_t&, const char8_t* str);
 const char8_t* operator-(const conv_t&, const char* str);
 #endif
+
+//全局的ID生成，线程安全且唯一
+int ECUniqueID();
