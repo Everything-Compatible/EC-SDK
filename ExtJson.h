@@ -120,6 +120,7 @@ public:
     void AddBool(const std::string& Str, bool Val) const;
     void AddStrBool(const std::string& Str, bool Val, StrBoolType Type) const;
     void AddArrayString(const std::string& Str, const std::vector<std::string>& Vec) const;
+	void AddArrayObject(const std::string& Str, std::vector<JsonFile>&& Vec) const;
      
     //返回原来的Obj
     JsonFile SwapNull() const;
