@@ -523,6 +523,16 @@ void JsonObject::AddArrayString(const std::string& Str, const std::vector<std::s
 	cJSON_AddItemToObject(Object, Str.c_str(), Obj);
 }
 
+void JsonObject::AddArrayObject(const std::string& Str, std::vector<JsonFile>&& Vec) const
+{
+    auto Obj = cJSON_CreateObjectArray(reinterpret_cast<cJSON**>(Vec.data()), static_cast<int>(Vec.size()));
+
+    for (auto& f : Vec) f.Release();
+    Vec.clear();
+
+	cJSON_AddItemToObject(Object, Str.c_str(), Obj);
+}
+
 JsonFile JsonObject::SwapNull() const
 {
     JsonFile F(cJSON_CreateNull());

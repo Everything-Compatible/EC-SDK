@@ -1,4 +1,4 @@
-/*
+﻿/*
   Copyright (c) 2009 Dave Gamble
  
   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -97,6 +97,7 @@ extern cJSON *cJSON_CreateIntArray(const int *numbers,int count);
 extern cJSON *cJSON_CreateFloatArray(const float *numbers,int count);
 extern cJSON *cJSON_CreateDoubleArray(const double *numbers,int count);
 extern cJSON *cJSON_CreateStringArray(const char **strings,int count);
+extern cJSON *cJSON_CreateObjectArray(cJSON** items, int count)
 
 /* Append item to the specified array/object. */
 extern void cJSON_AddItemToArray(cJSON *array, cJSON *item);
