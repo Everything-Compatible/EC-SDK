@@ -11,9 +11,9 @@ inline void* GlobalHeapAllocateMemory(size_t Size)
 	return HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, Size);
 }
 
-inline void GlobalHeapFreeMemory(void* Ptr)
+inline void GlobalHeapFreeMemory(const void* Ptr)
 {
-	HeapFree(GetProcessHeap(), 0, Ptr);
+	HeapFree(GetProcessHeap(), 0, const_cast<void*>(Ptr));
 }
 
 template<typename T>
