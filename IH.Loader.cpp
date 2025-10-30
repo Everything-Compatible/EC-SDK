@@ -12,6 +12,9 @@
 
 #ifndef IHCore
 void MyInit(InitResult& Result);
+
+#include <iostream>
+#include <cstdio>
 #endif
 
 namespace SyringeData
@@ -79,9 +82,12 @@ namespace Init
 }Loader;
 
 #ifndef IHCore
+	void BindConsole();
+
 	InitResult* __cdecl InitFn(InitInput* Input)
 	{
 		LibInput = Input;
+		BindConsole();
 		MyInit(Result);
 #ifndef EC_NoObjBase
 #ifndef SIWIC
@@ -103,6 +109,11 @@ namespace Init
 			freopen_s(&fp, "CONOUT$", "w", stdout);
 			freopen_s(&fp, "CONOUT$", "w", stderr);
 			freopen_s(&fp, "CONIN$", "r", stdin);
+
+			std::ios::sync_with_stdio(true);
+			std::cout.clear();
+			std::cin.clear();
+			std::cerr.clear();
 		}
 	}
 
@@ -117,8 +128,6 @@ namespace Init
 		InitAvailable = true;
 
 		RegisterListenerImpl();
-
-		BindConsole();
 
 		RegisterEntry(InitFn);
 		return true;
