@@ -139,7 +139,7 @@ std::string ProcessJsonText(const std::string& json)
                 // 未被转义的引号
                 if (!inString) {
                     // 左引号
-                    result += "\033[1;34m";
+                    result += "\033[1;32m";
                     inString = true;
                 }
                 else {
