@@ -275,6 +275,7 @@ namespace ECDebug
 	int GetErrorCode();
 	void GetLastResult(UTF8_String& Ret, UTF8_String& ErrorStr, int& ErrorCode);
 	UTF8_String GetGlobalVar(UTF8_View Key);
+	bool HasGlobalVar(UTF8_View Key);
 }
 
 
