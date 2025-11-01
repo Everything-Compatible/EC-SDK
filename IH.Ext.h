@@ -274,7 +274,7 @@ namespace ECDebug
 	void SetErrorCode(int Code);
 	int GetErrorCode();
 	void GetLastResult(UTF8_String& Ret, UTF8_String& ErrorStr, int& ErrorCode);
-	UTF8_String GetVar(UTF8_View Key);
+	UTF8_String GetGlobalVar(UTF8_View Key);
 }
 
 

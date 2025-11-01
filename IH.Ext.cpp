@@ -637,7 +637,7 @@ namespace ECDebug
 		Init::LibInput->FunctionTable->IHCore_Free((void*)RetStr);
 		Init::LibInput->FunctionTable->IHCore_Free((void*)ErrStr);
 	}
-	UTF8_String GetVar(UTF8_View Key)
+	UTF8_String GetGlobalVar(UTF8_View Key)
 	{
 		UTF8_CString Ret = Init::LibInput->FunctionTable->DbgFunc_GetVar(Key.data());
 		UTF8_String s =  Ret ? Ret : u8"";
