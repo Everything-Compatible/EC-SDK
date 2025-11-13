@@ -118,6 +118,9 @@ private:
 	bool ReceiveArrayArgs;
 	bool Padding_0C[2];
 	int Padding_10[2];
+
+	static const bool ConsiderAsCommand_Default = true;
+	static const bool ReceiveArrayArgs_Default = false;
 public:
 
 	size_t GetSize()
@@ -131,7 +134,7 @@ public:
 		if (ClassVersion >= 2)
 			return ConsiderAsCommand;
 		else
-			return false;
+			return ConsiderAsCommand_Default;
 	}
 
 	bool IsReceiveArrayArgs()
@@ -139,19 +142,22 @@ public:
 		if (ClassVersion >= 2)
 			return ReceiveArrayArgs;
 		else
-			return false;
+			return ReceiveArrayArgs_Default;
 	}
 
 	FuncInfo(LibFuncHandle F, FuncType T, bool AsCommand, bool ArrayArgs) :
-		ClassVersion(GClassVersion), Func(F), Type(T), ConsiderAsCommand(AsCommand), ReceiveArrayArgs(ArrayArgs),
+		ClassVersion(GClassVersion), Func(F), Type(T), 
+		ConsiderAsCommand(AsCommand), ReceiveArrayArgs(ArrayArgs),
 		Padding_0C{ 0,0 }, Padding_10{ 0,0 }
 	{}
 	FuncInfo(LibFuncHandle F, FuncType T) :
-		ClassVersion(GClassVersion), Func(F), Type(T), ConsiderAsCommand(true), ReceiveArrayArgs(false),
+		ClassVersion(GClassVersion), Func(F), Type(T), 
+		ConsiderAsCommand(ConsiderAsCommand_Default), ReceiveArrayArgs(ReceiveArrayArgs_Default),
 		Padding_0C{ 0,0 }, Padding_10{ 0,0 }
 	{}
 	FuncInfo() : 
-		ClassVersion(GClassVersion), Func(nullptr), Type(FuncType::Default), ConsiderAsCommand(true), ReceiveArrayArgs(false),
+		ClassVersion(GClassVersion), Func(nullptr), Type(FuncType::Default), 
+		ConsiderAsCommand(ConsiderAsCommand_Default), ReceiveArrayArgs(ReceiveArrayArgs_Default),
 		Padding_0C{ 0,0 }, Padding_10{ 0,0 }
 	{}
 	template<typename T>

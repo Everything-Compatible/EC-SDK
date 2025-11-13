@@ -54,6 +54,36 @@ struct PArray
 	{
 		return std::string_view((const char*)Data, N * sizeof(T));
 	}
+
+	T* begin()
+	{
+		return (T*)Data;
+	}
+
+	T* end()
+	{
+		return (T*)Data + N;
+	}
+
+	const T* begin() const
+	{
+		return Data;
+	}
+
+	const T* end() const
+	{
+		return Data + N;
+	}
+
+	T& operator[](size_t idx)
+	{
+		return ((T*)Data)[idx];
+	}
+
+	const T& operator[](size_t idx) const
+	{
+		return Data[idx];
+	}
 };
 
 template<typename T>
