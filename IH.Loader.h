@@ -74,6 +74,8 @@ enum class FuncType
 	CommAlt = 8,//RoutineParam (__cdecl*)(RoutineParam)
 	Remote = 9, //void (__cdecl *)(RemoteReturnInfo& Ret, JsonObject Context)
 };
+bool CanInvokeAsCommand(FuncType Type);
+
 using FuncType_Condition = bool(__cdecl*)(JsonObject Context);
 using FuncType_Action = void(__cdecl*)(JsonObject Context);
 using FuncType_Callback = void(__cdecl*)(JsonObject Context);
@@ -134,7 +136,7 @@ public:
 		if (ClassVersion >= 2)
 			return ConsiderAsCommand;
 		else
-			return ConsiderAsCommand_Default;
+			return CanInvokeAsCommand(Type);
 	}
 
 	bool IsReceiveArrayArgs()
@@ -152,12 +154,12 @@ public:
 	{}
 	FuncInfo(LibFuncHandle F, FuncType T) :
 		ClassVersion(GClassVersion), Func(F), Type(T), 
-		ConsiderAsCommand(ConsiderAsCommand_Default), ReceiveArrayArgs(ReceiveArrayArgs_Default),
+		ConsiderAsCommand(CanInvokeAsCommand(T)), ReceiveArrayArgs(ReceiveArrayArgs_Default),
 		Padding_0C{ 0,0 }, Padding_10{ 0,0 }
 	{}
 	FuncInfo() : 
 		ClassVersion(GClassVersion), Func(nullptr), Type(FuncType::Default), 
-		ConsiderAsCommand(ConsiderAsCommand_Default), ReceiveArrayArgs(ReceiveArrayArgs_Default),
+		ConsiderAsCommand(CanInvokeAsCommand(FuncType::Default)), ReceiveArrayArgs(ReceiveArrayArgs_Default),
 		Padding_0C{ 0,0 }, Padding_10{ 0,0 }
 	{}
 	template<typename T>

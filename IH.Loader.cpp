@@ -176,6 +176,23 @@ namespace Init
 	}
 }
 
+bool CanInvokeAsCommand(FuncType Type)
+{
+	switch (Type)
+	{
+	case FuncType::Condition:
+	case FuncType::Action:
+	case FuncType::Callback:
+	case FuncType::Procedure:
+	case FuncType::ConditionAlt:
+	case FuncType::ActionAlt:
+	case FuncType::Remote:
+		return true;
+	default:
+		return false;
+	}
+}
+
 ConfData& GetConfigData()
 {
 	auto ptr = Init::GetConfData();
