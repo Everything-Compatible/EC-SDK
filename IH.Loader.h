@@ -30,6 +30,7 @@ T AsTypePtr(LibFuncHandle Handle)
 
 struct GeneratorParam
 {
+	//总是等于Executor的ClassVersion
 	int ExecutorVersion;
 	void* Ptr;
 	AbstractType Type;
@@ -96,25 +97,78 @@ enum class CreateMode
 	CtxReserve = 6,   //保留Proc 保留Context/Param 不会触发Destructor、Uninit等
 };
 
+/*
+存在ClassVersion的类型T不能直接用sizeof(T)来获取大小
+也不能直接接受T[]作为参数传递
+数组建议使用T*[]或PArray<T*>
+*/
 struct FuncInfo
 {
-	static const int GClassVersion{ 1 };
+	static const int GClassVersion{ 2 };
 	int ClassVersion{ GClassVersion };
 
 	LibFuncHandle Func;
 	FuncType Type;
-	FuncInfo(LibFuncHandle F, FuncType T) :ClassVersion(GClassVersion), Func(F), Type(T) {}
-	FuncInfo() : ClassVersion(GClassVersion), Func(nullptr), Type(FuncType::Default) {}
+
+private: 
+	/*
+	This field only exists when ClassVersion >= 2
+	*/
+	bool ConsiderAsCommand;
+	bool ReceiveArrayArgs;
+	bool Padding_0C[2];
+	int Padding_10[2];
+public:
+
+	size_t GetSize()
+	{
+		if (ClassVersion == 1)return 12;
+		else return sizeof(FuncInfo);
+	}
+
+	bool IsConsiderAsCommand()
+	{
+		if (ClassVersion >= 2)
+			return ConsiderAsCommand;
+		else
+			return false;
+	}
+
+	bool IsReceiveArrayArgs()
+	{
+		if (ClassVersion >= 2)
+			return ReceiveArrayArgs;
+		else
+			return false;
+	}
+
+	FuncInfo(LibFuncHandle F, FuncType T, bool AsCommand, bool ArrayArgs) :
+		ClassVersion(GClassVersion), Func(F), Type(T), ConsiderAsCommand(AsCommand), ReceiveArrayArgs(ArrayArgs),
+		Padding_0C{ 0,0 }, Padding_10{ 0,0 }
+	{}
+	FuncInfo(LibFuncHandle F, FuncType T) :
+		ClassVersion(GClassVersion), Func(F), Type(T), ConsiderAsCommand(true), ReceiveArrayArgs(false),
+		Padding_0C{ 0,0 }, Padding_10{ 0,0 }
+	{}
+	FuncInfo() : 
+		ClassVersion(GClassVersion), Func(nullptr), Type(FuncType::Default), ConsiderAsCommand(true), ReceiveArrayArgs(false),
+		Padding_0C{ 0,0 }, Padding_10{ 0,0 }
+	{}
 	template<typename T>
 	T* SeeAsType()
 	{
 		return (T*)Func;
 	}
 };
+static_assert(sizeof(FuncInfo) == 24);
 
 struct GeneralExecutor;
 using SwizzleExecutor_t = void(__cdecl*)(GeneralExecutor* Exec, const GeneratorParam* Param, JsonObject CurrentContext);
 
+/*
+存在ClassVersion的类型T不能直接用sizeof(T)来获取大小
+也不能直接接受T[]作为参数传递
+*/
 struct ExecutorBase
 {
 	static const int GClassVersion{ 1 };
@@ -158,7 +212,11 @@ struct ContextIndex
 };
 
 
-
+/*
+存在ClassVersion的类型T不能直接用sizeof(T)来获取大小
+也不能直接接受T[]作为参数传递
+数组建议使用T*[]或PArray<T*>
+*/
 struct LibVersionInfo
 {
 	static const int GClassVersion{ 1 };
@@ -203,6 +261,11 @@ struct InitDependency
 };
 static_assert(sizeof(InitDependency) == 32);
 
+/*
+存在ClassVersion的类型T不能直接用sizeof(T)来获取大小
+也不能直接接受T[]作为参数传递
+数组建议使用T*[]或PArray<T*>
+*/
 struct InitResult
 {
 	static const int GClassVersion{ 1 };
@@ -232,6 +295,11 @@ struct CSFEntry
 };
 
 
+/*
+存在ClassVersion的类型T不能直接用sizeof(T)来获取大小
+也不能直接接受T[]作为参数传递
+数组建议使用T*[]或PArray<T*>
+*/
 struct InitInput
 {
 	static const int GClassVersion{ 1 };
@@ -260,6 +328,13 @@ namespace Init
 /*
 NOTE : DO NOT DIRECTLY USE BasicLibData IN YOUR CODE
 It's only for internal use and ABI compatibility.
+*/
+/*
+存在ClassVersion的类型T不能直接用sizeof(T)来获取大小
+也不能直接接受T[]作为参数传递
+数组建议使用T*[]或PArray<T*>
+
+故此处In 和 Out均为指针
 */
 struct BasicLibData
 {
