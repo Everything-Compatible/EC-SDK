@@ -1,4 +1,5 @@
 ﻿#pragma once
+#ifndef SIWIC
 #include <functional>
 #include <utility>
 #include <YRMathVector.h>
@@ -168,3 +169,4 @@ public:
 		return (const char*)(this->Name);
 	}
 };
+#endif

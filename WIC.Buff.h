@@ -1,4 +1,5 @@
 ﻿#pragma once
+#ifndef SIWIC
 #include "WIC.Define.h"
 #include "WIC.Template.h"
 
@@ -565,3 +566,4 @@ public:
 public:
 	// 功能函数
 };
+#endif

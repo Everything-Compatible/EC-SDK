@@ -18,10 +18,11 @@ SIWinterIsComing（简称WIC）是Sidoupiar、航味麻酱开发的YR引擎扩�
 
 */
 #pragma once
-
+#ifndef SIWIC
 #include  "WIC.Interface.h"
 
 #include  "WIC.Buff.h"
 
 #include  "WIC.Template.h"
+#endif
 //注意：接口在WIC无效时调用或接口找不到时会抛异常(SIException)的

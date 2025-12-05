@@ -1,4 +1,5 @@
 ﻿#pragma once
+#ifndef SIWIC
 #include "WIC.Define.h"
 #include <exception>
 
@@ -409,4 +410,4 @@ public:
 	void UpdateOwningHouse(const HouseClass* const 旧的单位所属作战方, const HouseClass* const 新的单位所属作战方);
 
 };
-
+#endif

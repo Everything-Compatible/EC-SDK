@@ -1,5 +1,5 @@
 ﻿#pragma once
-
+#ifndef SIWIC
 /*
 ！！不建议使用此头文件当中的原始接口！！
 */
@@ -1457,3 +1457,4 @@ namespace SIClassManager
 	SIPack_BuffSetting_FromStatic SI_API MakePack_DurationOnly(int 持续时间, bool 覆盖持续时间, bool 承受持续时间抗性);
 	SIPack_BuffSetting_FromStatic SI_API MakePack_PowerOnly(double 强度值, bool 覆盖强度值, bool 承受强度值抗性);
 }
+#endif

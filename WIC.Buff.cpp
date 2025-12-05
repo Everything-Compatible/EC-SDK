@@ -1,4 +1,5 @@
-﻿#include "WIC.Buff.h"
+﻿#ifndef SIWIC
+#include "WIC.Buff.h"
 
 // ====================================================================================================
 // ==== BuffClass 接口 - 流程函数 =====================================================================
@@ -565,3 +566,4 @@ SIPack_BuffSetting_FromStatic SIPackTypeClass_BuffSetting::MakePack_PowerOnly(do
 {
 	return SIClassManager::MakePack_PowerOnly(强度值, 覆盖强度值, 承受强度值抗性);
 }
+#endif

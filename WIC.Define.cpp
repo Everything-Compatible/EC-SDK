@@ -1,4 +1,4 @@
-﻿
+﻿#ifndef SIWIC
 #include "WIC.Interface.h"
 #include "WIC.Template.h"
 
@@ -1238,3 +1238,4 @@ namespace SIHouseExt
 		SIHouseExtDecl(OwnerObject)(接口);
 	}
 }
+#endif

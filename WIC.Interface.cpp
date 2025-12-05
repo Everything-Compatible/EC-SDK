@@ -1,4 +1,4 @@
-﻿
+﻿#ifndef SIWIC
 #include "WIC.Interface.h"
 #include "WIC.Template.h"
 
@@ -1401,3 +1401,4 @@ namespace SIClassManager
 	
 	
 }
+#endif
