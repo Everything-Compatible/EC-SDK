@@ -17,6 +17,13 @@ bool HasWIC()
 }
 #endif
 
+
+ECDispatchException::ECDispatchException(const char* info) : Info(info) {};
+const char* ECDispatchException::what() const noexcept
+{
+	return Info;
+}
+
 std::unordered_map<std::string, LibFuncHandle> ListenerMap;
 
 LibFuncHandle __cdecl ListenerAccess(const char* Name)

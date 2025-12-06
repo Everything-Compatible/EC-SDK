@@ -2,12 +2,6 @@
 #include "WIC.Interface.h"
 #include "WIC.Template.h"
 
-ECDispatchException::ECDispatchException(const char* info) : Info(info) {};
-const char* ECDispatchException::what() const noexcept
-{
-	return Info;
-}
-
 SIException::SIException(const char* info) : ECDispatchException(info) {};
 const char* SIException::what() const noexcept
 {
