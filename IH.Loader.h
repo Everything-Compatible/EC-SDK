@@ -61,6 +61,18 @@ public:
 	JsonObject GetResponseData() const;
 };
 
+struct CommandReturnValue
+{
+	static const int GClassVersion{ 1 };
+	int ClassVersion{ GClassVersion };
+	int ErrorCode;
+	bool HasRetValue;
+	UTF8_CString Ret;
+	UTF8_CString ErrorStr;
+};
+
+using CommandReturnCallback = void (__cdecl*)(const CommandReturnValue& RetVal, void* CustomData);
+
 enum class FuncType
 {
 	Default = 0,//idk type
@@ -325,8 +337,6 @@ using InitFunc_t = InitResult * (__cdecl*)(InitInput*);
 
 namespace Init
 {
-	bool Initialize();
-	bool __cdecl RegisterEntry(LibFuncHandle Entry);
 	PArray<IHInitialLoadService> __cdecl QueryServiceRequest(const char* Name);
 	
 	extern InitInput* LibInput;

@@ -8,6 +8,13 @@ LPCVOID Internal_GetGlobalVarPtr(const char* Usage, const char* Key);
 
 namespace Ext
 {
+	RoutineHandle GetRoutine(const char* Name);
+	void InstantRunRoutine(RoutineHandle Routine);
+	void PauseRoutine(RoutineHandle Routine);
+	void ResumeRoutine(RoutineHandle Routine);
+	void DelayRoutine(RoutineHandle Routine, int Delay);
+	void DeleteRoutine(const char* Name);
+
 	CSFClass_ITable& CSFClass_GetITable()
 	{
 		return *Init::LibInput->FunctionTable->CSFClass_pITable;
@@ -70,23 +77,23 @@ namespace Ext
 		CurContext = DirectBindTextTo(Text, Idx);
 	}
 
-	ActiveRoutine::ActiveRoutine(ActiveRoutine&& rhs) :_Name(std::move(rhs._Name)), Handle(nullptr), _Routine(nullptr)
+	ActiveRoutine::ActiveRoutine(ActiveRoutine&& rhs) noexcept :_Name(std::move(rhs._Name)), Handle(nullptr), _Routine(nullptr)
 	{
 		std::swap(Handle, rhs.Handle);
 		std::swap(_Routine, rhs._Routine);
 	}
-	ActiveRoutine::ActiveRoutine(const char* Str, Routine_t Fn, const RoutineParam& Param) : _Name(Str), Handle(nullptr), _Routine(Fn)
+	ActiveRoutine::ActiveRoutine(const char* Str, Routine_t Fn, const RoutineParam& Param) noexcept : _Name(Str), Handle(nullptr), _Routine(Fn)
 	{
 		if (RegisterRoutine(Str, Fn, Param))
 			Handle = GetRoutine(Str);
 	}
-	ActiveRoutine::ActiveRoutine(const std::string& Str, Routine_t Fn, const RoutineParam& Param) : _Name(Str), Handle(nullptr), _Routine(Fn)
+	ActiveRoutine::ActiveRoutine(const std::string& Str, Routine_t Fn, const RoutineParam& Param)  noexcept : _Name(Str), Handle(nullptr), _Routine(Fn)
 	{
 		if (RegisterRoutine(Str.c_str(), Fn, Param))
 			Handle = GetRoutine(Str.c_str());
 	}
-	ActiveRoutine::ActiveRoutine(noinit_t) : Handle(nullptr) {}
-	void ActiveRoutine::Init(const char* Str, Routine_t Fn, const RoutineParam& Param)
+	ActiveRoutine::ActiveRoutine(noinit_t) noexcept : Handle(nullptr) {}
+	void ActiveRoutine::Init(const char* Str, Routine_t Fn, const RoutineParam& Param) noexcept
 	{
 		_Routine = Fn;
 		_Name = Str;
@@ -94,7 +101,7 @@ namespace Ext
 			Handle = GetRoutine(Str);
 		else Handle = nullptr;
 	}
-	void ActiveRoutine::Init(const std::string& Str, Routine_t Fn, const RoutineParam& Param)
+	void ActiveRoutine::Init(const std::string& Str, Routine_t Fn, const RoutineParam& Param) noexcept
 	{
 		_Routine = Fn;
 		_Name = Str;
@@ -259,7 +266,7 @@ namespace Ext
 	FuncInfo* LibData::QueryFunction(const char* Name, int Version)
 	{
 		//IHCore会检查参数，此处略过
-		return Ext::QueryFunction(Lib, Name, Version);
+		return Init::LibInput->FunctionTable->QueryFunction(Lib, Name, Version);
 	}
 	int LibData::Version()
 	{
@@ -540,6 +547,14 @@ namespace Ext
 	bool PostAsyncRemoteCall(const char* pLib, const char* pFunc, int Version, JsonObject Context)
 	{
 		return Init::LibInput->FunctionTable->PostAsyncRemoteCall(pLib, pFunc, Version, Context);
+	}
+	void PostCommand(UTF8_CString command, bool ChangeEnv)
+	{
+		Init::LibInput->FunctionTable->PostCommand(command, ChangeEnv);
+	}
+	void RunCommand(UTF8_CString command, bool ChangeEnv, CommandReturnCallback Callback, void* CustomData)
+	{
+		Init::LibInput->FunctionTable->RunCommand(command, ChangeEnv, Callback, CustomData);
 	}
 }
 

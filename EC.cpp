@@ -1,6 +1,12 @@
 ﻿
 #include "EC.h"
 
+namespace Init
+{
+	bool Initialize();
+	bool __cdecl RegisterEntry(LibFuncHandle Entry);
+}
+
 bool HasSyringeIH()
 {
 	return SyringeData::HasSyringeIH();

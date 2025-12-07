@@ -110,14 +110,14 @@ namespace Ext
 	public:
 		ActiveRoutine() = delete;
 		ActiveRoutine(const ActiveRoutine&) = delete;
-		ActiveRoutine(ActiveRoutine&&);
-		ActiveRoutine(const char*, Routine_t, const RoutineParam&);
-		ActiveRoutine(const std::string&, Routine_t, const RoutineParam&);
-		ActiveRoutine(noinit_t);
-		void Init(const char*, Routine_t, const RoutineParam&);
-		void Init(const std::string&, Routine_t, const RoutineParam&);
+		ActiveRoutine(ActiveRoutine&&) noexcept;
+		ActiveRoutine(const char*, Routine_t, const RoutineParam&) noexcept;
+		ActiveRoutine(const std::string&, Routine_t, const RoutineParam&) noexcept;
+		ActiveRoutine(noinit_t) noexcept;
+		void Init(const char*, Routine_t, const RoutineParam&) noexcept;
+		void Init(const std::string&, Routine_t, const RoutineParam&) noexcept;
 		void Destroy();
-		~ActiveRoutine();
+		~ActiveRoutine();//auto Destroy
 
 		inline RoutineHandle GetHandle() { return Handle; }
 
@@ -224,13 +224,6 @@ namespace Ext
 	JsonObject GetContextByIdx(const ContextIndex& Idx);
 	void DeleteContextByIdx(const ContextIndex& Idx);
 
-	RoutineHandle GetRoutine(const char* Name);
-	void InstantRunRoutine(RoutineHandle Routine);
-	void PauseRoutine(RoutineHandle Routine);
-	void ResumeRoutine(RoutineHandle Routine);
-	void DelayRoutine(RoutineHandle Routine, int Delay);
-
-	void DeleteRoutine(const char* Name);
 	bool MakeExecutor_BaseText(ExecutorBase& Base, FuncInfo* Action, int Delay, const char* Text, const char* Type, const char* ExecType, SwizzleExecutor_t Swizzle, FuncInfo* Destructor);
 	bool MakeExecutor_Base(ExecutorBase& Base, FuncInfo* Action, int Delay, const char* Type, const char* ExecType, JsonObject Context, FuncInfo* Destructor);
 	bool MakeExecutor_Trigger(GeneralExecutor& Target, FuncInfo* Condition, int Interval);
@@ -257,11 +250,13 @@ namespace Ext
 	bool RegisterRoutineSet(const char* Name, const RoutineSet& Routine, RoutineParam Param, bool Paused, int InitialDelay, bool ResetParam, CreateMode Mode);
 	LibData GetLib(const char* Name);
 	LibData GetAvailableLib(const char* Name);
-	FuncInfo* QueryFunction(BasicLibData* Lib, const char* Name, int Version);//DoNotCheckVersion还是匹配当前版本 但大部分检查都不会工作 甚至不检查传出的是不是FuncInfo*
 	void* CustomFunction(int FuncIdx);
 
 	//异步远程调用（丢弃返回值），仅在pLib不是本地库时有效，若pLib是本地库返回false。
 	bool PostAsyncRemoteCall(const char* pLib, const char* pFunc, int Version, JsonObject Context);
+	void PostCommand(UTF8_CString command, bool ChangeEnv);
+	//CustomData 可为 nullptr， Callback 在命令执行完毕后被调用，参数为 (返回值, CustomData)
+	void RunCommand(UTF8_CString command, bool ChangeEnv, CommandReturnCallback Callback, void* CustomData);
 }
 
 namespace ECDebug
@@ -321,8 +316,8 @@ struct LibInputFnTable
 	GenCallRetType(__cdecl* GeneralCall)(const FuncInfo& Fn, JsonObject Context);
 	JsonObject(__cdecl* DirectBindContextTo)(JsonObject Context, const ContextIndex& Idx);
 	JsonObject(__cdecl* DirectBindTextTo)(const char* Text, const ContextIndex& Idx);
-	void* PlaceHolder_5;
-	void* PlaceHolder_6;
+	void(__cdecl* PostCommand)(UTF8_CString command, bool ChangeEnv);
+	void(__cdecl* RunCommand)(UTF8_CString command, bool ChangeEnv, CommandReturnCallback Callback, void* CustomData);
 
 	//FuncIdx 15~19
 	void* PlaceHolder_7;
