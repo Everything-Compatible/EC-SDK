@@ -63,3 +63,5 @@ namespace InitialLoad
 #define ClassRegisterByName(Type, Class) InitialLoad::CreateRequestAndSubmit<InitialLoadParam_RegisterVTable>(Type, #Class, GetIHFileRegisterKey<Class>(), sizeof(Class));
 #define RegisterIHFile(Class) ClassRegisterByName("IHFile::RegisterIHFile", Class)
 #define InitialRequest(Type, ...) InitialLoad::CreateRequestAndSubmit<InitialLoadParam_##Type>(__VA_ARGS__)
+#define RegisterIHFileFilter(Class, Filter) InitialLoad::CreateRequestAndSubmit<InitialLoadParam_RegisterFunction>("IHFile::RegisterIHFileFilter", #Class, Filter);
+#define RegisterIHFileBinding(Class, FileName) InitialLoad::CreateRequestAndSubmit<InitialLoadParam_RedirectFile>("IHFile::BindToStream", FileName, #Class);

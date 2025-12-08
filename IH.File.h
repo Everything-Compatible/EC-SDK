@@ -26,7 +26,11 @@ public:
 	virtual int GetFileSize() = 0;
 	virtual int WriteBytes(void* pBuffer, int nNumBytes) = 0; //Returns number of bytes written.
 	virtual void Close() = 0;//OK
-	virtual void CDCheck(DWORD errorCode, bool bUnk, const char* pFilename);
+
+	//默认空实现，可根据需要覆写，在未覆写时无行为
+	virtual void CDCheck(DWORD errorCode, bool bUnk, const char* pMethodName);
+	//受构造方式影响，此类型的构造函数不会真正执行，在Initialize前所在内存除了虚表是全0的
+	//所有的派生类必须实现这个函数来完成初始化工作
 	virtual void Initialize() = 0;
 
 protected:
@@ -43,21 +47,59 @@ public:
 	//Destructor
 	virtual	~IHReadOnlyFileClass() {};
 	//FileClass
-	virtual const char* GetFileName() const = 0;
-	virtual const char* SetFileName(const char* pFileName) = 0;
-	virtual BOOL CreateFile();
-	virtual BOOL DeleteFile();
-	virtual bool Exists(bool writeShared = false) = 0;
-	virtual bool HasHandle() = 0;
-	virtual bool Open(FileAccessMode access) = 0;
-	virtual int ReadBytes(void* pBuffer, int nNumBytes) = 0; //Returns number of bytes read.
-	virtual int Seek(int offset, FileSeekMode seek) = 0;
-	virtual int GetFileSize() = 0;
-	virtual int WriteBytes(void* pBuffer, int nNumBytes); //Returns number of bytes written.
-	virtual void Close() = 0;
-	virtual void Initialize() = 0;
+	virtual BOOL CreateFile() final;
+	virtual BOOL DeleteFile() final;
+	virtual int WriteBytes(void* pBuffer, int nNumBytes) final; //Returns number of bytes written.
 protected:
 	explicit __forceinline IHReadOnlyFileClass(noinit_t _) :IHFileClass(_)
+	{ }
+
+	//Properties
+public:
+};
+
+class IHWriteOnlyFileClass :public IHFileClass
+{
+public:
+	//Destructor
+	virtual	~IHWriteOnlyFileClass() {};
+	//FileClass
+	virtual int ReadBytes(void* pBuffer, int nNumBytes) final; //Returns number of bytes read.
+protected:
+	explicit __forceinline IHWriteOnlyFileClass(noinit_t _) :IHFileClass(_)
+	{ }
+
+	//Properties
+public:
+};
+
+class IHInputStreamClass : public IHReadOnlyFileClass
+{
+public:
+	//Destructor
+	virtual	~IHInputStreamClass() {};
+	//FileClass
+	virtual int Seek(int offset, FileSeekMode seek) final;
+	virtual int GetFileSize() final;
+protected:
+	explicit __forceinline IHInputStreamClass(noinit_t _) :IHReadOnlyFileClass(_)
+	{ }
+
+	//Properties
+public:
+};
+
+class IHOutputStreamClass : public IHWriteOnlyFileClass
+{
+public:
+	//Destructor
+	virtual	~IHOutputStreamClass() {};
+	//FileClass
+	virtual int Seek(int offset, FileSeekMode seek) final;
+	virtual int GetFileSize() final;
+
+protected:
+	explicit __forceinline IHOutputStreamClass(noinit_t _) :IHWriteOnlyFileClass(_)
 	{ }
 
 	//Properties
