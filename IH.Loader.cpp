@@ -22,6 +22,12 @@ namespace SyringeData
 	void InitRemoteData();
 }
 
+namespace Init
+{
+	bool Initialize();
+	bool __cdecl RegisterEntry(LibFuncHandle Entry);
+}
+
 LibFuncHandle __cdecl ListenerAccess(const char* Name);
 void RegisterLoadSaveInterface();
 struct ECRTTIInfo;
