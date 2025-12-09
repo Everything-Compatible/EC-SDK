@@ -110,6 +110,6 @@ template<typename ParamType>
 vptr_t GetIHFileRegisterKey()
 {
 	static_assert(std::is_base_of<IHFileClass, ParamType>::value, "ParamType 必须派生自 IHFileClass ！");
-	ParamType p{ noinit_t() };
+	static ParamType p{ noinit_t() };
 	return *reinterpret_cast<vptr_t*>(&p);
 }
