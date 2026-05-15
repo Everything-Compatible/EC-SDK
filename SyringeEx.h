@@ -6,6 +6,8 @@
 #include "ExtJson.h"
 #include "PArray.h"
 
+const int DefaultPriorityValue = 100000;
+
 #if SYR_VER == 2
 
 #pragma pack(push, 16)
@@ -17,6 +19,7 @@ __declspec(align(32)) struct hookaltdecl {
 	const char* hookName;
 	int Priority;
 	const char* SubPriorityPtr;
+	const char* RelativeLibPtr;
 };
 
 static_assert(sizeof(hookaltdecl) == 32);
@@ -33,7 +36,17 @@ namespace SyringeData {
 
 #define declhookex(hook, funcname, size, priority, sub_priority) \
 namespace SyringeData { \
-	namespace HookAlt { __declspec(allocate(".hphks00")) hookaltdecl _hk__ ## hook ## funcname = { ## hook, ## size, #funcname, ## priority, ## sub_priority }; }; \
+	namespace HookAlt { __declspec(allocate(".hphks00")) hookaltdecl _hk__ ## hook ## funcname = { ## hook, ## size, #funcname, ## priority, ## sub_priority, "" }; }; \
+};
+
+#define declhookrel(hook, funcname, size, library) \
+namespace SyringeData { \
+	namespace HookAlt { __declspec(allocate(".hphks00")) hookaltdecl _hk__ ## hook ## funcname = { ## hook, ## size, #funcname, DefaultPriorityValue , "", ## library }; }; \
+};
+
+#define declhookexrel(hook, funcname, size, priority, sub_priority, library) \
+namespace SyringeData { \
+	namespace HookAlt { __declspec(allocate(".hphks00")) hookaltdecl _hk__ ## hook ## funcname = { ## hook, ## size, #funcname, ## priority, ## sub_priority, ## library }; }; \
 };
 
 #endif
@@ -50,6 +63,20 @@ EXPORT_FUNC(funcname)
 
 #define DEFINE_HOOKEX_AGAIN(hook, funcname, size, priority, sub_priority) \
 declhookex(hook, funcname, size, priority, sub_priority)
+
+#define DEFINE_HOOKREL(hook, funcname, size, library) \
+declhookrel(hook, funcname, size, library) \
+EXPORT_FUNC(funcname)
+
+#define DEFINE_HOOKREL_AGAIN(hook, funcname, size, library) \
+declhookrel(hook, funcname, size, library)
+
+#define DEFINE_HOOKEXREL(hook, funcname, size, priority, sub_priority, library) \
+declhookexrel(hook, funcname, size, priority, sub_priority, library) \
+EXPORT_FUNC(funcname)
+
+#define DEFINE_HOOKEXREL_AGAIN(hook, funcname, size, priority, sub_priority, library) \
+declhookexrel(hook, funcname, size, priority, sub_priority, library)
 
 using HookType = DWORD(__cdecl*)(REGISTERS*);
 
