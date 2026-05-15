@@ -251,6 +251,11 @@ namespace SyringeData
 	{
 		return *pExe;
 	}
+	int GetSyringeVersion()
+	{
+		if (!pExe)return 0;
+		return (int)pExe->VMajor * 1000000 + (int)pExe->VMinor * 10000 + (int)pExe->VRelease * 100 + (int)pExe->VBuild;
+	}
 	LibRemoteData* GetLibData(const std::string& Name)
 	{
 		auto it = LibMap.find(Name);

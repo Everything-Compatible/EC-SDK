@@ -205,6 +205,7 @@ namespace SyringeData
 	DWORD BaseAddress();
 	void InitRemoteData();
 	ExeRemoteData& GetExeData();
+	int GetSyringeVersion();
 	DWORD GetDatabaseSize();
 	LibRemoteData* GetLibData(const std::string& Name);
 	LibRemoteData* GetLibData(const DWORD LibID);
