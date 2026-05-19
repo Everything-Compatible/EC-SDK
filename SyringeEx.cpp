@@ -643,6 +643,7 @@ namespace SyringeData
 			return false;
 		pDaemonData->ThreadID = id;
 		pDaemonData->EnableDaemon = TRUE;
+		pDaemonData->ProcessReport = TRUE;
 		return true;
 	}
 
@@ -705,6 +706,8 @@ namespace SyringeData
 	const wchar_t* GetDaemonReport()
 	{
 		if (!IsDaemonSupported())
+			return L"";
+		if (!pDaemonData->lpReportString)
 			return L"";
 		return pDaemonData->lpReportString;
 	}

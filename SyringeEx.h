@@ -156,7 +156,8 @@ namespace SyringeData
 		DWORD lpReportStringLen;
 		const char* lpDebugPipeName;
 		DWORD lpDebugPipeNameLen;
-		int dwReserved[9];
+		BOOL ProcessReport;
+		int dwReserved[8];
 	};
 
 	struct SharedMemHeader
