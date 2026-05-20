@@ -123,6 +123,8 @@ bool ECInitLibrary(
     std::initializer_list<InitDependency> Dependencies = {}
 );
 
+JsonObject ECGetConfigJSON();
+
 /*
 结构：
 现有的头文件

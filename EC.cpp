@@ -246,3 +246,29 @@ void MyInit(InitResult& Result)
 		Temp_OnFirstInit();
 	}
 }
+
+JsonObject ECGetConfigJSON()
+{
+	static JsonFile ConfigFile;
+	static bool Initialized = false;
+	if(Initialized)
+		return ConfigFile.GetObj();
+	else
+	{
+		auto LibData = SyringeData::GetThisLibData();
+		if (LibData)
+		{
+			auto Text = SyringeData::GetSettingText(*LibData);
+			if (*Text)
+			{
+				//No syntax errors, guaranteed by SyringeIH
+				ConfigFile.Parse(Text);
+				Initialized = true;
+				return ConfigFile.GetObj();
+			}
+		}
+
+		Initialized = true;
+		return ConfigFile.GetObj();
+	}
+}

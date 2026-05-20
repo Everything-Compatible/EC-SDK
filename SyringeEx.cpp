@@ -1,7 +1,24 @@
 ﻿#include "SyringeEx.h"
 #include <YRPP.h>
 
-
+std::string GetThisDllName() {
+	HMODULE hModule = NULL;
+	// 用本函数自身的地址获取所在 DLL 的句柄
+	if (GetModuleHandleExW(
+		GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS |
+		GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+		reinterpret_cast<LPCWSTR>(&GetThisDllName),  // 任意本 DLL 内的地址
+		&hModule))
+	{
+		char path[MAX_PATH];
+		DWORD len = GetModuleFileNameA(hModule, path, MAX_PATH);
+		if (len > 0)
+		{
+			return PathFindFileNameA(path);
+		}
+	}
+	return "";
+}
 
 struct _USTRING
 {
@@ -268,6 +285,12 @@ namespace SyringeData
 		if (it != LibMap_ID.end())return it->second;
 		else return nullptr;
 	}
+	LibRemoteData* GetThisLibData()
+	{
+		return GetLibData(GetThisDllName());
+	}
+
+
 
 	DWORD GetLibID(const std::string& Name)
 	{

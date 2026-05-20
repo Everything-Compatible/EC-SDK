@@ -208,6 +208,7 @@ namespace SyringeData
 	ExeRemoteData& GetExeData();
 	int GetSyringeVersion();
 	DWORD GetDatabaseSize();
+	LibRemoteData* GetThisLibData();
 	LibRemoteData* GetLibData(const std::string& Name);
 	LibRemoteData* GetLibData(const DWORD LibID);
 	DWORD GetLibID(const std::string& Name);
