@@ -185,6 +185,19 @@ static_assert(sizeof(FuncInfo) == 24);
 struct GeneralExecutor;
 using SwizzleExecutor_t = void(__cdecl*)(GeneralExecutor* Exec, const GeneratorParam* Param, JsonObject CurrentContext);
 
+
+struct AddressCommentInfo
+{
+	DWORD Addr;
+	bool CanRead;
+	bool CanExecute;
+	bool CanWrite;
+	bool FirstAddrOfReport;
+	DWORD dwReserved[6]{};
+};
+
+static_assert(sizeof(AddressCommentInfo) == 32);
+
 /*
 存在ClassVersion的类型T不能直接用sizeof(T)来获取大小
 也不能直接接受T[]作为参数传递

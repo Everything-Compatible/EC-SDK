@@ -28,12 +28,6 @@ IH 是 钢铁之锤 开发的YR引擎扩展,目前包括IHCore IHLibList 2个组
 
 #include "IH.Config.h"
 
-struct AddressCommentInfo
-{
-	DWORD Addr;
-	bool CanRead;
-	bool CanExecute;
-};
 
 //Note : the return value should be allocated by IH::Malloc
 using AddressCommentProvider = const char* (__cdecl*)(const AddressCommentInfo&);
