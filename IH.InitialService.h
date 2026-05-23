@@ -65,3 +65,4 @@ namespace InitialLoad
 #define InitialRequest(Type, ...) InitialLoad::CreateRequestAndSubmit<InitialLoadParam_##Type>(__VA_ARGS__)
 #define RegisterIHFileFilter(Class, Filter) InitialLoad::CreateRequestAndSubmit<InitialLoadParam_RegisterFunction>("IHFile::RegisterIHFileFilter", #Class, Filter);
 #define RegisterIHFileBinding(Class, FileName) InitialLoad::CreateRequestAndSubmit<InitialLoadParam_RedirectFile>("IHFile::BindToStream", FileName, #Class);
+#define RegisterAddressCommentProvider(Name, Provider) InitialLoad::CreateRequestAndSubmit<InitialLoadParam_RegisterFunction>("EC::RegisterAddressCommentProvider", Name, Provider);
