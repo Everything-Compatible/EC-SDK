@@ -4,11 +4,309 @@
 #include "WIC.Template.h"
 
 /*
+
+！！注意：
+如果与SIWIC 0.0.9相配合，请定义OLD_WIC_009_BUFFCLASS。
+如果与高于SIWIC 0.0.9，不高于LTS#196的版本相配合，则直接调用。
+目前暂不支持与SIWIC 0.1.0及以上版本配合使用。
+
 BuffClass的函数调用是有限制的，
 可以看到有些函数后面跟着“存在 Removed”字样，表示函数会影响Buff的生命周期，
 只有在拥有这个字样的virtual函数里才能调用改变生命期的函数
+
+SIBuffClass的派生类不能添加新的成员变量，否则会导致ABI破坏。
+如果你需要添加额外成员，可以把额外成员存储在Buff的效果属性当中。
+或在数据过多时，通过引用你自定义的额外数据结构，并将一个指针或句柄放在一个效果属性来实现。
+所有效果属性上的值都会自动持久化，但不会自动Swizzle，因此你需要自己处理Swizzle问题。
+同时，这些像是SIExtraCode_A等可以从INI自动读取。
+这些值在已有的buff类型当中用途各不相同，每个Buff类型均可以为他们指定自定义的含义与用途。
 */
 
+//Version 009~LTS#196
+#ifndef OLD_WIC_009_BUFFCLASS
+class SIBuffClass
+{
+public:
+	//构造函数请保持里面什么都没有。真正的初始化请写到EffectDataInit函数。
+	SIBuffClass() : SICacheTargetList(noinit_t()), SICacheTargetMap(noinit_t()) {};
+
+	//非虚函数
+	//SIPack_BuffSetting_FromStatic的获取详见SIPackTypeClass_BuffSetting的函数
+	void TryRemark(SIPack_BuffSetting_FromStatic* Buff参数设置包); // 存在 Removed , 存在 Modified
+	void TryActive(SIPack_BuffSetting_FromStatic* Buff参数设置包); // 存在 Removed , 存在 Modified
+	void TryAfter(); // 存在 Removed , 存在 Modified
+	void TryDamage(double 准备造成的伤害); // 存在 Removed , 存在 Modified
+	// 接口函数 - 属性函数
+	void EnterState(SIBuffClass_State 状态); // 存在 Removed , 存在 Modified
+	void MergeSetting(SIPack_BuffSetting_FromStatic* Buff参数设置包); // 存在 Removed , 存在 Modified
+	CoordStruct GetCenterCoords();
+	TechnoClass* GetOwnerTechno(); // 返回值可能为空
+	TechnoClass* GetSourceTechno(); // 返回值可能为空
+	TechnoTypeClass* GetOwnerTechnoType(); // 返回值可能为空
+	TechnoTypeClass* GetSourceTechnoType(); // 返回值可能为空
+	HouseClass* GetActiveOwnerHouse();
+	HouseClass* GetActiveSourceHouse();
+	// 接口函数 - 工具函数
+	int GetEffectMode(int 参数项索引, int 最大值);
+	int GetEffectMode(int 参数项索引, int 最大值, int 最小值);
+	double GetEffectPower(int 参数项索引);
+	double GetEffectPower(int 参数项索引, double 最小值);
+	double GetEffectTotal(int 参数项索引, double 合并后的实际效果强度);
+	double GetEffectTotal(int 参数项索引, double 合并后的实际效果强度, double 最小值);
+	double GetEffectTotalMax(int 参数项索引);
+	double GetEffectTotalMin(int 参数项索引);
+	bool Effect_NotPassCommonCheck();
+	bool Effect_NotPassCommonCheck(SIBuffClass_EffectData* 生效数据);
+	bool Effect_NotPassCommonCheck(args_ReceiveDamage* 伤害参数);
+	bool Effect_NotPassCommonCheck(args_ReceiveDamage* 伤害参数, double 当前伤害);
+	bool Effect_NotPassCommonCheck(double 当前伤害);
+	bool Effect_NotPassCommonCheck_NoIronCurtain();
+	bool Effect_PassCheck_TechnoTypeList(TechnoTypeClass* 目标单位类型);
+	bool Effect_NotPassCheck_TechnoTypeList(TechnoTypeClass* 目标单位类型);
+	bool Effect_Match_TechnoTypeList(TechnoTypeClass* 目标单位类型);
+	bool Effect_NotMatch_TechnoTypeList(TechnoTypeClass* 目标单位类型);
+	void ReceiveWarheadDamage(TechnoClass* 目标单位, TechnoClass* 攻击单位, double 伤害, WarheadTypeClass* 伤害弹头类型); // 会设置 SIDamageLeft 属性
+	void ReceiveWarheadDamage(TechnoClass* 目标单位, TechnoClass* 攻击单位, double 伤害, WarheadTypeClass* 伤害弹头类型, HouseClass* 攻击单位所属作战方); // 会设置 SIDamageLeft 属性
+	void ReceiveHealthDamage(TechnoClass* 目标单位, double 生命值损耗, WarheadTypeClass* 结算护甲弹头类型, WarheadTypeClass* 死亡伤害弹头类型, bool 执行自身处理过程); // 会设置 SIDamageLeft 属性
+	void ReceiveHealthDamage(TechnoClass* 目标单位, double 生命值损耗, double 生命值损耗上限, double 生命值损耗下限, WarheadTypeClass* 结算护甲弹头类型, WarheadTypeClass* 死亡伤害弹头类型, bool 执行自身处理过程); // 会设置 SIDamageLeft 属性
+	bool FreshOrPostBroadcast(double 需要更新的广播强度, AbstractClass* 指向目标);
+	void ResetBroadcastPower(double 需要更新的广播强度);
+	int GetBroadcastListenerCount(bool 无视限制条件, AbstractClass* 指向目标);
+	bool AddAsBroadcastListener();
+	void RemoveAsBroadcastListener();
+	double GetBroadcastPower_Total();
+	TechnoClass* GetFireOwner(); // 返回值可能为空
+	bool GetFireOwnerRawOffset(CoordStruct& 本体坐标);
+	bool GetFireTargetRawOffset(AbstractClass* 目标, CoordStruct& 目标坐标);
+	double GetFacingRotate(SIRotateType 跟随旋转类型, CoordStruct 本体坐标, CoordStruct 目标坐标);
+	double GetFacingRotate_Same(SIRotateType 跟随旋转类型, CoordStruct 本体坐标, CoordStruct 目标坐标, SIRotateType 用于同步的跟随旋转类型, double 用于同步的旋转角度_弧度);
+	void FreshFacingAndAimingRadius_Common(CoordStruct 本体坐标, CoordStruct 本体开火坐标, CoordStruct 目标坐标, CoordStruct& 开火坐标, CoordStruct& 命中坐标);
+	void OffsetMotion_Init();
+	void OffsetMotion_AI();
+	void DigitalButtonData_Init(int 单位数量);
+
+	//！！注意
+	//只有标记了“存在 Removed”的函数里面才能移除这个Buff，只有标记了“存在 Modified”的函数里面才能修改这个Buff的属性。
+	//其他函数当中必须将Buff状态视作不可变的，否则可能会引起Buff生命周期的混乱。
+
+	//虚函数
+	// Buff生命周期函数
+	// 这几个函数会在Buff生命周期的不同阶段被调用，分别是挂载、激发、生效、结束、移除等阶段
+	virtual void OnEnterState_Init() {} // 存在 Removed , 存在 Modified
+	virtual void OnEnterState_Mark() {} // 存在 Removed , 存在 Modified
+	virtual void OnEnterState_Active() {} // 存在 Removed , 存在 Modified
+	virtual void OnEnterState_Effect() {} // 存在 Removed , 存在 Modified
+	virtual void OnEnterState_After() {} // 存在 Removed , 存在 Modified
+	virtual void OnEnterState_Remove() {} // 存在 Removed , 存在 Modified
+	// Buff信息的初始化函数
+	// SIBuffClass派生类的构造函数里请保持里面什么都没有。真正的初始化请写到EffectDataInit函数。
+	virtual void EffectDataInit() {} // 存在 Removed , 存在 Modified
+	// Buff属性变化函数
+	// 当强度值更新时会调用EffectPowerChanged函数。
+	virtual void EffectPowerChanged() {} // 存在 Removed , 存在 Modified
+	virtual void EffectTrigger_Lifecycle_Placeholder_0() {} // 预留
+	virtual void EffectTrigger_Lifecycle_Placeholder_1() {} // 预留
+	// 每一帧随着TechnoClass::Update对每个目标尝试调用EffectAI
+	// 或通过手动调用SIInterface_ExtendData::Buff_Update对这个目标尝试调用
+	// 此时，除下述情况以外：
+	// 正在被超时空抹除/不在地图上/在被传送的后摇当中/在载具里面/似了/正在沉船
+	// 则遍历所有目标上的buff并对SIBuffClass_State为“生效”的调用EffectAI
+	virtual void EffectAI(SIBuffClass_EffectData* 生效数据) {} // 存在 Removed , 存在 Modified
+	// Buff效果触发函数
+	// 这些函数会在特定的事件发生时被调用，例如攻击、受伤、死亡等事件
+	virtual bool EffectTriggerFire(AbstractClass* 目标, int 武器索引, WeaponStruct* 武器数据, CoordStruct 本体开火坐标, bool 死亡武器) { return true; } // 存在 Removed , 存在 Modified
+	virtual double EffectTriggerAttacker(TechnoClass* 目标单位, args_ReceiveDamage* 伤害参数, double 当前伤害) { return 当前伤害; } // 存在 Removed , 存在 Modified
+	virtual double EffectTriggerDefender(args_ReceiveDamage* 伤害参数, double 当前伤害) { return 当前伤害; } // 存在 Removed , 存在 Modified
+	// 注意这两个函数的互斥调用
+	// 在>= 0的伤害值下，EffectTriggerDefender_FinalPositive_And_0会被调用；
+	// 在 < 0的伤害值下，EffectTriggerDefender_FinalNegative会被调用。
+	virtual double EffectTriggerDefender_FinalPositive_And_0(args_ReceiveDamage* 伤害参数, double 当前伤害) { return 当前伤害; } // 存在 Removed , 存在 Modified
+	virtual double EffectTriggerDefender_FinalNegative(args_ReceiveDamage* 伤害参数, double 当前伤害) { return 当前伤害; } // 存在 Removed , 存在 Modified
+	virtual void EffectTriggerDeath(args_ReceiveDamage* 伤害参数) {} // 存在 Removed , 存在 Modified
+	virtual void EffectTriggerKiller(TechnoClass* 目标单位, args_ReceiveDamage* 伤害参数) {} // 存在 Removed , 存在 Modified
+	virtual void EffectTrigger_Outside_Placeholder_0() {} // 预留
+	virtual void EffectTrigger_Outside_Placeholder_1() {} // 预留
+	virtual void EffectTrigger_Outside_Placeholder_2() {} // 预留
+	virtual void EffectTrigger_Outside_Placeholder_3() {} // 预留
+	virtual void EffectTrigger_Outside_Placeholder_4() {} // 预留
+	virtual void EffectTrigger_Outside_Placeholder_5() {} // 预留
+	// 这个是伤害处理的自身处理环节
+	// 可以由同一单位上其他Buff触发，如吸血Buff吸到血时触发
+	// 在受到伤害时，是否触发则受Type->SIDamageProcessType影响，如：
+	// Type->SIDamageProcessType == 伤害处理_生命 时会触发，
+	// Type->SIDamageProcessType == 伤害处理_仅生命 时不会触发
+	// 另外两个SIDamageProcessType则会走更多的流程：
+	// Type->SIDamageProcessType == 伤害处理_引爆 会从引爆弹头开始走完整的伤害流程
+	// Type->SIDamageProcessType == 伤害处理_伤害 会从受伤开始走后续的伤害流程
+	// Type->SIDamageProcessType == 伤害处理_生命 会从受伤后导致生命值变化那个位置开始走后续的伤害流程
+	// Type->SIDamageProcessType == 伤害处理_仅生命 同上但跳过EffectTriggerSelf
+	virtual double EffectTriggerSelf_Positive_And_0(double 当前伤害) { return 当前伤害; } // 存在 Removed , 存在 Modified
+	virtual double EffectTriggerSelf_Negative(double 当前伤害) { return 当前伤害; } // 存在 Removed , 存在 Modified
+	virtual void EffectTrigger_Self_Placeholder_0() {} // 预留
+	virtual void EffectTrigger_Self_Placeholder_1() {} // 预留
+	virtual void EffectTrigger_Self_Placeholder_2() {} // 预留
+	virtual void EffectTrigger_Self_Placeholder_3() {} // 预留
+	virtual bool EffectTriggerBroadcast_Accept(double 广播强度, CoordStruct 发布坐标, TechnoClass* 发布单位, AbstractClass* 指向目标) { return true; } // 存在 Removed , 存在 Modified
+	virtual void EffectTriggerBroadcast(double 广播强度, CoordStruct 发布坐标, TechnoClass* 发布单位, AbstractClass* 指向目标) {} // 存在 Removed , 存在 Modified
+	virtual void EffectTrigger_Inside_Placeholder_0() {} // 预留
+	virtual void EffectTrigger_Inside_Placeholder_1() {} // 预留
+	virtual void EffectTrigger_Inside_Placeholder_2() {} // 预留
+	virtual void EffectTrigger_Inside_Placeholder_3() {} // 预留
+	virtual void EffectTrigger_Inside_Placeholder_4() {} // 预留
+	virtual void EffectTrigger_Inside_Placeholder_5() {} // 预留
+	virtual SIPackTypeClass_DigitalSetting* EffectTriggerDrawBar_1_UsePrimary() { return nullptr; }
+	virtual SIPackTypeClass_DigitalSetting* EffectTriggerDrawBar_2_UseSecondary() { return nullptr; }
+	virtual SIPackTypeClass_DigitalSetting* EffectTriggerDrawBar_3_UseTertiary() { return nullptr; }
+	virtual SIPackTypeClass_DigitalSetting* EffectTriggerDrawBar_4_UseQuaternary() { return nullptr; }
+	virtual SIPackTypeClass_DigitalButtonSetting* EffectTriggerDrawBar_5_UseButton() { return nullptr; }
+	virtual void EffectTriggerDrawBar_1_SetDataPrimary(SIPack_DigitalSetting* 数值显示设置包) {}
+	virtual void EffectTriggerDrawBar_2_SetDataSecondary(SIPack_DigitalSetting* 数值显示设置包) {}
+	virtual void EffectTriggerDrawBar_3_SetDataTertiary(SIPack_DigitalSetting* 数值显示设置包) {}
+	virtual void EffectTriggerDrawBar_4_SetDataQuaternary(SIPack_DigitalSetting* 数值显示设置包) {}
+	virtual void EffectTriggerDrawBar_5_SetDataButton(SIPack_DigitalSetting* 数值显示设置包) {}
+	virtual SIPackTypeClass_DigitalSetting* EffectTriggerClickBar_1_UsePrimary() { return nullptr; }
+	virtual SIPackTypeClass_DigitalSetting* EffectTriggerClickBar_2_UseSecondary() { return nullptr; }
+	virtual SIPackTypeClass_DigitalSetting* EffectTriggerClickBar_3_UseTertiary() { return nullptr; }
+	virtual SIPackTypeClass_DigitalSetting* EffectTriggerClickBar_4_UseQuaternary() { return nullptr; }
+	virtual SIPackTypeClass_DigitalButtonSetting* EffectTriggerClickBar_5_UseButton() { return nullptr; }
+	virtual bool EffectTriggerClickBar_1_HoverPrimary(SIPack_DigitalSetting* 数值显示设置包, HouseClass* 点击的所属方, Point2D* 点击像素偏移) { return false; }
+	virtual bool EffectTriggerClickBar_2_HoverSecondary(SIPack_DigitalSetting* 数值显示设置包, HouseClass* 点击的所属方, Point2D* 点击像素偏移) { return false; }
+	virtual bool EffectTriggerClickBar_3_HoverTertiary(SIPack_DigitalSetting* 数值显示设置包, HouseClass* 点击的所属方, Point2D* 点击像素偏移) { return false; }
+	virtual bool EffectTriggerClickBar_4_HoverQuaternary(SIPack_DigitalSetting* 数值显示设置包, HouseClass* 点击的所属方, Point2D* 点击像素偏移) { return false; }
+	virtual bool EffectTriggerClickBar_5_HoverButton(SIPack_DigitalSetting* 数值显示设置包, HouseClass* 点击的所属方, Point2D* 点击像素偏移) { return false; }
+	virtual bool EffectTriggerClickBar_1_TryClickPrimary(SIPack_DigitalSetting* 数值显示设置包, HouseClass* 点击的所属方, Point2D* 点击像素偏移) { return false; }
+	virtual bool EffectTriggerClickBar_2_TryClickSecondary(SIPack_DigitalSetting* 数值显示设置包, HouseClass* 点击的所属方, Point2D* 点击像素偏移) { return false; }
+	virtual bool EffectTriggerClickBar_3_TryClickTertiary(SIPack_DigitalSetting* 数值显示设置包, HouseClass* 点击的所属方, Point2D* 点击像素偏移) { return false; }
+	virtual bool EffectTriggerClickBar_4_TryClickQuaternary(SIPack_DigitalSetting* 数值显示设置包, HouseClass* 点击的所属方, Point2D* 点击像素偏移) { return false; }
+	virtual bool EffectTriggerClickBar_5_TryClickButton(SIPack_DigitalSetting* 数值显示设置包, HouseClass* 点击的所属方, Point2D* 点击像素偏移) { return false; }
+	virtual void EffectTriggerClickBar_1_EffectPrimary(HouseClass* 点击的作战方, double 当前值) {} // 存在 Removed , 存在 Modified
+	virtual void EffectTriggerClickBar_2_EffectSecondary(HouseClass* 点击的作战方, double 当前值) {} // 存在 Removed , 存在 Modified
+	virtual void EffectTriggerClickBar_3_EffectTertiary(HouseClass* 点击的作战方, double 当前值) {} // 存在 Removed , 存在 Modified
+	virtual void EffectTriggerClickBar_4_EffectQuaternary(HouseClass* 点击的作战方, double 当前值) {} // 存在 Removed , 存在 Modified
+	virtual void EffectTriggerClickBar_5_EffectButton(HouseClass* 点击的作战方, double 当前值) {} // 存在 Removed , 存在 Modified
+	virtual void EffectTrigger_GUI_Placeholder_0() {} // 预留
+	virtual void EffectTrigger_GUI_Placeholder_1() {} // 预留
+	virtual void EffectTrigger_GUI_Placeholder_2() {} // 预留
+	virtual void EffectTrigger_GUI_Placeholder_3() {} // 预留
+	virtual void EffectTrigger_GUI_Placeholder_4() {} // 预留
+	virtual void EffectTrigger_GUI_Placeholder_5() {} // 预留
+	virtual void EffectTrigger_GUI_Placeholder_6() {} // 预留
+	virtual void EffectTrigger_GUI_Placeholder_7() {} // 预留
+	virtual void EffectTriggerDataReset() {}
+	// 指针失效的触发函数
+	// 当场上存在销毁的指针时，Buff会被广播到这个函数
+	// 检查你的Buff对象是否持有这个寄掉的目标，如果持有请相应处理
+	// 已移除参数表示这个指针是因为目标被移除出地图而失效的，还是因为目标被销毁而失效的
+	virtual void EffectTriggerPointerGotInvalid(AbstractClass* 寄掉的目标, bool 已移除) {}
+	virtual void EffectTrigger_Data_Placeholder_0() {} // 预留
+	virtual void EffectTrigger_Data_Placeholder_1() {} // 预留
+
+
+	// 基础属性，不可在外部改动
+	SIBuffTypeClass* Type;
+	SIBuffTypeClass_EffectType EffectType;
+	int UID;
+	// 主体属性，不可在外部改动
+	AbstractClass* SIOwner;
+	TechnoTypeClass* SIOwner_TechnoType;
+	SIInterface_ExtendData* SIOwner_Extend;
+	HouseClass* SIOwner_House;
+	bool SIOwner_IsCell;
+	bool SIOwner_IsObject;
+	bool SIOwner_IsTechno;
+	bool SIOwner_IsAnimation;
+	bool SIOwner_IsBullet;
+	bool SIOwner_IsTerrain;
+	bool SIOwner_IsOverlay;
+	bool SIOwner_IsHouse;
+	AbstractClass* SISource;
+	TechnoTypeClass* SISource_TechnoType;
+	HouseClass* SISource_House;
+	bool SISource_IsCell;
+	bool SISource_IsObject;
+	bool SISource_IsTechno;
+	bool SISource_IsAnimation;
+	bool SISource_IsBullet;
+	bool SISource_IsTerrain;
+	bool SISource_IsOverlay;
+	bool SISource_IsHouse;
+	// 状态属性，不可在外部改动
+	SIBuffClass_State SIBuffState;
+	int SITimeLeft_ActiveAuto;
+	int SITimeLeft_ActiveBefore;
+	int SITimeLeft_ActiveDelay;
+	int SICounterLeft_ActiveCheckDelay;
+	int SIDurationLeft;
+	double SIHealthLeft;
+	double SIPowerLeft;
+	int SIPlaceholderLeft_A;
+	int SIPlaceholderLeft_B;
+	int SIPlaceholderLeft_C;
+	int SIPlaceholderLeft_D;
+	bool SIIsTemporary;
+	bool SICanDamage;
+	bool SIPlaceholderState_A;
+	bool SIPlaceholderState_B;
+	bool SIPlaceholderState_C;
+	bool SIPlaceholderState_D;
+	//效果属性,可以修改
+	//如果想要添加属性，请直接使用SIExtraCode_A到SIEffectData_15的成员存储而不新增
+	//这些成员可以在保证占据空间不变的前提下改变其中的类型
+	//或在数据过多时，通过引用你自定义的额外数据结构，并将一个指针或句柄放在一个效果属性来实现。
+	//这些成员会自动存读档，请不要存储指针，否则请自行Swizzle
+	//同时，这些像是SIExtraCode_A等可以从INI自动读取。
+	//这些值在已有的buff类型当中用途各不相同，每个Buff类型均可以为他们指定自定义的含义与用途。
+	AnimClass* SIAnimation;//这个成员改起来小心点，改不好就爆炸
+	int SICountLeft;
+	int SIDelayLeft;
+	int SITimerLeft;
+	int SIDamageLeft;
+	int SIExtraLeft_0;
+	int SIExtraLeft_1;
+	int SIExtraLeft_2;
+	int SIExtraLeft_3;
+	AbstractClass* SICacheTarget;
+	SIDataList<AbstractClass*> SICacheTargetList;
+	SIDataMap<AbstractClass*, double> SICacheTargetMap;
+	int SIExtraCode_A;
+	int SIExtraCode_B;
+	int SIExtraCode_C;
+	int SIExtraCode_D;
+	int SIEffectMode_0;
+	int SIEffectMode_1;
+	int SIEffectMode_2;
+	int SIEffectMode_3;
+	int SIEffectMode_4;
+	int SIEffectMode_5;
+	int SIEffectMode_6;
+	int SIEffectMode_7;
+	int SIEffectMode_8;
+	int SIEffectMode_9;
+	int SIEffectValue_0;
+	int SIEffectValue_1;
+	int SIEffectValue_2;
+	int SIEffectValue_3;
+	int SIEffectValue_4;
+	int SIEffectValue_5;
+	double SIEffectData_0;
+	double SIEffectData_1;
+	double SIEffectData_2;
+	double SIEffectData_3;
+	double SIEffectData_4;
+	double SIEffectData_5;
+	double SIEffectData_6;
+	double SIEffectData_7;
+	double SIEffectData_8;
+	double SIEffectData_9;
+	double SIEffectData_10;
+	double SIEffectData_11;
+	double SIEffectData_12;
+	double SIEffectData_13;
+	double SIEffectData_14;
+	double SIEffectData_15;
+	//其后的成员暂不保证二进制兼容，故不列出
+};
+#else
 class SIBuffClass
 {
 public:
@@ -254,9 +552,170 @@ public:
 	double SIEffectData_15;
 	//其后的成员暂不保证二进制兼容，故不列出
 };
+#endif
 
+#ifndef OLD_WIC_009_BUFFCLASS
+class NOVTABLE SIBuffTypeClass final : public SIEnumerable<SIBuffTypeClass>
+{
+public:
+	// 初始化属性
+	bool SIIsFirstTimeLoad;
+	// 基础属性
+	int SIOrder;
+	bool SIAllowExist_Transfer;
+	bool SIAllowExist_Passenger;
+	bool SIAllowExist_Occupant;
+	bool SIAllowExist_Powered;
+	bool SIAllowPlayer;
+	bool SIAllowAI_Easy;
+	bool SIAllowAI_Normal;
+	bool SIAllowAI_Hard;
+	bool SIAllowGameMode_Campaign;
+	bool SIAllowGameMode_Other;
+	bool SIEnableCodeDamage;
+	bool SINeedPowered;
+	bool SIWaitingIronCurtain;
+	bool SILockOwnerHouse;
+	bool SIMultiInstance;
+	SIDamageProcessType SIDamageProcessType;
+	// 动画相关属性
+	SIDataList<AnimTypeClass*> SIAnim;
+	SIDataList<AnimTypeClass*> SIAnim_Death;
+	SIDataList<AnimTypeClass*> SIAnim_Removed;
+	SIDataList<AnimTypeClass*> SIAnim_End;
+	SIDataList<AnimTypeClass*> SIAnim_BuffDeath;
+	// 挂载持续时间相关属性
+	int SIDuration;
+	int SIDuration_Max;
+	int SIDuration_Min;
+	// 生命值相关属性
+	double SIHealth;
+	double SIHealth_Max;
+	double SIHealth_Min;
+	bool SIHealth_Damage;
+	// 状态控制相关属性
+	bool SIBuff_Multy;
+	int SIActive_Auto;
+	SIPackTypeClass_BuffSetting* SIActive_Auto_Setting;
+	SIPackTypeClass_CheckTechno* SIActive_Auto_Check;
+	int SIActive_Auto_CheckDelay;
+	int SIActive_Before;
+	int SIActive_After;
+	int SIActive_Delay;
+	bool SIActive_Multy;
+	SIBuffTypeClass_AfterType SIAfter_Type;
+	SIDataList<SIBuffTypeClass*> SIAfter_NextBuffs;
+	SIDataList<SIPackTypeClass_BuffSetting*> SIAfter_NextBuff_Settings;
+	// 效果种类相关属性
+	SIBuffTypeClass_EffectType SIEffect_Type;
+	SIDataList<SIBuffTypeClass*> SIEffect_AcceptBuffs;
+	SIDataList<SIBuffTypeClass*> SIEffect_ExceptBuffs;
+	SIDataList<TechnoTypeClass*> SIEffect_Technos;
+	SIDataList<WeaponTypeClass*> SIEffect_Weapons;
+	SIDataList<WarheadTypeClass*> SIEffect_Warheads;
+	SIDataList<AnimTypeClass*> SIEffect_Anims;
+	SIDataList<AnimTypeClass*> SIEffect_AnimsOthers;
+	SIDataPackTypeClass* SIEffect_DataPack;
+	SIDataList<int> SIEffect_Damages;
+	SIDataList<int> SIEffect_Counts;
+	SIDataList<int> SIEffect_Amounts;
+	SIDataList<int> SIEffect_AnimDelays;
+	SIDataList<int> SIEffect_Modes;
+	SIDataList<double> SIEffect_Values;
+	SIDataList<double> SIEffect_Healths;
+	SIDataList<double> SIEffect_Power_Limits;
+	int SIEffect_UnitType;
+	int SIEffect_Owner;
+	int SIEffect_ExtraCodeA;
+	int SIEffect_ExtraCodeB;
+	int SIEffect_ExtraCodeC;
+	int SIEffect_ExtraCodeD;
+	int SIEffect_Timer;
+	int SIEffect_Delay;
+	double SIEffect_Range;
+	bool SIEffect_Random;
+	bool SIEffect_Display;
+	bool SIEffect_Self;
+	bool SIEffect_Other;
+	bool SIEffect_Attacker;
+	bool SIEffect_Source;
+	bool SIEffect_Target;
+	bool SIEffect_FromSource;
+	bool SIEffect_TargetSource;
+	SIDataList<int> SIEffect_OffsetSource;
+	SIDataList<int> SIEffect_OffsetSourceBase;
+	SIDataList<int> SIEffect_OffsetTarget;
+	SIDataList<int> SIEffect_OffsetTargetBase;
+	SIPackTypeClass_OffsetMotion* SIEffect_OffsetSourceMotion;
+	SIPackTypeClass_OffsetMotion* SIEffect_OffsetSourceBaseMotion;
+	SIPackTypeClass_OffsetMotion* SIEffect_OffsetTargetMotion;
+	SIPackTypeClass_OffsetMotion* SIEffect_OffsetTargetBaseMotion;
+	SIRotateType SIEffect_OffsetSourceDirection;
+	SIRotateType SIEffect_OffsetSourceBaseDirection;
+	SIRotateType SIEffect_OffsetTargetDirection;
+	SIRotateType SIEffect_OffsetTargetBaseDirection;
+	// 效果强度值相关属性
+	double SIPower_Startup;
+	SIDataList<double> SIPower_Bases;
+	SIDataList<double> SIPower_Mults;
+	SIDataList<double> SIPower_Maxs;
+	SIDataList<double> SIPower_Mins;
+	SIDataList<double> SIPower_Maxs_Total;
+	SIDataList<double> SIPower_Mins_Total;
+	SIDataList<double> SIPower_Maxs_Real;
+	SIDataList<double> SIPower_Mins_Real;
+	SIDataList<double> SIPower_Maxs_Effect;
+	SIDataList<double> SIPower_Mins_Effect;
+	// 广播与监听相关属性
+	bool SIBroadcast;
+	SIDataList<int> SIBroadcast_Channels;
+	int SIBroadcast_Owner;
+	bool SIBroadcast_Fresh;
+	bool SIListener;
+	SIDataList<int> SIListener_Channels;
+	int SIListener_Owner;
+	double SIListener_Range;
+	bool SIListener_ActiveMode;
+	// 数值显示相关属性
+	bool SIDigital;
+	SIPackTypeClass_DigitalSetting* SIDigital_Primary;
+	SIPackTypeClass_DigitalSetting* SIDigital_Secondary;
+	SIPackTypeClass_DigitalSetting* SIDigital_Tertiary;
+	SIPackTypeClass_DigitalSetting* SIDigital_Quaternary;
+	SIPackTypeClass_DigitalButtonSetting* SIDigital_Button;
+	SIDataList<SICommandCode> SIDigital_Button_KeyBinds;
+	int SIDigital_Button_Owner;
+	bool SIDigital_Button_Observer;
+	bool SIDigital_AutoOffset;
+	double SIDigital_BufferSpeed;
+	SIDataList<SIWICPCXFile> SIDigital_Cameos_Pcx;
+	// 自动生成
+	bool SIEffect_NeedCheckBuffs;
+	bool SIEffect_IsFull_OffsetSource;
+	bool SIEffect_IsFull_OffsetSourceBase;
+	bool SIEffect_IsFull_OffsetTarget;
+	bool SIEffect_IsFull_OffsetTargetBase;
+	// 数据处理函数
+	virtual void InitializeConstants() {};
+	virtual void LoadFromINI(CCINIClass* INI) {};
+	virtual void LoadFromStream(SIStreamReader& 流) {};
+	virtual void SaveToStream(SIStreamWriter& 流) {};
 
+	SIBuffTypeClass() = delete;
+	SIBuffTypeClass(const SIBuffTypeClass&) = delete;
+	SIBuffTypeClass(SIBuffTypeClass&& ) = delete;
+public:
 
+	// 功能函数 接口被牢大肘飞了
+	//WarheadTypeClass* GetRandomWarhead(int& 弹头索引);
+	//int GetRandomWarheadIndex();
+	//WeaponTypeClass* GetRandomWeapon();
+	//int GetRandomWeaponIndex();
+	//bool CanEffectBuff(SIBuffTypeClass* Buff类型);
+	//bool CanPassBuffsCheck(SIInterface_ExtendData* 数据扩展);
+	//bool CannotPassBuffsCheck(SIInterface_ExtendData* 数据扩展);
+};
+#else
 class NOVTABLE SIBuffTypeClass final : public SIEnumerable<SIBuffTypeClass>
 {
 public:
@@ -402,7 +861,7 @@ public:
 
 	SIBuffTypeClass() = delete;
 	SIBuffTypeClass(const SIBuffTypeClass&) = delete;
-	SIBuffTypeClass(SIBuffTypeClass&& ) = delete;
+	SIBuffTypeClass(SIBuffTypeClass&&) = delete;
 public:
 
 	// 功能函数 接口被牢大肘飞了
@@ -415,6 +874,7 @@ public:
 	//bool CannotPassBuffsCheck(SIInterface_ExtendData* 数据扩展);
 };
 
+#endif
 
 class NOVTABLE SIPackTypeClass_BuffSetting : public SIEnumerable<SIPackTypeClass_BuffSetting>
 {

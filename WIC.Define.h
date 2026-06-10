@@ -1103,6 +1103,68 @@ struct SIValues_HouseInitEXP
 	}
 };
 
+
+// pcx filename storage with optional automatic loading
+class SIWICPCXFile
+{
+	static const size_t Capacity = 0x20;
+
+public:
+	explicit SIWICPCXFile(bool 自动处理 = true) : filename(), resolve(自动处理), checked(false), exists(false)
+	{
+	}
+
+	SIWICPCXFile(const char* 文件名, bool 自动处理 = true) : SIWICPCXFile(自动处理)
+	{
+		*this = 文件名;
+	}
+
+	SIWICPCXFile& operator = (const char* 文件名)
+	{
+		this->filename = 文件名;
+		auto& 数据 = this->filename.data();
+		_strlwr_s(数据);
+		this->checked = false;
+		this->exists = false;
+		if (this->resolve)
+		{
+			this->Exists();
+		}
+		return *this;
+	}
+
+	const FixedString<Capacity>::data_type& GetFilename() const
+	{
+		return this->filename.data();
+	}
+
+	BSurface* GetSurface(BytePalette* 色盘数据 = nullptr) const
+	{
+		return this->Exists() ? PCX::Instance->GetSurface(this->filename, 色盘数据) : nullptr;
+	}
+
+	bool Exists() const
+	{
+		if (!this->checked)
+		{
+			this->checked = true;
+			if (this->filename)
+			{
+				auto pPCX = &PCX::Instance;
+				this->exists = (pPCX->GetSurface(this->filename) || pPCX->LoadFile(this->filename));
+			}
+		}
+		return this->exists;
+	}
+
+
+private:
+	FixedString<Capacity> filename;
+	bool resolve;
+	mutable bool checked;
+	mutable bool exists;
+};
+
 #define SI_API __stdcall
 /*
 	这部分是SI的原始接口，不建议直接调用，请通过SIInterface_ExtendData类操控！
