@@ -25,8 +25,8 @@ public:
 	inline const T& back() const { return *(End - 1); }
 	inline const T& at(size_t sz) const { return Begin[sz]; }
 	inline const T& operator[] (size_t sz) const  { return Begin[sz]; }
-	inline const size_t size() const { return ((size_t)(End - Begin)) / sizeof(T); }
-	inline const size_t capacity() const { return ((size_t)(CapacityEnd - Begin)) / sizeof(T); }
+	inline const size_t size() const { return ((size_t)(End - Begin)) ; }
+	inline const size_t capacity() const { return ((size_t)(CapacityEnd - Begin)) ; }
 	inline const bool Empty() const { return Begin == End; }
 
 	SIConstVector() = delete;
