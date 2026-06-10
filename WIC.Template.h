@@ -57,10 +57,11 @@ public:
 
 	T GetItem(size_t 索引)
 	{
-		//if (this->InvalidIndex(索引))
-		//{
-		//	SIDebug::Log("向 SIDataList 取出数据时 , 索引指向了范围外 : [%hs]", typeid(T).name());
-		//}
+		void Internal_DebugLog(const char* pFormat, ...);
+		if (this->InvalidIndex(索引))
+		{
+			Internal_DebugLog(u8"SIDataList<%hs> index out of range!", typeid(T).name());
+		}
 		return this->at(索引);
 	}
 
