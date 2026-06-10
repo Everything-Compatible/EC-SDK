@@ -1140,7 +1140,7 @@ public:
 
 	BSurface* GetSurface(BytePalette* 色盘数据 = nullptr) const
 	{
-		return this->Exists() ? PCX::Instance->GetSurface(this->filename, 色盘数据) : nullptr;
+		return this->Exists() ? static_cast<PCX&>(PCX::Instance).GetSurface(this->filename, 色盘数据) : nullptr;
 	}
 
 	bool Exists() const
