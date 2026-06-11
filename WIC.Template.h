@@ -60,7 +60,7 @@ public:
 		void Internal_DebugLog(const char* pFormat, ...);
 		if (this->InvalidIndex(索引))
 		{
-			Internal_DebugLog(u8"SIDataList<%hs> index out of range!", typeid(T).name());
+			Internal_DebugLog("SIDataList<%hs> index out of range!", typeid(T).name());
 		}
 		return this->at(索引);
 	}
