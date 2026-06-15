@@ -667,6 +667,7 @@ namespace SyringeData
 		pDaemonData->ThreadID = id;
 		pDaemonData->EnableDaemon = TRUE;
 		pDaemonData->ProcessReport = TRUE;
+		pDaemonData->NewPipeFormat = TRUE;
 		return true;
 	}
 
@@ -735,8 +736,34 @@ namespace SyringeData
 		return pDaemonData->lpReportString;
 	}
 
-	static const size_t PipeBufferSize = 32768;// 32KB
-	char PipeBuffer[PipeBufferSize] = { 0 };
+	bool WritePipeRecordToFileProxy(HANDLE hFile, LPCVOID lpBuffer, DWORD nNumberOfBytesToWrite, LPDWORD lpNumberOfBytesWritten)
+	{
+		const int NewPipeFormatLeastSupportVersion = 30014;//0.3.0.14
+		if (GetSyringeVersion() < NewPipeFormatLeastSupportVersion)
+		{
+			return WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten, NULL);
+		}
+		else
+		{
+			return WritePipeRecordToFile(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten);
+		}
+	}
+
+	bool ReadPipeRecordFromFileProxy(HANDLE hFile, std::vector<BYTE>& Buffer, LPDWORD lpNumberOfBytesRead)
+	{
+		const int NewPipeFormatLeastSupportVersion = 30014;//0.3.0.14
+		const size_t PipeBufferSize = 32768;// 32KB
+		if (GetSyringeVersion() < NewPipeFormatLeastSupportVersion)
+		{
+			Buffer.resize(PipeBufferSize);
+			return ReadFile(hFile, Buffer.data(), PipeBufferSize, lpNumberOfBytesRead, NULL);
+		}
+		else
+		{
+			return ReadPipeRecordFromFile(hFile, Buffer, lpNumberOfBytesRead);
+		}
+	}
+
 	//ERROR_NOT_SUPPORTED = 50
 	//ERROR_NOT_CONNECTED = 2250
 	//ERROR_NO_DATA = 232
@@ -750,7 +777,7 @@ namespace SyringeData
 		if (!IsDaemonConnected())
 			return NotConnectedMsg;
 		DWORD dwWritten = 0;
-		if (!WriteFile(DaemonPipeHandle, Message.c_str(), Message.size(), &dwWritten, NULL))
+		if (!WritePipeRecordToFileProxy(DaemonPipeHandle, Message.c_str(), Message.size(), &dwWritten))
 		{
 			DWORD dwError = GetLastError();
 			if (dwError == ERROR_BROKEN_PIPE)
@@ -763,7 +790,9 @@ namespace SyringeData
 		}
 		std::string Result;
 		DWORD dwRead = 0;
-		if (!ReadFile(DaemonPipeHandle, PipeBuffer, PipeBufferSize, &dwRead, NULL))
+
+		std::vector<BYTE> PipeBuffer;
+		if (!ReadPipeRecordFromFileProxy(DaemonPipeHandle, PipeBuffer, &dwRead))
 		{
 			DWORD dwError = GetLastError();
 			if (dwError == ERROR_BROKEN_PIPE)
@@ -778,8 +807,7 @@ namespace SyringeData
 		{
 			return NoDataMsg;
 		}
-		Result = PipeBuffer;
-		PipeBuffer[0] = 0; 
+		Result.assign(PipeBuffer.begin(), PipeBuffer.end());
 		return Result;
 	}
 
@@ -788,3 +816,50 @@ namespace SyringeData
 		return IsDaemonConnected() && DaemonPipeClosed;
 	}
 }	
+
+bool WritePipeRecordToFile(HANDLE hFile, LPCVOID lpBuffer, DWORD nNumberOfBytesToWrite, LPDWORD lpNumberOfBytesWritten)
+{
+	DaemonPipeRecordHeader Header(nNumberOfBytesToWrite);
+	DWORD dwWritten = 0;
+	if (!WriteFile(hFile, &Header, sizeof(Header), &dwWritten, NULL))
+	{
+		if (lpNumberOfBytesWritten)*lpNumberOfBytesWritten = 0;
+		return false;
+	}
+
+	if (!WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, &dwWritten, NULL))
+	{
+		if (lpNumberOfBytesWritten)*lpNumberOfBytesWritten = dwWritten;
+		return false;
+	}
+
+	if (lpNumberOfBytesWritten)*lpNumberOfBytesWritten = dwWritten;
+	return true;
+}
+
+bool ReadPipeRecordFromFile(HANDLE hFile, std::vector<BYTE>& Buffer, LPDWORD lpNumberOfBytesRead)
+{
+	DaemonPipeRecordHeader Header(0);
+	memset(&Header, 0, sizeof(Header));	
+	DWORD dwRead = 0;
+	if (!ReadFile(hFile, &Header, sizeof(Header), &dwRead, NULL))
+	{
+		if (lpNumberOfBytesRead)*lpNumberOfBytesRead = 0;
+		return false;
+	}
+	if(dwRead != sizeof(Header) || Header.Magic != DaemonPipeRecordHeader::HeaderMagic)
+	{
+		if (lpNumberOfBytesRead)*lpNumberOfBytesRead = 0;
+		return false;
+	}
+
+	Buffer.resize(Header.DataSize);
+	if (!ReadFile(hFile, Buffer.data(), Header.DataSize, &dwRead, NULL))
+	{
+		if (lpNumberOfBytesRead)*lpNumberOfBytesRead = 0;
+		return false;
+	}
+
+	if (lpNumberOfBytesRead)*lpNumberOfBytesRead = dwRead;
+	return true;
+}

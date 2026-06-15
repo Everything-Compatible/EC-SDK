@@ -81,6 +81,21 @@ declhookexrel(hook, funcname, size, priority, sub_priority, library)
 using HookType = DWORD(__cdecl*)(REGISTERS*);
 
 
+struct DaemonPipeRecordHeader
+{
+	static constexpr DWORD HeaderMagic = 0x67676767;
+	DWORD Magic;
+	DWORD DataSize;
+	DWORD Reserved[6];
+
+	DaemonPipeRecordHeader(DWORD DataSize) :Magic(HeaderMagic), DataSize(DataSize)
+	{
+		memset(Reserved, 0, sizeof(Reserved));
+	}
+};
+bool WritePipeRecordToFile(HANDLE hFile, LPCVOID lpBuffer, DWORD nNumberOfBytesToWrite, LPDWORD lpNumberOfBytesWritten);
+bool ReadPipeRecordFromFile(HANDLE hFile, std::vector<BYTE>& Buffer, LPDWORD lpNumberOfBytesRead);
+
 //在DllMain当中Init::Initialize()后即可使用
 namespace SyringeData
 {
@@ -157,7 +172,8 @@ namespace SyringeData
 		const char* lpDebugPipeName;
 		DWORD lpDebugPipeNameLen;
 		BOOL ProcessReport;
-		int dwReserved[8];
+		BOOL NewPipeFormat;
+		int dwReserved[7];
 	};
 
 	struct SharedMemHeader
