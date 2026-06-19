@@ -137,6 +137,12 @@ private:
 	static const bool ReceiveArrayArgs_Default = false;
 public:
 
+	void SetAsCommand(bool AsCommand)
+	{
+		if (ClassVersion >= 2)
+			ConsiderAsCommand = AsCommand;
+	}
+
 	size_t GetSize()
 	{
 		if (ClassVersion == 1)return 12;
