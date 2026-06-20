@@ -173,6 +173,8 @@ public:
     //不需要可用性检查
     void Merge(JsonObject Obj);
 };
+
+const JsonObject PlaceholderJsonObject{ cJSON_CreateNull() };
 const JsonObject NullJsonObject{ nullptr };
 
 class JsonFile
