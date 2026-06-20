@@ -670,20 +670,44 @@ namespace ECDebug
 
 RemoteReturnInfo::~RemoteReturnInfo()
 {
-	Init::LibInput->FunctionTable->RemoteReturnInfo_Destroy(this);
+	if (PlaceHolder != 0)
+	{
+		Init::LibInput->FunctionTable->RemoteReturnInfo_Destroy(this);
+	}
 }
 
 UTF8_CString RemoteReturnInfo::GetErrorMessage() const
 {
-	return Init::LibInput->FunctionTable->RemoteReturnInfo_GetErrorMessage(this);
+	if (PlaceHolder != 0)
+	{
+		return Init::LibInput->FunctionTable->RemoteReturnInfo_GetErrorMessage(this);
+	}
+	else
+	{
+		return nullptr;
+	}
 }
 
 bool RemoteReturnInfo::Succeeded() const
 {
-	return Init::LibInput->FunctionTable->RemoteReturnInfo_Succeeded(this);
+	if (PlaceHolder != 0)
+	{
+		return Init::LibInput->FunctionTable->RemoteReturnInfo_Succeeded(this);
+	}
+	else
+	{
+		return false;
+	}
 }
 
 JsonObject RemoteReturnInfo::GetResponseData() const
 {
-	return Init::LibInput->FunctionTable->RemoteReturnInfo_GetResponseData(this);
+	if (PlaceHolder != 0)
+	{
+		return Init::LibInput->FunctionTable->RemoteReturnInfo_GetResponseData(this);
+	}
+	else
+	{
+		return NullJsonObject;
+	}
 }

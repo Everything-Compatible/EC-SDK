@@ -52,7 +52,7 @@ using UTF8_String = std::basic_string<UTF8_CharType>;
 struct RemoteReturnInfo
 {
 private:
-	uint32_t PlaceHolder;
+	uint32_t PlaceHolder{ 0 };
 public:
 	~RemoteReturnInfo();
 
