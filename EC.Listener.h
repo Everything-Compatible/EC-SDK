@@ -35,25 +35,36 @@ namespace ECListener
 
 	//在EXE的最开始，全局对象初始化完成，内存可分配，Winmain顶头位置
 	//完成一些必要的初始化工作
+	//在 IHCore版本 >= 500 时可以工作
 	typedef void (CALLBACK* Listener_InitBeforeEverything)();
 	void Listen_InitBeforeEverything(Listener_InitBeforeEverything Func);
+
+	//在AbstractClass*被销毁时触发，入参为指向该对象的指针和是否真的被销毁
+	//完成自定义的指针清理工作
+	//在 IHCore版本 >= 514 时可以工作
+	typedef void (CALLBACK* Listener_PointerExpired)(AbstractClass* pDyingObj, bool bRemoved);
+	void Listen_PointerExpired(Listener_PointerExpired Func);
 
 	//在读入rules（如rulesmd.ini，地图文件）等时触发
 	//Listen_LoadBeforeTypeData在原版的类型读取前触发
 	//Listen_LoadAfterTypeData在原版的类型读取后触发
 	//载入或更新设置
+	//在 IHCore版本 >= 500 时可以工作
 	typedef void (CALLBACK* Listener_OnLoadGame)(const CCINIClass* pIni);
 	void Listen_LoadBeforeTypeData(Listener_OnLoadGame Func);
 	void Listen_LoadAfterTypeData(Listener_OnLoadGame Func);
 
 	//在触发FE时调用，入参为一组在异常状态下可以安全分析内存的函数
 	//记录必要的错误信息，转存入except_ih.txt
+	//在 IHCore版本 >= 500 时可以工作
+	//需要相应的ExceptionHandler打开并且真的生效了，否则此监听器无效
 	typedef void (CALLBACK* Listener_BeginWritingExceptIH)(const ExceptionAnalyzer& Anal);
 	void Listen_BeginWritingExceptIH(Listener_BeginWritingExceptIH Func);
 
 	//在载入CSF条目时调用，可以截留CSF的解析
 	//如果想要修改解析的结果，可以返回非零值作为新的解析结果，要求返回的const wchar_t*是非临时值，生命期一直保持
 	//监听函数返回nullptr，则返回原有查找策略
+	//在 IHCore版本 >= 500 时可以工作
 	typedef const wchar_t* (CALLBACK* Listener_LoadCSFString)(const char* pLabel);
 	void Listen_LoadCSFString(Listener_LoadCSFString Func);
 

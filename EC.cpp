@@ -74,6 +74,11 @@ namespace ECListener
 		Set("EC::InitBeforeEverything", Func);
 	}
 
+	void Listen_PointerExpired(Listener_PointerExpired Func)
+	{
+		Set("EC::PointerExpired", Func);
+	}
+
 	void Listen_LoadBeforeTypeData(Listener_OnLoadGame Func)
 	{
 		Set("EC::OnReadingRules", Func);
