@@ -54,6 +54,9 @@ struct RemoteReturnInfo
 private:
 	uint32_t PlaceHolder{ 0 };
 public:
+	RemoteReturnInfo() : PlaceHolder(0) {}
+	RemoteReturnInfo(const RemoteReturnInfo&) = delete;
+	RemoteReturnInfo(RemoteReturnInfo&& rhs) noexcept : PlaceHolder(rhs.PlaceHolder) { rhs.PlaceHolder = 0; }
 	~RemoteReturnInfo();
 
 	UTF8_CString GetErrorMessage() const;
