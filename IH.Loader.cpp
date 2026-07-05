@@ -253,20 +253,20 @@ void Internal_RegisterExportRTTI(const char* ClassName, const ECRTTIInfo* pInfo)
 	Init::Loader.Rely();
 	//if (!Init::_SetNamedPointer)MessageBoxA(Game::hWnd, "Init::_SetNamedPointer == nullptr", "EC SDK", MB_OK);
 
-	Init::_SetNamedPointer("EC::RTTI", ClassName, pInfo);
+	if(Init::_SetNamedPointer)Init::_SetNamedPointer("EC::RTTI", ClassName, pInfo);
 }
 const ECRTTIInfo* Internal_GetRTTIInfo(const char* ClassName)
 {
 	Init::Loader.Rely();
 	//if (!Init::_GetNamedPointer)MessageBoxA(Game::hWnd, "Init::_GetNamedPointer == nullptr", "EC SDK", MB_OK);
 
-	return reinterpret_cast<const ECRTTIInfo*>(Init::_GetNamedPointer("EC::RTTI", ClassName));
+	return Init::_GetNamedPointer ? reinterpret_cast<const ECRTTIInfo*>(Init::_GetNamedPointer("EC::RTTI", ClassName)) : nullptr;
 }
 const char* Internal_GetRTTIClassName(const ECRTTIInfo* pInfo)
 {
 	Init::Loader.Rely();
 	//if (!Init::_NamedPointer_GetName)MessageBoxA(Game::hWnd, "Init::_NamedPointer_GetName == nullptr", "EC SDK", MB_OK);
-	return Init::_NamedPointer_GetName("EC::RTTI", pInfo);
+	return Init::_NamedPointer_GetName ? Init::_NamedPointer_GetName("EC::RTTI", pInfo) : nullptr;
 }
 
 void Internal_SetGlobalVarString(const char* Usage, const char* Key, const char* Value)
