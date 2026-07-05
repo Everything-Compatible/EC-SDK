@@ -66,7 +66,11 @@ namespace Init
 			if (LibListDLL || LoaderLoaded || IsSyringeReadingHooks())return;
 			LibListDLL = LoadLibraryW(L"Patches\\IHLibList.dll");
 			if (LibListDLL == NULL)LibListDLL = LoadLibraryW(L"IHLibList.dll");
-			if (LibListDLL == NULL)return;
+			if (LibListDLL == NULL)
+			{
+				MessageBoxW(NULL, L"找不到IHLibList.dll，请重新安装。", L"万物互通", MB_OK | MB_ICONERROR);
+				return;
+			}
 
 #define ____GetFunc(x) {_ ## x=(decltype(_ ## x))GetProcAddress(LibListDLL, #x);\
 			if(_ ## x==nullptr)return;}
