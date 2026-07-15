@@ -78,6 +78,20 @@ struct InitialLoadParam_RegisterFunction : public InitialLoadParam
 	explicit InitialLoadParam_RegisterFunction(const char* _Name, void* _Hd);
 };
 
+struct InitialLoadParam_RegisterTag : public InitialLoadParam
+{
+	const char* Name{ nullptr };
+	const char* TagType{ nullptr };
+	const char* TagVar{ nullptr };
+
+	InitialLoadParam_RegisterTag() = delete;
+	explicit InitialLoadParam_RegisterTag(const char* _Name, const char* TagType, const char* TagVar);
+	explicit InitialLoadParam_RegisterTag(const char* _Name, const char* TagType, void* TagValuePtr);
+	explicit InitialLoadParam_RegisterTag(const char* _Name, const char* TagType, int TagValue);
+	explicit InitialLoadParam_RegisterTag(const char* _Name, const char* TagType, float TagValue);
+	explicit InitialLoadParam_RegisterTag(const char* _Name, const char* TagType, bool TagValue);
+};
+
 template<typename T>
 struct InitialLoadParam_RegisterObject : public InitialLoadParam
 {

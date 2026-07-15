@@ -11,20 +11,20 @@ class IHFileClass :public FileClass
 {
 public:
 	//Destructor
-	virtual	~IHFileClass() {};//OK
+	virtual	~IHFileClass() {};
 	//FileClass
-	virtual const char* GetFileName() const = 0;//OK
-	virtual const char* SetFileName(const char* pFileName) = 0;//OK
-	virtual BOOL CreateFile() = 0;//OK
-	virtual BOOL DeleteFile() = 0;//OK
+	virtual const char* GetFileName() const = 0;
+	virtual const char* SetFileName(const char* pFileName) = 0;
+	virtual BOOL CreateFile() = 0;
+	virtual BOOL DeleteFile() = 0;
 	virtual bool Exists(bool writeShared = false) = 0;
 	virtual bool HasHandle() = 0;
 	virtual bool Open(FileAccessMode access) = 0;
 	virtual bool OpenEx(const char* pFileName, FileAccessMode access);
-	virtual int ReadBytes(void* pBuffer, int nNumBytes) = 0; //Returns number of bytes read.
-	virtual int Seek(int offset, FileSeekMode seek) = 0;
+	virtual int ReadBytes(void* pBuffer, int nNumBytes) = 0; //返回读取的字节数
+	virtual int Seek(int offset, FileSeekMode seek) = 0; //返回新的文件位置
 	virtual int GetFileSize() = 0;
-	virtual int WriteBytes(void* pBuffer, int nNumBytes) = 0; //Returns number of bytes written.
+	virtual int WriteBytes(void* pBuffer, int nNumBytes) = 0; //返回写入的字节数
 	virtual void Close() = 0;//OK
 
 	//默认空实现，可根据需要覆写，在未覆写时无行为
@@ -32,6 +32,8 @@ public:
 	//受构造方式影响，此类型的构造函数不会真正执行，在Initialize前所在内存除了虚表是全0的
 	//所有的派生类必须实现这个函数来完成初始化工作
 	virtual void Initialize() = 0;
+	//实现仿照WW的行为，调用Seek(0, FileSeekMode::Current)
+	int Position();
 
 protected:
 	explicit __forceinline IHFileClass(noinit_t _):FileClass(_)

@@ -14,6 +14,11 @@ void IHFileClass::CDCheck(DWORD errorCode, bool bUnk, const char* pMethodName)
 	//ERROR if(errorCode != 0)
 }
 
+int IHFileClass::Position()
+{
+	return this->Seek(0, FileSeekMode::Current);
+}
+
 BOOL IHReadOnlyFileClass::CreateFile()
 {
 	CDCheck(ERROR_NOT_SUPPORTED, false, "IHReadOnlyFileClass::CreateFile");

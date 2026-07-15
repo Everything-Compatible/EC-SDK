@@ -60,9 +60,20 @@ namespace InitialLoad
 	};
 }
 
-#define ClassRegisterByName(Type, Class) InitialLoad::CreateRequestAndSubmit<InitialLoadParam_RegisterVTable>(Type, #Class, GetIHFileRegisterKey<Class>(), sizeof(Class));
-#define RegisterIHFile(Class) ClassRegisterByName("IHFile::RegisterIHFile", Class)
 #define InitialRequest(Type, ...) InitialLoad::CreateRequestAndSubmit<InitialLoadParam_##Type>(__VA_ARGS__)
+
+#define ClassRegisterByName(Type, Class) InitialLoad::CreateRequestAndSubmit<InitialLoadParam_RegisterVTable>(Type, #Class, GetIHFileRegisterKey<Class>(), sizeof(Class));
+
+#define RegisterIHFile(Class) ClassRegisterByName("IHFile::RegisterIHFile", Class)
+
 #define RegisterIHFileFilter(Class, Filter) InitialLoad::CreateRequestAndSubmit<InitialLoadParam_RegisterFunction>("IHFile::RegisterIHFileFilter", #Class, Filter);
+
 #define RegisterIHFileBinding(Class, FileName) InitialLoad::CreateRequestAndSubmit<InitialLoadParam_RedirectFile>("IHFile::BindToStream", FileName, #Class);
+
+#define RegisterIHFileTag(Class, TagName, Value) InitialLoad::CreateRequestAndSubmit<InitialLoadParam_RegisterTag>("IHFile::RegisterIHFileTag", #Class, TagName, Value);
+//这个标签仅限只读文件类型，限制启动缓存访问的尺寸下限，默认值为1MB，如果在打了缓存访问标签的文件上写入数据则标签失效
+#define RegisterIHFileCachedAccessThreshold(Class, Threshold) RegisterIHFileTag(Class, "IHFile::CachedAccessThreshold", Threshold)
+//这个标签仅限只读文件类型，表示文件的访问迭代类型，会针对不适合随机访问的文件类型进行缓存访问优化
+#define RegisterIHFileIterationType(Class, IterType) RegisterIHFileTag(Class, "IHFile::IterationType", static_cast<int>(IterType));
+
 #define RegisterAddressCommentProvider(Name, Provider) InitialLoad::CreateRequestAndSubmit<InitialLoadParam_RegisterFunction>("EC::RegisterAddressCommentProvider", Name, Provider);

@@ -194,7 +194,7 @@ static_assert(sizeof(FuncInfo) == 24);
 struct GeneralExecutor;
 using SwizzleExecutor_t = void(__cdecl*)(GeneralExecutor* Exec, const GeneratorParam* Param, JsonObject CurrentContext);
 
-
+//供地址注解提供者（ACP）使用
 struct AddressCommentInfo
 {
 	DWORD Addr;
@@ -206,6 +206,15 @@ struct AddressCommentInfo
 };
 
 static_assert(sizeof(AddressCommentInfo) == 32);
+
+//文件迭代类型标签
+enum class FileIterationType : int
+{
+	Forward = 0,
+	Backward = 1,
+	Bidirectional = 2,
+	RandomAccess = 3,
+};
 
 /*
 存在ClassVersion的类型T不能直接用sizeof(T)来获取大小
