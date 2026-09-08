@@ -38,6 +38,16 @@ struct InitialLoadParam_CustomFile : public InitialLoadParam
 	explicit InitialLoadParam_CustomFile(const char* _Name);
 };
 
+struct InitialLoadParam_AddMixDirectory : public InitialLoadParam
+{
+	const char* Directory{ nullptr };// e.g. "SIDEC01"
+	const char* Mix{ nullptr };// e.g. "SIDEC01.MIX"
+	bool First{ false };// true = First, false = Last
+
+	InitialLoadParam_AddMixDirectory() = delete;
+	explicit InitialLoadParam_AddMixDirectory(const char* _Directory, const char* _Mix, bool _First);
+};
+
 struct InitialLoadParam_StringTablePair : public InitialLoadParam
 {
 	const char* Key{ nullptr };

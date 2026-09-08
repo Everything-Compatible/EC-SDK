@@ -19,6 +19,10 @@ InitialLoadParam_CustomFile::InitialLoadParam_CustomFile(const char* _Name)
 	: FileName(_Name), 
 	InitialLoadParam(sizeof(InitialLoadParam_CustomFile)) {}
 
+InitialLoadParam_AddMixDirectory::InitialLoadParam_AddMixDirectory(const char* _Directory, const char* _Mix, bool _First)
+	: Directory(_Directory), Mix(_Mix), First(_First),
+	InitialLoadParam(sizeof(InitialLoadParam_AddMixDirectory)) {}
+
 InitialLoadParam_StringTablePair::InitialLoadParam_StringTablePair(const char* _Key, const wchar_t* _Value, const char* _Extra)
 	: Key(_Key), Value(_Value), Extra(_Extra),
 	InitialLoadParam(sizeof(InitialLoadParam_StringTablePair)) {}
